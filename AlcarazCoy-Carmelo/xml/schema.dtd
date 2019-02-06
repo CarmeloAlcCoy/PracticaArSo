@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT ciudad (ubicacion, meteoinfo?, sitiosinteres*) >
+
+<!ELEMENT ubicacion (latitud, longitud)>
+<!ELEMENT latitud (#PCDATA)>
+<!ELEMENT longitud (#PCDATA)>
+
+<!ELEMENT meteoinfo (nombre, temperatura, nubes)>
+<!ATTLIST meteoinfo 
+		fecha CDATA #REQUIRED>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT temperatura (#PCDATA)>
+<!ELEMENT nubes (#PCDATA)>
+
+<!ELEMENT sitiosinteres (nombre, codigo)>		 
