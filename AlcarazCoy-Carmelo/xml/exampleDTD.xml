@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE city SYSTEM "schema.dtd" >
+<city updatedOn="2012-03-04" id="2520058">
+	<name>Cartagena</name>
+	<country>Spain</country>
+	<population>211966</population>
+	<position>
+		<lat>37.60512</lat>
+		<lng>-0.98623</lng>
+	</position>
+	<urlBDpedia>http://dbpedia.org/resource/Cartagena%2C_Spain</urlBDpedia>
+	<urlWikipedia>https://en.wikipedia.org/wiki/Cartagena%2C_Spain</urlWikipedia>
+	<meteoInfo takenOn="2019-02-04 12:00:00">
+		<stationName>International airport of the Region of Murcia</stationName>
+		<temperature>13</temperature>
+		<clouds>clouds and visibility OK</clouds>
+	</meteoInfo>
+	<interestPlace id="10860321">
+		<name>Parque Maestranza de Artilleria</name>
+	</interestPlace>
+	<interestPlace id="10280776">
+		<name>Museo Histórico Militar de Cartagena</name>
+	</interestPlace>
+</city>

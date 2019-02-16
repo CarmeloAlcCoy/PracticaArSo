@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!ELEMENT ciudad (nombre, codigo, pais, poblacion, ubicacion, urlBD?, urlWiki?, meteoinfo?, sitiosinteres*) >
-<!ATTLIST ciudad 
+<!ELEMENT city (name, country, population, position, urlBDpedia?, urlWikipedia?, meteoInfo?, interestPlace*) >
+<!ATTLIST city 
+		id ID #REQUIRED
 		updatedOn CDATA #REQUIRED>
 
-<!ELEMENT nombre (#PCDATA)>
-<!ELEMENT codigo (#PCDATA)>
-<!ELEMENT pais (#PCDATA)>
-<!ELEMENT poblacion (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT country (#PCDATA)>
+<!ELEMENT population (#PCDATA)>
 
-<!ELEMENT ubicacion (latitud, longitud)>
-<!ELEMENT latitud (#PCDATA)>
-<!ELEMENT longitud (#PCDATA)>
+<!ELEMENT position (lat, lng)>
+<!ELEMENT lat (#PCDATA)>
+<!ELEMENT lng (#PCDATA)>
 
-<!ELEMENT urlBD (#PCDATA)>
-<!ELEMENT urlWiki (#PCDATA)>
+<!ELEMENT urlBDpedia (#PCDATA)>
+<!ELEMENT urlWikipedia (#PCDATA)>
 
-<!ELEMENT meteoinfo (nombre, temperatura, nubes)>
-<!ATTLIST meteoinfo 
-		fecha CDATA #REQUIRED>
+<!ELEMENT meteoInfo (stationName, temperature, clouds)>
+<!ATTLIST meteoInfo
+		takenOn CDATA #REQUIRED>
 
-<!ELEMENT temperatura (#PCDATA)>
-<!ELEMENT nubes (#PCDATA)>
+<!ELEMENT stationName (#PCDATA)>
+<!ELEMENT temperature (#PCDATA)>
+<!ELEMENT clouds (#PCDATA)>
 
-<!ELEMENT sitiosinteres nombre>
-<!ATTLIST sitiosinteres
-		id NMTOKEN #REQUIRED>
+<!ELEMENT interestPlace (name)>
+<!ATTLIST interestPlace 
+	id ID #REQUIRED>
