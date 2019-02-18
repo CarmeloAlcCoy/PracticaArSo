@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!ELEMENT city (name, country, population, position, urlBDpedia?, urlWikipedia?, meteoInfo?, interestPlace*) >
 <!ATTLIST city 
-		id ID #REQUIRED
+		id CDATA #REQUIRED
 		updatedOn CDATA #REQUIRED>
 
 <!ELEMENT name (#PCDATA)>
@@ -25,4 +25,4 @@
 
 <!ELEMENT interestPlace (name)>
 <!ATTLIST interestPlace 
-	id ID #REQUIRED>
+	id CDATA #REQUIRED>

@@ -1,10 +1,19 @@
-package sax;
+package ejercicio3;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class Manejador extends DefaultHandler{
+	
+	private static final String NAME="name";
+	private static final String ID="geonameId";
+	private static final String COUNTRY="countryName";
+	private static final String LATITUDE="lat";
+	private static final String LONGITUDE="lng";
 
 	/*
 	 * Atributos
@@ -27,34 +36,26 @@ public class Manejador extends DefaultHandler{
 	 * String elemento = pila.peek();
 	 * 
 	 */
+	
+	private List<City> cities;
+	private LinkedList<String> pila;
+	private City city;
+	
 
 	@Override
 	public void startDocument() throws SAXException {
-
-		/*
-		 * Cuando el análisis no es simple y requiere atributos, este método está a
-		 * cargo de resetar los atributos.
-		 * 
-		 * Esto permite que un mismo objeto pueda ser utilizado en varios análisis.
-		 */
-
+		cities = new LinkedList<City>();
+		pila = new LinkedList<String>();
 	}
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
-		/*
-		 * Habitualmente en este evento se realizan dos tareas: - Obtener información de
-		 * los atributos del elemento (attributes). - Poner a verdadero los atributos
-		 * que llevan el estado del procesamiento. Ejemplo:
-		 * 
-		 * if (qName.equals("elemento1")) dentroElemento1 = true;
-		 * 
-		 * Alternativamente, si se utiliza una pila:
-		 * 
-		 * pila.push(qName);
-		 * 
-		 */
+		pila.push(qName);
+		if(qName.equals("geoname")) 
+			city = new City();
+		
+		 
 
 	}
 
@@ -62,29 +63,46 @@ public class Manejador extends DefaultHandler{
 	public void characters(char[] ch, int start, int length) throws SAXException {
 
 		String texto = new String(ch, start, length);
+		String elemento = pila.peek();
+	
+		switch (elemento) {
+		case NAME:
+			city.setName(texto);
+			break;
+		case ID:
+			city.setId(Integer.parseInt(texto));
+			break;
+		case COUNTRY:
+			city.setCountry(texto);
+			break;
 
-		/*
-		 * En este evento se recupera el texto que envuelve un elemento. Para conocer de
-		 * que elemento se trata, debemos consultar los atributos de estado o la cima de
-		 * la pila:
-		 * 
-		 * String elemento = pila.peek()
-		 */
+		case LATITUDE:
+			city.setLatitude(Double.parseDouble(texto));
+			break;
+
+		case LONGITUDE:
+			city.setLongitude(Double.parseDouble(texto));
+			break;
+
+		default:
+			break;
+		}
+		
 
 	}
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-
-		/*
-		 * En este evento establecemos a falso los atributos que llevan el estado del
-		 * procesamiento. Ejemplo:
-		 * 
-		 * if (qName.equals("elemento1")) dentroElemento1 = false;
-		 * 
-		 * Alternativamente, quitamos la cima de la pila:
-		 * 
-		 * pila.pop();
-		 */
+		String elemento = pila.pop();
+		if(elemento.equals("geoname")) {
+			cities.add(new City(city));
+		}
+		 
 	}
+
+	public List<City> getCiudades() {
+		return cities;
+	}
+	
+	
 }
