@@ -19,9 +19,8 @@ public class Programa {
 		// 3. Analizar el documento
 		try {
 			Manejador manejador = new Manejador();
-			//He guardado el resutado de la siguiente consulta en el fichero search.xml
-			//http://api.geonames.org/search?name=Cartagena&maxRows=10&username=arso
-			analizador.parse("xml/search.xml", manejador);
+			
+			analizador.parse("http://api.geonames.org/search?name=Cartagena&maxRows=10&username=arso", manejador);
 
 			for (City ciudad : manejador.getCiudades()) {
 				System.out.println(ciudad);
