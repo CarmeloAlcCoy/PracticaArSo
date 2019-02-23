@@ -7,6 +7,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import modelo.City;
+
 public class Manejador extends DefaultHandler{
 	
 	private static final String NAME="name";
@@ -95,7 +97,7 @@ public class Manejador extends DefaultHandler{
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		String elemento = pila.pop();
 		if(elemento.equals("geoname")) {
-			cities.add(new City(city));
+			cities.add(city);
 		}
 		 
 	}

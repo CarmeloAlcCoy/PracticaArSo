@@ -7,7 +7,9 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
-public class Programa {
+import modelo.City;
+
+public class Main {
 
 	public static void main(String[] args) throws ParserConfigurationException, SAXException {
 		// 1. Obtener una factoría
