@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<city xmlns="http://www.example.org/Schema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/Schema Schema.xsd "
+	updatedOn="2012-03-04">
+	<name>Cartagena</name>
+	<geonamesid>2520058</geonamesid>
+	<country>Spain</country>
+	<population>211996</population>
+	<position>
+		<lat>37.60512</lat>
+		<lng>-0.98623</lng>
+	</position>
+	<urlBDpedia>http://dbpedia.org/resource/Cartagena%2C_Spain</urlBDpedia>
+	<urlWikipedia>https://en.wikipedia.org/wiki/Cartagena%2C_Spain</urlWikipedia>
+	<meteoInfo takenOn="2019-02-25T03:30:00">
+		<stationName>International airport of the Region of Murcia</stationName>
+		<temperature>16.0</temperature>
+		<clouds>clouds and visibility OK</clouds>
+	</meteoInfo>
+	<interestPlace>
+		<name>hola</name>
+		<id>52</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Parque Maestranza de Artilleria</name>
+		<id>10860321</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Museo Hist�rico Militar de Cartagena</name>
+		<id>10280776</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Parque Arqueol�gico Cerro del Molinete</name>
+		<id>10280775</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Barrio del Foro Romano</name>
+		<id>10280774</id>
+	</interestPlace>
+	<interestPlace>
+		<name>SERCOTEL Carlos III</name>
+		<id>6505996</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Sercotel Alfonso Xiii Ex-Best Western</name>
+		<id>10170453</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Sercotel Alfonso XIII</name>
+		<id>6483755</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Plaza San Francisco</name>
+		<id>10400375</id>
+	</interestPlace>
+	<interestPlace>
+		<name>HUSA CARTAGONOVA Hotel &amp; Spa</name>
+		<id>6482678</id>
+	</interestPlace>
+</city>

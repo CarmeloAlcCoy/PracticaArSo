@@ -1,0 +1,2 @@
+¿Qué hacer con los ID y con las fechas del XML schema?
+¿Como manejar los posibles del Ejercicio 4?
