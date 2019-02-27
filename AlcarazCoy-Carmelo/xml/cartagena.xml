@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2">
+<Placemark>
+<name>Cartagena</name>
+<description>Ciudad de Cartagena</description>
+<Point>
+<coordinates>10.39972,-75.51444,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Cartagena</name>
+<description>Ciudad de Cartagena</description>
+<Point>
+<coordinates>37.60512,-0.98623,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Cartagena</name>
+<description>Ciudad de Cartagena</description>
+<Point>
+<coordinates>21.2,-77.5,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Cartagena</name>
+<description>Ciudad de Cartagena</description>
+<Point>
+<coordinates>9.8203,122.4004,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Cartagena</name>
+<description>Ciudad de Cartagena</description>
+<Point>
+<coordinates>-6.60938,-80.07765,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Cartagena del Chairá</name>
+<description>Ciudad de Cartagena del Chairá</description>
+<Point>
+<coordinates>0.85246,-74.6059,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Cartagena</name>
+<description>Ciudad de Cartagena</description>
+<Point>
+<coordinates>-34.38188,-70.86932,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Cartagena</name>
+<description>Ciudad de Cartagena</description>
+<Point>
+<coordinates>-6.59324,-80.02493,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Cartagena</name>
+<description>Ciudad de Cartagena</description>
+<Point>
+<coordinates>25.13377,-100.14913,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Cartagena</name>
+<description>Ciudad de Cartagena</description>
+<Point>
+<coordinates>22.42569,-80.45861,0</coordinates>
+</Point>
+</Placemark>
+</kml>
