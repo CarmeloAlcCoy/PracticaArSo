@@ -10,7 +10,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.opengis.net/k
 	<xsl:template match="geoname">
 		<Placemark>
 			<name><xsl:value-of select="name"/></name>
-			<description>Ciudad de <xsl:value-of select="toponymName"/></description>
+			<description>Ciudad de <xsl:value-of select="toponymName"/>. Pais: <xsl:value-of select="countryName"/></description>
 			<Point>
      			<coordinates><xsl:value-of select="lat"/>,<xsl:value-of select="lng"/>,0</coordinates>
      		</Point>
