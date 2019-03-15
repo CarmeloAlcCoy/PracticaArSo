@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/Schema"
+	xmlns:tns="http://www.example.org/Schema"
+	elementFormDefault="qualified">
+
+	<element name="city">
+		<complexType>
+			<sequence>
+				<element name="name" type="string" />
+				<element name="geonamesid" type="tns:tipo_geonameid" />
+				<element name="country" type="string" />
+				<element name="population" type="positiveInteger" />
+				<element name="position">
+					<complexType>
+						<sequence>
+							<element name="lat">
+								<simpleType>
+									<restriction base="decimal">
+										<maxInclusive value="90" />
+										<minInclusive value="-90" />
+									</restriction>
+								</simpleType>
+							</element>
+							<element name="lng">
+								<simpleType>
+									<restriction base="decimal">
+										<maxInclusive value="180" />
+										<minInclusive value="-180" />
+									</restriction>
+								</simpleType>
+							</element>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="urlBDpedia" minOccurs="0" type="tns:url"/>
+				<element name="urlWikipedia" minOccurs="0" type="tns:url"/>
+				<element name="meteoInfo" minOccurs="0" >
+					<complexType>
+						<sequence>
+							<element name="stationName" type="string"/>
+							<element name="temperature" type="decimal"/>
+							<element name="clouds" type="string" />
+						</sequence>
+						<attribute name="takenOn" type="dateTime"/>
+					</complexType>
+				</element>
+				<element name="interestPlace" minOccurs="0" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="name" type="string" />
+							<element name="id" type="tns:tipo_geonameid" />
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+			<attribute name="updatedOn" type="date"/>
+		</complexType>
+	</element>
+	<simpleType name="tipo_geonameid">
+		<restriction base="string">
+			<pattern value="[0-9]+" />
+		</restriction>
+	</simpleType>
+	<simpleType name="url">
+		<restriction base="string">
+			<pattern
+				value="(http(s)?:\/\/)?(www\.)?[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]+(\/[a-zA-Z0-9\.\-_~:/?#\[\]$@%!&amp;&apos;\(\)\*\+,;=]+)*" />
+		</restriction>
+	</simpleType>
+</schema>
