@@ -1,2 +1,2 @@
-¿Qué hacer con los ID y con las fechas del XML schema?
-¿Como manejar los posibles del Ejercicio 4?
+¿Ejercicio 4: Como formatear y como tratar las tildes?
+¿Ejercicio 5: Se espera más información?

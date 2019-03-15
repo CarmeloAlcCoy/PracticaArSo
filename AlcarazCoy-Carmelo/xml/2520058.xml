@@ -13,15 +13,11 @@
 	</position>
 	<urlBDpedia>http://dbpedia.org/resource/Cartagena%2C_Spain</urlBDpedia>
 	<urlWikipedia>https://en.wikipedia.org/wiki/Cartagena%2C_Spain</urlWikipedia>
-	<meteoInfo takenOn="2019-02-25T03:30:00">
+	<meteoInfo takenOn="2019-03-15T07:30:00">
 		<stationName>International airport of the Region of Murcia</stationName>
-		<temperature>16.0</temperature>
+		<temperature>14.0</temperature>
 		<clouds>clouds and visibility OK</clouds>
 	</meteoInfo>
-	<interestPlace>
-		<name>hola</name>
-		<id>52</id>
-	</interestPlace>
 	<interestPlace>
 		<name>Parque Maestranza de Artilleria</name>
 		<id>10860321</id>

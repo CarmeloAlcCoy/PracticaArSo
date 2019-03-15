@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,24 +28,59 @@ import modelo.PointOfInterest;
 
 public class Main {
 
+	private static final String ID = "id";
+	private static final String INTEREST_PLACE = "interestPlace";
+	private static final String CLOUDS = "clouds";
+	private static final String TEMPERATURE = "temperature";
+	private static final String STATION_NAME = "stationName";
+	private static final String TAKEN_ON = "takenOn";
+	private static final String INFORMACION_METEOROLOGICA = "meteoInfo";
+	private static final String URL_WIKIPEDIA = "urlWikipedia";
+	private static final String URL_BDPEDIA = "urlBDpedia";
+	private static final String LONGITUDE = "lng";
+	private static final String LATITUDE = "lat";
+	private static final String POSITION = "position";
+	private static final String POPULATION = "population";
+	private static final String COUNTRY = "country";
+	private static final String GEONAMES_ID = "geonamesid";
+	private static final String NAME = "name";
+	private static final String UPDATEN_ON = "updatedOn";
+	private static final String SCHEMA_LOCATION = "http://www.example.org/Schema Schema.xsd ";
+	private static final String XSI_NAMESPACE = "http://www.w3.org/2001/XMLSchema-instance";
+	private static final String DEFAULT_NAMESPACE = "http://www.example.org/Schema";
+	private static final String ELEMENT_CITY = "city";
+	private static final String INTEREST_PLACE_URL_TAG_NAME = "rdf:about";
+	private static final String INTEREST_PLACE_NAME_TAG_NAME = "gn:name";
+	private static final String PARSE_DATE_ERROR = "Could not parse Date in field:";
+	private static final String INTEREST_PLACE_TAG_NAME = "gn:Feature";
+	private static final String FIELD_NOT_FOUND = "Field not found:";
+	private static final String TEMPERATURE_TAG_NAME = TEMPERATURE;
+	private static final String CLOUDS_TAG_NAME = CLOUDS;
+	private static final String STATION_NAME_TAG_NAME = STATION_NAME;
+	private static final String TAKEN_ON_DATE_TAG_NAME = "observationTime";
+	private static final String POPULATION_TAG_NAME = "gn:population"; 
+	private static final String DBPEDIA_URL_TAG_NAME = "rdfs:seeAlso";
+	private static final String DBPEDIA_URL_ATTRIBUTE_NAME = "rdf:resource";
+	private static final String WIKIPEDIA_URL_TAG_NAME = "gn:wikipediaArticle";
+	private static final String WIKIPEDIA_URL_ATTRIBUTE_NAME = "rdf:resource";
+	private static final String UPDATED_DATE_TAG_NAME = "dcterms:modified";
+	private static final String NEARBY_URL_TAG_NAME = "gn:nearbyFeatures";
+	private static final String NEARBY_URL_ATTRIBUTE_NAME = "rdf:resource";
+	
 	private static City city = new City("Cartagena", 2520058, "Spain", 37.60512, -0.98623);
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	private static final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
-	private static final SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	private static final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+	private static final SimpleDateFormat sdfTimeXMLSchema = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+	private static final SimpleDateFormat sdfTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
+	
 	public static void main(String[] args)
-			throws ParserConfigurationException, SAXException, FileNotFoundException, XMLStreamException {
+			throws ParserConfigurationException, SAXException,  XMLStreamException, ParseXMLException {
 		// 1. Obtener una factoría
 		DocumentBuilderFactory factoria = DocumentBuilderFactory.newInstance();
 		// 2. Pedir a la factoría la construcción del analizador
 		DocumentBuilder analizador = factoria.newDocumentBuilder();
 		// 3. Analizar el documento
-		city.setMeteoInfo(new MeteoInfo(new Date(), "stationName", 52.2, "Nubes"));
-		PointOfInterest p = new PointOfInterest("hola", 52);
-		List<PointOfInterest> lista = new ArrayList<PointOfInterest>();
-		lista.add(p);
-		city.addPointsOfInterest(lista);
-
+		
 		Document resource;
 		try {
 			resource = analizador.parse(city.getUri());
@@ -59,7 +93,7 @@ public class Main {
 
 		Document interestPlacesResource;
 		try {
-			interestPlacesResource = analizador.parse(interestPlacesUrl);
+			interestPlacesResource = analizador.parse("xml/nearby.rdf");
 			parseNearBy(interestPlacesResource);
 		} catch (IOException e) {
 			System.err.println("Resource not found:" + interestPlacesUrl);
@@ -76,7 +110,14 @@ public class Main {
 			return;
 		}
 
-		writeCity();
+		try {
+			writeCity();
+		} catch (IOException e) {
+			System.err.println("Could not write Resource File: xml/" + city.getId() + ".xml");
+			return;
+		}
+		
+		System.out.println("Fin");
 
 	}
 
@@ -85,52 +126,53 @@ public class Main {
 		XMLStreamWriter writer = xof.createXMLStreamWriter(new FileOutputStream("xml/" + city.getId() + ".xml"));
 
 		writer.writeStartDocument();
-		writer.writeStartElement("city");
-		writer.writeNamespace("", "http://www.example.org/Schema");
-		writer.writeNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-		writer.writeAttribute("http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
-				"http://www.example.org/Schema Schema.xsd ");
-		writer.writeAttribute("updatedOn", sdf.format(city.getUpdatedDate()));
+		writer.writeStartElement(ELEMENT_CITY);
+		writer.writeNamespace("", DEFAULT_NAMESPACE);
+		writer.writeNamespace("xsi", XSI_NAMESPACE);
+		writer.writeAttribute(XSI_NAMESPACE, "schemaLocation",SCHEMA_LOCATION);
+		
+		writer.writeAttribute(UPDATEN_ON, sdfDate.format(city.getUpdatedDate()));
 		// name
-		writeElement(writer, "name", city.getName());
+		writeElement(writer, NAME, city.getName());
 		// geonamesid
-		writeElement(writer, "geonamesid", Integer.toString(city.getId()));
+		writeElement(writer, GEONAMES_ID, Integer.toString(city.getId()));
 		// country
-		writeElement(writer, "country", city.getCountry());
+		writeElement(writer, COUNTRY, city.getCountry());
 		// population
-		writeElement(writer, "population", Integer.toString(city.getPopulation()));
+		writeElement(writer, POPULATION, Integer.toString(city.getPopulation()));
 		// position
-		writer.writeStartElement("position");
+		writer.writeStartElement(POSITION);
 		// lat
-		writeElement(writer, "lat", Double.toString(city.getLatitude()));
+		writeElement(writer, LATITUDE, Double.toString(city.getLatitude()));
 		// lng
-		writeElement(writer, "lng", Double.toString(city.getLongitude()));
+		writeElement(writer, LONGITUDE, Double.toString(city.getLongitude()));
 		writer.writeEndElement();
 		// urlBDpedia
-		if (city.getUrlDBpedia() != null)
-			writeElement(writer, "urlBDpedia", city.getUrlDBpedia());
+		String urlDBpedia = city.getUrlDBpedia();
+		if (urlDBpedia != null && !urlDBpedia.isEmpty() )
+			writeElement(writer, URL_BDPEDIA, urlDBpedia);
 		// urlWikipedia
-		if (city.getUrlWikipedia() != null)
-			writeElement(writer, "urlWikipedia", city.getUrlWikipedia());
+		String urlWikipedia = city.getUrlWikipedia();
+		if (urlWikipedia != null && !urlWikipedia.isEmpty())
+			writeElement(writer, URL_WIKIPEDIA, urlWikipedia);
 
 		// meteoInfo
 		MeteoInfo meteo = city.getMeteoInfo();
 		if (meteo != null) {
-
-			writer.writeStartElement("meteoInfo");
-			writer.writeAttribute("takenOn", sdf1.format(meteo.getTakenOn()));
+			writer.writeStartElement(INFORMACION_METEOROLOGICA);
+			writer.writeAttribute(TAKEN_ON, sdfTimeXMLSchema.format(meteo.getTakenOn()));
 			// stationName
-			writeElement(writer, "stationName", meteo.getStationName());
+			writeElement(writer, STATION_NAME , meteo.getStationName());
 			// temperature
-			writeElement(writer, "temperature", Double.toString(meteo.getTemperature()));
+			writeElement(writer, TEMPERATURE, Double.toString(meteo.getTemperature()));
 			// clouds
-			writeElement(writer, "clouds", meteo.getClouds());
+			writeElement(writer, CLOUDS, meteo.getClouds());
 		}
 		writer.writeEndElement();
 		for (PointOfInterest place : city.getPointsOfInterest()) {
-			writer.writeStartElement("interestPlace");
-			writeElement(writer, "name", place.getName());
-			writeElement(writer, "id", Integer.toString(place.getId()));
+			writer.writeStartElement(INTEREST_PLACE);
+			writeElement(writer, NAME, place.getName());
+			writeElement(writer, ID, Integer.toString(place.getId()));
 			writer.writeEndElement();
 		}
 		writer.writeEndElement();
@@ -145,86 +187,128 @@ public class Main {
 		writer.writeEndElement();
 	}
 
-	private static String parseResourceUrl(Document resourceUrl) throws SAXException {
+	private static String parseResourceUrl(Document resourceUrl) throws ParseXMLException {
 
-		// <gn:population>211996</gn:population>
-		NodeList list = resourceUrl.getElementsByTagName("gn:population");
+		// Obtenemos la población del lugar 
+		NodeList list = resourceUrl.getElementsByTagName(POPULATION_TAG_NAME);
+		if(list.getLength()==0) {
+			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND+POPULATION_TAG_NAME);
+		}
 		Element population = (Element) list.item(0);
 		city.setPopulation(Integer.parseInt(population.getTextContent()));
 
-		// <rdfs:seeAlso rdf:resource="http://dbpedia.org/resource/Cartagena%2C_Spain"/>
-		list = resourceUrl.getElementsByTagName("rdfs:seeAlso");
-		Element dbpediaUrl = (Element) list.item(0);
-		if (dbpediaUrl != null)
-			city.setUrlDBpedia(dbpediaUrl.getAttribute("rdf:resource"));
-
-		// <gn:wikipediaArticle
-		// rdf:resource="https://en.wikipedia.org/wiki/Cartagena%2C_Spain"/>
-		list = resourceUrl.getElementsByTagName("gn:wikipediaArticle");
-		Element wikipediaUrl = (Element) list.item(0);
-		if (wikipediaUrl != null)
-			city.setUrlWikipedia(wikipediaUrl.getAttribute("rdf:resource"));
-
-		// <dcterms:modified
-		// rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2012-03-04</dcterms:modified>
-		list = resourceUrl.getElementsByTagName("dcterms:modified");
-		Element date = (Element) list.item(0);
-		try {
-			city.setUpdatedDate(sdf.parse(date.getTextContent()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// Obtenemos la url en BDPedia
+		list = resourceUrl.getElementsByTagName(DBPEDIA_URL_TAG_NAME);
+		if(list.getLength()>0) {
+			Element dbpediaUrl = (Element) list.item(0);
+			String url = dbpediaUrl.getAttribute(DBPEDIA_URL_ATTRIBUTE_NAME);
+			if(!url.isEmpty())
+				city.setUrlDBpedia(url);
 		}
 
-		// <gn:nearbyFeatures
-		// rdf:resource="http://sws.geonames.org/2520058/nearby.rdf"/>
-		list = resourceUrl.getElementsByTagName("gn:nearbyFeatures");
+		//Obtenemos la Url de Wikipedia
+		list = resourceUrl.getElementsByTagName(WIKIPEDIA_URL_TAG_NAME);
+		if(list.getLength()>0) {
+			Element wikipediaUrl = (Element) list.item(0);
+			String url = wikipediaUrl.getAttribute(WIKIPEDIA_URL_ATTRIBUTE_NAME);
+			if(!url.isEmpty())
+				city.setUrlWikipedia(url);
+		}
+		
+		//Obtenemos la fecha que fue modificado por última vez
+		list = resourceUrl.getElementsByTagName(UPDATED_DATE_TAG_NAME);
+		if(list.getLength()==0) {
+			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND+UPDATED_DATE_TAG_NAME);
+		}
+		Element date = (Element) list.item(0);
+		try {
+			city.setUpdatedDate(sdfDate.parse(date.getTextContent()));
+		} catch (ParseException e) {
+			throw new ParseXMLException(resourceUrl.getBaseURI(), PARSE_DATE_ERROR+UPDATED_DATE_TAG_NAME);
+		}
+
+		//Obtenemos la URI del recurso que contiene los lugares de interes
+		list = resourceUrl.getElementsByTagName(NEARBY_URL_TAG_NAME);
+		if(list.getLength()==0) {
+			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND+NEARBY_URL_TAG_NAME);
+		}
 		Element nearBy = (Element) list.item(0);
-		return nearBy.getAttribute("rdf:resource");
+		String uri =nearBy.getAttribute(NEARBY_URL_ATTRIBUTE_NAME);
+		if(uri.isEmpty()) {
+			throw new ParseXMLException(resourceUrl.getBaseURI(), "Attribute \"rdf:resource\"\" not found in field \"gn:nearbyFeatures\".");	
+		}
+		return uri;
 	}
 
-	private static void parseNearBy(Document document) throws SAXException {
-		NodeList list = document.getElementsByTagName("gn:Feature");
+	private static void parseNearBy(Document document) throws  ParseXMLException {
+		System.out.println(document.getBaseURI());
+		NodeList list = document.getElementsByTagName(INTEREST_PLACE_TAG_NAME);
+		if(list.getLength()==0) {
+			throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND+INTEREST_PLACE_TAG_NAME);
+		}
 		List<PointOfInterest> places = new ArrayList<PointOfInterest>();
+		int id=0;
 		for (int i = 0; i < list.getLength(); i++) {
 			Element interestPlace = (Element) list.item(i);
-			Element e = (Element) interestPlace.getElementsByTagName("gn:name").item(0);
+			NodeList lista = interestPlace.getElementsByTagName(INTEREST_PLACE_NAME_TAG_NAME);
+			if(lista.getLength()==0) {
+				throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND+INTEREST_PLACE_NAME_TAG_NAME);
+			}
+			Element e = (Element) lista.item(0);
 			String name = e.getTextContent();
-			int id = 1;
-
-			String url = interestPlace.getAttribute("rdf:about");
+			
+			String url = interestPlace.getAttribute(INTEREST_PLACE_URL_TAG_NAME);
+			if(url.isEmpty()) {
+				throw new ParseXMLException(document.getBaseURI(), "Attribute \""+INTEREST_PLACE_URL_TAG_NAME+"\"\" not found in field "+INTEREST_PLACE_TAG_NAME);	
+			}
 			Pattern p = Pattern.compile("./([0-9]+)/");
 			Matcher m = p.matcher(url);
 			m.find();
-			id = Integer.parseInt(m.group(1)); // is your string. do what you want
-
+			try {
+				id = Integer.parseInt(m.group(1));
+			} catch (IllegalStateException e2) {
+				throw new ParseXMLException(document.getBaseURI(), "Could not find ID in Url:"+url);
+			}
+			 
+					
 			places.add(new PointOfInterest(name, id));
 		}
 		city.addPointsOfInterest(places);
 
 	}
 
-	private static void parseWeather(Document document) throws SAXException {
-		// <gn:population>211996</gn:population>
+	private static void parseWeather(Document document) throws ParseXMLException {
+		
 		MeteoInfo meteo = new MeteoInfo();
-		NodeList list = document.getElementsByTagName("observationTime");
+		NodeList list = document.getElementsByTagName(TAKEN_ON_DATE_TAG_NAME);
+		if(list.getLength()==0) {
+			throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND+TAKEN_ON_DATE_TAG_NAME);
+		}
 		Element time = (Element) list.item(0);
 		try {
-			meteo.setTakenOn(sdf2.parse(time.getTextContent()));
+			meteo.setTakenOn(sdfTime.parse(time.getTextContent()));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ParseXMLException(document.getBaseURI(), PARSE_DATE_ERROR+TAKEN_ON_DATE_TAG_NAME);
 		}
 
-		list = document.getElementsByTagName("stationName");
+		list = document.getElementsByTagName(STATION_NAME_TAG_NAME);
+		if(list.getLength()==0) {
+			throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND+STATION_NAME_TAG_NAME);
+		}
 		Element station = (Element) list.item(0);
 		meteo.setStationName(station.getTextContent());
 
-		list = document.getElementsByTagName("clouds");
+		list = document.getElementsByTagName(CLOUDS_TAG_NAME);
+		if(list.getLength()==0) {
+			throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND+CLOUDS_TAG_NAME);
+		}
 		Element clouds = (Element) list.item(0);
 		meteo.setClouds(clouds.getTextContent());
 
-		list = document.getElementsByTagName("temperature");
+		list = document.getElementsByTagName(TEMPERATURE_TAG_NAME);
+		if(list.getLength()==0) {
+			throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND+TEMPERATURE_TAG_NAME);
+		}
 		Element temperature = (Element) list.item(0);
 		meteo.setTemperature(Double.parseDouble(temperature.getTextContent()));
 
