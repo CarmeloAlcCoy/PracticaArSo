@@ -1,3 +1,4 @@
 ¿Ejercicio 4: Como formatear y como tratar las tildes?
 ¿Ejercicio 5: Se espera más información?
 ¿Ejercicio 6: Singleton y el bloque static en el constructor?
+¿Se pueden extraer las clases generadas por el xjc?
