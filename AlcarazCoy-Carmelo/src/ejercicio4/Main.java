@@ -24,7 +24,7 @@ import org.w3c.dom.Element;
 
 import modelo.City;
 import modelo.MeteoInfo;
-import modelo.PointOfInterest;
+import modelo.InterestPlace;
 
 public class Main {
 
@@ -93,7 +93,7 @@ public class Main {
 
 		Document interestPlacesResource;
 		try {
-			interestPlacesResource = analizador.parse("xml/nearby.rdf");
+			interestPlacesResource = analizador.parse(interestPlacesUrl);
 			parseNearBy(interestPlacesResource);
 		} catch (IOException e) {
 			System.err.println("Resource not found:" + interestPlacesUrl);
@@ -169,7 +169,7 @@ public class Main {
 			writeElement(writer, CLOUDS, meteo.getClouds());
 		}
 		writer.writeEndElement();
-		for (PointOfInterest place : city.getPointsOfInterest()) {
+		for (InterestPlace place : city.getPointsOfInterest()) {
 			writer.writeStartElement(INTEREST_PLACE);
 			writeElement(writer, NAME, place.getName());
 			writeElement(writer, ID, Integer.toString(place.getId()));
@@ -246,7 +246,7 @@ public class Main {
 		if(list.getLength()==0) {
 			throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND+INTEREST_PLACE_TAG_NAME);
 		}
-		List<PointOfInterest> places = new ArrayList<PointOfInterest>();
+		List<InterestPlace> places = new ArrayList<InterestPlace>();
 		int id=0;
 		for (int i = 0; i < list.getLength(); i++) {
 			Element interestPlace = (Element) list.item(i);
@@ -271,7 +271,7 @@ public class Main {
 			}
 			 
 					
-			places.add(new PointOfInterest(name, id));
+			places.add(new InterestPlace(name, id));
 		}
 		city.addPointsOfInterest(places);
 

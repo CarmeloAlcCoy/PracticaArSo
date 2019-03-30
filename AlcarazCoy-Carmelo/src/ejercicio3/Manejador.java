@@ -7,7 +7,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import modelo.City;
+import modelo.CityResult;
 
 public class Manejador extends DefaultHandler{
 	
@@ -39,14 +39,14 @@ public class Manejador extends DefaultHandler{
 	 * 
 	 */
 	
-	private List<City> cities;
+	private List<CityResult> cities;
 	private LinkedList<String> pila;
-	private City city;
+	private CityResult city;
 	
 
 	@Override
 	public void startDocument() throws SAXException {
-		cities = new LinkedList<City>();
+		cities = new LinkedList<CityResult>();
 		pila = new LinkedList<String>();
 	}
 
@@ -55,10 +55,7 @@ public class Manejador extends DefaultHandler{
 
 		pila.push(qName);
 		if(qName.equals("geoname")) 
-			city = new City();
-		
-		 
-
+			city = new CityResult();
 	}
 
 	@Override
@@ -102,7 +99,7 @@ public class Manejador extends DefaultHandler{
 		 
 	}
 
-	public List<City> getCiudades() {
+	public List<CityResult> getCiudades() {
 		return cities;
 	}
 	

@@ -7,28 +7,19 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import modelo.City;
+import modelo.CityResult;
+
+import static servicio.controlador.Constants.*;
 
 public class Manejador extends DefaultHandler{
 	
-	private static final String NAME="name";
-	private static final String ID="geonameId";
-	private static final String COUNTRY="countryName";
-	private static final String LATITUDE="lat";
-	private static final String LONGITUDE="lng";
-
-	/**
-	 * TODO Los Errores
-	 */
-	
-	private List<City> cities;
+	private List<CityResult> cities;
 	private LinkedList<String> pila;
-	private City city;
+	private CityResult city;
 	
-
 	@Override
 	public void startDocument() throws SAXException {
-		cities = new LinkedList<City>();
+		cities = new LinkedList<CityResult>();
 		pila = new LinkedList<String>();
 	}
 
@@ -37,10 +28,7 @@ public class Manejador extends DefaultHandler{
 
 		pila.push(qName);
 		if(qName.equals("geoname")) 
-			city = new City();
-		
-		 
-
+			city = new CityResult();
 	}
 
 	@Override
@@ -50,21 +38,21 @@ public class Manejador extends DefaultHandler{
 		String elemento = pila.peek();
 	
 		switch (elemento) {
-		case NAME:
+		case SEARCH_TAG_NAME:
 			city.setName(texto);
 			break;
-		case ID:
+		case SEARCH_TAG_ID:
 			city.setId(Integer.parseInt(texto));
 			break;
-		case COUNTRY:
+		case SEARCH_TAG_COUNTRY:
 			city.setCountry(texto);
 			break;
 
-		case LATITUDE:
+		case SEARCH_TAG_LATITUDE:
 			city.setLatitude(Double.parseDouble(texto));
 			break;
 
-		case LONGITUDE:
+		case SEARCH_TAG_LONGITUDE:
 			city.setLongitude(Double.parseDouble(texto));
 			break;
 
@@ -84,7 +72,7 @@ public class Manejador extends DefaultHandler{
 		 
 	}
 
-	public List<City> getCiudades() {
+	public List<CityResult> getCiudades() {
 		return cities;
 	}
 	

@@ -7,7 +7,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
-import modelo.City;
+import modelo.CityResult;
 
 public class Main {
 
@@ -24,7 +24,7 @@ public class Main {
 			
 			analizador.parse("http://api.geonames.org/search?name=Cartagena&maxRows=10&username=arso", manejador);
 
-			for (City ciudad : manejador.getCiudades()) {
+			for (CityResult ciudad : manejador.getCiudades()) {
 				System.out.println(ciudad);
 			}
 			

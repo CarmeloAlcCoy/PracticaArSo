@@ -16,12 +16,12 @@ public class City {
 	private String urlWikipedia;
 	private Date updatedDate;
 	private MeteoInfo meteoInfo;
-	private List<PointOfInterest> pointsOfInterest;
+	private List<InterestPlace> pointsOfInterest;
 	
 	
 	public City() {
 		super();
-		pointsOfInterest= new ArrayList<PointOfInterest>();
+		pointsOfInterest= new ArrayList<InterestPlace>();
 	}
 	
 	public City(String name, int id, String country, double latitude, double longitude) {
@@ -119,11 +119,11 @@ public class City {
 		this.meteoInfo = meteoInfo;
 	}
 
-	public List<PointOfInterest> getPointsOfInterest() {
+	public List<InterestPlace> getPointsOfInterest() {
 		return pointsOfInterest;
 	}
 
-	public void addPointsOfInterest(List<PointOfInterest> pointsOfInterest) {
+	public void addPointsOfInterest(List<InterestPlace> pointsOfInterest) {
 		this.pointsOfInterest.addAll(pointsOfInterest);
 	}
 
@@ -146,7 +146,7 @@ public class City {
 				+ "updatedDate=" + updatedDate + "\n"
 				+ "meteoInfo=" + meteoInfo+ "\n"
 				+ "pointsOfInterest=";
-		for (PointOfInterest pointOfInterest : pointsOfInterest) {
+		for (InterestPlace pointOfInterest : pointsOfInterest) {
 			toString.concat("\t"+pointOfInterest.toString()+"\n");
 		}
 		
