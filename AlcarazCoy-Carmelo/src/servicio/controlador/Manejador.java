@@ -9,6 +9,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 
 import servicio.tipos.CiudadResultado;
+import servicio.tipos.ListadoCiudades;
 
 import static servicio.controlador.Constants.*;
 
@@ -18,10 +19,13 @@ public class Manejador extends DefaultHandler{
 	private LinkedList<String> pila;
 	private CiudadResultado city;
 	
+	private ListadoCiudades citiesEnc;
+	
 	@Override
 	public void startDocument() throws SAXException {
 		cities = new LinkedList<CiudadResultado>();
 		pila = new LinkedList<String>();
+		citiesEnc = new ListadoCiudades();
 	}
 
 	@Override
@@ -72,9 +76,20 @@ public class Manejador extends DefaultHandler{
 		}
 		 
 	}
+	
+	@Override
+	public void endDocument() throws SAXException {
+		
+		citiesEnc.setResultados(cities);
+		
+	}
 
 	public List<CiudadResultado> getCiudades() {
 		return cities;
+	}
+	
+	public ListadoCiudades getCiudadesEnc() {
+		return citiesEnc;
 	}
 	
 	

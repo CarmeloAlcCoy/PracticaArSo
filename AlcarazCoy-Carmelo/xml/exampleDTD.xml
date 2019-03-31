@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE city SYSTEM "schema.dtd" >
-<city updatedOn="2012-03-04" id="2520058">
+<city id="2520058" updatedOn="2012-03-04" >
 	<name>Cartagena</name>
 	<country>Spain</country>
 	<population>211966</population>

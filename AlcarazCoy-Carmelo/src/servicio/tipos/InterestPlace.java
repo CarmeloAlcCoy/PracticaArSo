@@ -2,15 +2,17 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2019.03.27 a las 06:55:24 PM CET 
+// Generado el: 2019.03.31 a las 03:14:23 PM CEST 
 //
 
 
 package servicio.tipos;
 
+import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="id" type="{http://www.example.org/Schema}tipo_geonameid"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}positiveInteger"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -44,7 +46,8 @@ public class InterestPlace {
     @XmlElement(required = true)
     protected String name;
     @XmlElement(required = true)
-    protected String id;
+    @XmlSchemaType(name = "positiveInteger")
+    protected BigInteger id;
 
     /**
      * Obtiene el valor de la propiedad name.
@@ -75,10 +78,10 @@ public class InterestPlace {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link BigInteger }
      *     
      */
-    public String getId() {
+    public BigInteger getId() {
         return id;
     }
 
@@ -87,10 +90,10 @@ public class InterestPlace {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link BigInteger }
      *     
      */
-    public void setId(String value) {
+    public void setId(BigInteger value) {
         this.id = value;
     }
 

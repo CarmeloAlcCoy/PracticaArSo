@@ -27,7 +27,7 @@ import modelo.InterestPlace;
 
 import static servicio.controlador.Constants.*;
 
-/**Esta clase se corresponde con el código implementado en el ejercicio 4 
+/**Esta clase se corresponde con el cï¿½digo implementado en el ejercicio 4 
  * adaptao al controlador
  *
  */
@@ -62,7 +62,7 @@ public class CityXMLProvider {
 			throw new ParseXMLException(city.getUri(), "Unknown");
 		}
 
-		parseResourceUri(resourceUri);
+		//parseResourceUri(resourceUri);
 
 		Document resource;
 		try {
@@ -105,7 +105,7 @@ public class CityXMLProvider {
 
 	}
 
-	private void parseResourceUri(Document resourceUri) throws ParseXMLException {
+	/*private void parseResourceUri(Document resourceUri) throws ParseXMLException {
 		// <gn:name>Cartagena</gn:name>
 		NodeList list = resourceUri.getElementsByTagName(NAME_TAG_NAME);
 		if (list.getLength() == 0) {
@@ -114,7 +114,7 @@ public class CityXMLProvider {
 		Element name = (Element) list.item(0);
 		city.setName(name.getTextContent());
 
-	}
+	}*/
 
 	private String parseRDF(Document resourceUrl) throws ParseXMLException {
 
@@ -125,6 +125,8 @@ public class CityXMLProvider {
 		}
 		Element name = (Element) list.item(0);
 		city.setName(name.getTextContent());
+		
+		// Country
 		
 		// Obtenemos la latitud
 		list = resourceUrl.getElementsByTagName(LAT_TAG_NAME);
@@ -142,7 +144,7 @@ public class CityXMLProvider {
 		Element longitude = (Element) list.item(0);
 		city.setLongitude(Double.parseDouble(longitude.getTextContent()));
 		
-		// Obtenemos la población del lugar
+		// Obtenemos la poblaciï¿½n del lugar
 		list = resourceUrl.getElementsByTagName(POPULATION_TAG_NAME);
 		if (list.getLength() == 0) {
 			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND + POPULATION_TAG_NAME);
@@ -168,7 +170,7 @@ public class CityXMLProvider {
 				city.setUrlWikipedia(url);
 		}
 
-		// Obtenemos la fecha que fue modificado por última vez
+		// Obtenemos la fecha que fue modificado por ï¿½ltima vez
 		list = resourceUrl.getElementsByTagName(UPDATED_DATE_TAG_NAME);
 		if (list.getLength() == 0) {
 			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND + UPDATED_DATE_TAG_NAME);
@@ -195,7 +197,7 @@ public class CityXMLProvider {
 	}
 
 	private void parseNearBy(Document document) throws ParseXMLException {
-		System.out.println(document.getBaseURI());
+		//System.out.println(document.getBaseURI());
 		NodeList list = document.getElementsByTagName(INTEREST_PLACE_TAG_NAME);
 		if (list.getLength() == 0) {
 			throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND + INTEREST_PLACE_TAG_NAME);
@@ -278,12 +280,13 @@ public class CityXMLProvider {
 		writer.writeNamespace("", DEFAULT_NAMESPACE);
 		writer.writeNamespace("xsi", XSI_NAMESPACE);
 		writer.writeAttribute(XSI_NAMESPACE, "schemaLocation", SCHEMA_LOCATION);
-
+		
+		writer.writeAttribute(GEONAMES_ID, String.valueOf(city.getId()));
 		writer.writeAttribute(UPDATEN_ON, sdfDate.format(city.getUpdatedDate()));
 		// name
 		writeElement(writer, NAME, city.getName());
 		// geonamesid
-		writeElement(writer, GEONAMES_ID, Integer.toString(city.getId()));
+		//writeElement(writer, GEONAMES_ID, Integer.toString(city.getId()));
 		// country
 		writeElement(writer, COUNTRY, city.getCountry());
 		// population

@@ -12,10 +12,10 @@ import modelo.CityResult;
 public class Main {
 
 	public static void main(String[] args) throws ParserConfigurationException, SAXException {
-		// 1. Obtener una factoría
+		// 1. Obtener una factorÃ­a
 		SAXParserFactory factoria = SAXParserFactory.newInstance();
 
-		// 2. Pedir a la factoría la construcción del analizador
+		// 2. Pedir a la factorÃ­a la construcciÃ³n del analizador
 		SAXParser analizador = factoria.newSAXParser();
 
 		// 3. Analizar el documento
@@ -30,7 +30,7 @@ public class Main {
 			
 
 		} catch (IOException e) {
-			System.out.println("El documento no ha podido ser leído");
+			System.out.println("El documento no ha podido ser leÃ­do");
 		} catch (SAXException e) {
 			System.out.println("Error de pocesamiento: " + e.getMessage());
 		}

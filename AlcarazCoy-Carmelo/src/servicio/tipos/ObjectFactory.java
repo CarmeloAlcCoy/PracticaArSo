@@ -1,8 +1,8 @@
 //
-// Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
+// Este archivo ha sido generado por la arquitectura JavaTM para la implantaciï¿½n de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2019.03.27 a las 06:55:24 PM CET 
+// Todas las modificaciones realizadas en este archivo se perderï¿½n si se vuelve a compilar el esquema de origen. 
+// Generado el: 2019.03.31 a las 03:14:23 PM CEST 
 //
 
 
@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the controladdor.tipos package. 
+ * generated in the servicio.tipos package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -30,7 +30,7 @@ public class ObjectFactory {
 
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: controladdor.tipos
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: servicio.tipos
      * 
      */
     public ObjectFactory() {
@@ -66,14 +66,6 @@ public class ObjectFactory {
      */
     public InterestPlace createInterestPlace() {
         return new InterestPlace();
-    }
-    
-    /**
-     * Create an instance of {@link CiudadesFavoritas }
-     * 
-     */
-    public CiudadesFavoritas createCiudadesFavoritas() {
-        return new CiudadesFavoritas();
     }
 
 }

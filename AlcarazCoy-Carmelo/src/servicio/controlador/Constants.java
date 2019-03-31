@@ -39,7 +39,7 @@ public class Constants {
 	public static final String POSITION = "position";
 	public static final String POPULATION = "population";
 	public static final String COUNTRY = "country";
-	public static final String GEONAMES_ID = "geonamesid";
+	public static final String GEONAMES_ID = "id"; //geonamesid
 	public static final String NAME = "name";
 	public static final String UPDATEN_ON = "updatedOn";
 	public static final String SCHEMA_LOCATION = "http://www.example.org/Schema Schema.xsd ";

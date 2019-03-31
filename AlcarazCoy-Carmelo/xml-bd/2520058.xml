@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" ?>
 <city xmlns="http://www.example.org/Schema"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.example.org/Schema Schema.xsd "
-	updatedOn="2012-03-04">
+	id="2520058" updatedOn="2012-03-04">
 	<name>Cartagena</name>
-	<geonamesid>2520058</geonamesid>
 	<country></country>
 	<population>211996</population>
 	<position>
@@ -13,21 +12,21 @@
 	</position>
 	<urlBDpedia>http://dbpedia.org/resource/Cartagena%2C_Spain</urlBDpedia>
 	<urlWikipedia>https://en.wikipedia.org/wiki/Cartagena%2C_Spain</urlWikipedia>
-	<meteoInfo takenOn="2019-03-30T11:30:00">
+	<meteoInfo takenOn="2019-03-31T02:00:00">
 		<stationName>International airport of the Region of Murcia</stationName>
 		<temperature>12.0</temperature>
-		<clouds>clouds and visibility OK</clouds>
+		<clouds>scattered clouds</clouds>
 	</meteoInfo>
 	<interestPlace>
 		<name>Parque Maestranza de Artilleria</name>
 		<id>10860321</id>
 	</interestPlace>
 	<interestPlace>
-		<name>Museo Hist�rico Militar de Cartagena</name>
+		<name>Museo Histórico Militar de Cartagena</name>
 		<id>10280776</id>
 	</interestPlace>
 	<interestPlace>
-		<name>Parque Arqueol�gico Cerro del Molinete</name>
+		<name>Parque Arqueológico Cerro del Molinete</name>
 		<id>10280775</id>
 	</interestPlace>
 	<interestPlace>

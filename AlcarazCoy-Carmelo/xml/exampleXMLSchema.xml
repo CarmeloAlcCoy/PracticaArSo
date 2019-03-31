@@ -2,9 +2,9 @@
 <city xmlns="http://www.example.org/Schema" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.example.org/Schema Schema.xsd " 
+	id="2520058"
 	updatedOn="2012-03-04">
 	<name>Cartagena</name>
-	<geonamesid>2520058</geonamesid>
 	<country>Spain</country>
 	<population>211966</population>
 	<position>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT city (name, country, population, position, urlBDpedia?, urlWikipedia?, meteoInfo?, interestPlace*) >
+<!ATTLIST city 
+		id NMTOKEN #REQUIRED
+		updatedOn CDATA #REQUIRED>
+
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT country (#PCDATA)>
+<!ELEMENT population (#PCDATA)>
+
+<!ELEMENT position (lat, lng)>
+<!ELEMENT lat (#PCDATA)>
+<!ELEMENT lng (#PCDATA)>
+
+<!ELEMENT urlBDpedia (#PCDATA)>
+<!ELEMENT urlWikipedia (#PCDATA)>
+
+<!ELEMENT meteoInfo (stationName, temperature, clouds)>
+<!ATTLIST meteoInfo
+		takenOn CDATA #REQUIRED>
+
+<!ELEMENT stationName (#PCDATA)>
+<!ELEMENT temperature (#PCDATA)>
+<!ELEMENT clouds (#PCDATA)>
+
+<!ELEMENT interestPlace (name)>
+<!ATTLIST interestPlace 
+	id CDATA #REQUIRED> 

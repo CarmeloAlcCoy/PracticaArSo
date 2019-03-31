@@ -19,5 +19,13 @@ public class ListadoCiudades {
 	public void setResultados(List<CiudadResultado> resultados) {
 		this.resultados = resultados;
 	}
+	
+	public void print() {
+		
+		for (CiudadResultado city : resultados) {
+			System.out.println(city);
+		}
+		
+	}
 
 }

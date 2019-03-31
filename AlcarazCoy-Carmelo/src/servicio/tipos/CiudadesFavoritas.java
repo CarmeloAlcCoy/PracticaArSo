@@ -7,8 +7,13 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+	    "id",
+	    "ciudadesFavoritas"
+	})
 @XmlRootElement(name = "ciudadesFavoritas")
 public class CiudadesFavoritas {
 
@@ -36,6 +41,10 @@ public class CiudadesFavoritas {
 
 	public List<String> getCiudadesFavoritas() {
 		return ciudadesFavoritas;
+	}
+
+	public void setCiudadesFavoritas(List<String> ciudadesFavoritas) {
+		this.ciudadesFavoritas = ciudadesFavoritas;
 	}
 
 	public void addCiudadFavorita(String idCiudad) {

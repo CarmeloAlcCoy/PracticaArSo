@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2019.03.27 a las 06:55:24 PM CET 
+// Generado el: 2019.03.31 a las 03:14:23 PM CEST 
 //
 
 
@@ -32,7 +32,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="geonamesid" type="{http://www.example.org/Schema}tipo_geonameid"/>
  *         &lt;element name="country" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="population" type="{http://www.w3.org/2001/XMLSchema}positiveInteger"/>
  *         &lt;element name="position" type="{http://www.example.org/Schema}Position"/>
@@ -41,6 +40,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="meteoInfo" type="{http://www.example.org/Schema}MeteoInfo" minOccurs="0"/>
  *         &lt;element name="interestPlace" type="{http://www.example.org/Schema}InterestPlace" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
+ *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}positiveInteger" />
  *       &lt;attribute name="updatedOn" type="{http://www.w3.org/2001/XMLSchema}date" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -52,7 +52,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "name",
-    "geonamesid",
     "country",
     "population",
     "position",
@@ -67,8 +66,6 @@ public class City {
     @XmlElement(required = true)
     protected String name;
     @XmlElement(required = true)
-    protected String geonamesid;
-    @XmlElement(required = true)
     protected String country;
     @XmlElement(required = true)
     @XmlSchemaType(name = "positiveInteger")
@@ -79,6 +76,9 @@ public class City {
     protected String urlWikipedia;
     protected MeteoInfo meteoInfo;
     protected List<InterestPlace> interestPlace;
+    @XmlAttribute(name = "id")
+    @XmlSchemaType(name = "positiveInteger")
+    protected BigInteger id;
     @XmlAttribute(name = "updatedOn")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar updatedOn;
@@ -105,30 +105,6 @@ public class City {
      */
     public void setName(String value) {
         this.name = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad geonamesid.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getGeonamesid() {
-        return geonamesid;
-    }
-
-    /**
-     * Define el valor de la propiedad geonamesid.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setGeonamesid(String value) {
-        this.geonamesid = value;
     }
 
     /**
@@ -302,6 +278,30 @@ public class City {
             interestPlace = new ArrayList<InterestPlace>();
         }
         return this.interestPlace;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad id.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getId() {
+        return id;
+    }
+
+    /**
+     * Define el valor de la propiedad id.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setId(BigInteger value) {
+        this.id = value;
     }
 
     /**

@@ -12,7 +12,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		List<CiudadResultado> ciudades = ServicioGeoNames.getUnicaInstancia().buscar("Cartagena");
+		List<CiudadResultado> ciudades = ServicioGeoNames.getUnicaInstancia().buscar("Lorca");
 		for (CiudadResultado city : ciudades) {
 			System.out.println(city);
 		}

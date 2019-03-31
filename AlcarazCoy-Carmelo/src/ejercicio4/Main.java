@@ -42,7 +42,7 @@ public class Main {
 	private static final String POSITION = "position";
 	private static final String POPULATION = "population";
 	private static final String COUNTRY = "country";
-	private static final String GEONAMES_ID = "geonamesid";
+	private static final String GEONAMES_ID = "id";
 	private static final String NAME = "name";
 	private static final String UPDATEN_ON = "updatedOn";
 	private static final String SCHEMA_LOCATION = "http://www.example.org/Schema Schema.xsd ";
@@ -75,9 +75,9 @@ public class Main {
 	
 	public static void main(String[] args)
 			throws ParserConfigurationException, SAXException,  XMLStreamException, ParseXMLException {
-		// 1. Obtener una factoría
+		// 1. Obtener una factorï¿½a
 		DocumentBuilderFactory factoria = DocumentBuilderFactory.newInstance();
-		// 2. Pedir a la factoría la construcción del analizador
+		// 2. Pedir a la factorï¿½a la construcciï¿½n del analizador
 		DocumentBuilder analizador = factoria.newDocumentBuilder();
 		// 3. Analizar el documento
 		
@@ -130,12 +130,12 @@ public class Main {
 		writer.writeNamespace("", DEFAULT_NAMESPACE);
 		writer.writeNamespace("xsi", XSI_NAMESPACE);
 		writer.writeAttribute(XSI_NAMESPACE, "schemaLocation",SCHEMA_LOCATION);
-		
+		writer.writeAttribute(GEONAMES_ID, String.valueOf(city.getId()));
 		writer.writeAttribute(UPDATEN_ON, sdfDate.format(city.getUpdatedDate()));
 		// name
 		writeElement(writer, NAME, city.getName());
 		// geonamesid
-		writeElement(writer, GEONAMES_ID, Integer.toString(city.getId()));
+		//writeElement(writer, GEONAMES_ID, Integer.toString(city.getId()));
 		// country
 		writeElement(writer, COUNTRY, city.getCountry());
 		// population
@@ -189,7 +189,7 @@ public class Main {
 
 	private static String parseResourceUrl(Document resourceUrl) throws ParseXMLException {
 
-		// Obtenemos la población del lugar 
+		// Obtenemos la poblaciï¿½n del lugar 
 		NodeList list = resourceUrl.getElementsByTagName(POPULATION_TAG_NAME);
 		if(list.getLength()==0) {
 			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND+POPULATION_TAG_NAME);
@@ -215,7 +215,7 @@ public class Main {
 				city.setUrlWikipedia(url);
 		}
 		
-		//Obtenemos la fecha que fue modificado por última vez
+		//Obtenemos la fecha que fue modificado por ï¿½ltima vez
 		list = resourceUrl.getElementsByTagName(UPDATED_DATE_TAG_NAME);
 		if(list.getLength()==0) {
 			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND+UPDATED_DATE_TAG_NAME);
@@ -241,7 +241,7 @@ public class Main {
 	}
 
 	private static void parseNearBy(Document document) throws  ParseXMLException {
-		System.out.println(document.getBaseURI());
+		//ystem.out.println(document.getBaseURI());
 		NodeList list = document.getElementsByTagName(INTEREST_PLACE_TAG_NAME);
 		if(list.getLength()==0) {
 			throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND+INTEREST_PLACE_TAG_NAME);
