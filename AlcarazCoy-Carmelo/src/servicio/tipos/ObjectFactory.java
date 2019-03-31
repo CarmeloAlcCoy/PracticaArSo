@@ -67,5 +67,13 @@ public class ObjectFactory {
     public InterestPlace createInterestPlace() {
         return new InterestPlace();
     }
+    
+    /**
+     * Create an instance of {@link CiudadesFavoritas }
+     * 
+     */
+    public CiudadesFavoritas createCiudadesFavoritas() {
+        return new CiudadesFavoritas();
+    }
 
 }

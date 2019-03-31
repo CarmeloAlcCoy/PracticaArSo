@@ -5,7 +5,7 @@
 	updatedOn="2012-03-04">
 	<name>Cartagena</name>
 	<geonamesid>2520058</geonamesid>
-	<country>Spain</country>
+	<country></country>
 	<population>211996</population>
 	<position>
 		<lat>37.60512</lat>
@@ -13,9 +13,9 @@
 	</position>
 	<urlBDpedia>http://dbpedia.org/resource/Cartagena%2C_Spain</urlBDpedia>
 	<urlWikipedia>https://en.wikipedia.org/wiki/Cartagena%2C_Spain</urlWikipedia>
-	<meteoInfo takenOn="2019-03-30T11:00:00">
+	<meteoInfo takenOn="2019-03-30T11:30:00">
 		<stationName>International airport of the Region of Murcia</stationName>
-		<temperature>11.0</temperature>
+		<temperature>12.0</temperature>
 		<clouds>clouds and visibility OK</clouds>
 	</meteoInfo>
 	<interestPlace>
@@ -23,11 +23,11 @@
 		<id>10860321</id>
 	</interestPlace>
 	<interestPlace>
-		<name>Museo Histórico Militar de Cartagena</name>
+		<name>Museo Hist�rico Militar de Cartagena</name>
 		<id>10280776</id>
 	</interestPlace>
 	<interestPlace>
-		<name>Parque Arqueológico Cerro del Molinete</name>
+		<name>Parque Arqueol�gico Cerro del Molinete</name>
 		<id>10280775</id>
 	</interestPlace>
 	<interestPlace>

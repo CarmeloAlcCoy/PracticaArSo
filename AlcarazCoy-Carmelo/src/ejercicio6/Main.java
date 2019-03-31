@@ -3,16 +3,17 @@ package ejercicio6;
 import java.util.List;
 
 
-import modelo.CityResult;
+
 import servicio.controlador.ServicioGeoNames;
 import servicio.tipos.City;
+import servicio.tipos.CiudadResultado;;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		List<CityResult> ciudades = ServicioGeoNames.getUnicaInstancia().buscar("Cartagena");
-		for (CityResult city : ciudades) {
+		List<CiudadResultado> ciudades = ServicioGeoNames.getUnicaInstancia().buscar("Cartagena");
+		for (CiudadResultado city : ciudades) {
 			System.out.println(city);
 		}
 		

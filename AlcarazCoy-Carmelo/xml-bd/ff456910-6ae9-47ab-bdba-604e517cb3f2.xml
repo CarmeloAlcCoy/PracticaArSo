@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ciudadesFavoritas xmlns="http://www.example.org/Schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/schema schema.xsd ">
+    <id>ff456910-6ae9-47ab-bdba-604e517cb3f2</id>
+    <ciudadesFavoritas>2520058</ciudadesFavoritas>
+</ciudadesFavoritas>
