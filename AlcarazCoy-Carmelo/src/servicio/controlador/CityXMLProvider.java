@@ -28,19 +28,25 @@ import modelo.InterestPlace;
 
 import static servicio.controlador.Constants.*;
 
-/**Esta clase se corresponde con el c�digo implementado en el ejercicio 4 
+/**
+ * Esta clase se corresponde con el código implementado en el ejercicio 4
  * adaptao al controlador
  *
  */
 public class CityXMLProvider {
-	
-	private City city;
 
-	public void recuperarDocumento(String idGeoNames)
-			throws ParserConfigurationException, SAXException, XMLStreamException, ParseXMLException {
+	private City city;
+	private String countryCode;
+
+	public void recuperarDocumento(String idGeoNames) throws ParseXMLException {
 
 		DocumentBuilderFactory factoria = DocumentBuilderFactory.newInstance();
-		DocumentBuilder analizador = factoria.newDocumentBuilder();
+		DocumentBuilder analizador;
+		try {
+			analizador = factoria.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			throw new ParseXMLException("JAXBUnMarshaller", e.toString());
+		}
 
 		int id;
 		try {
@@ -53,66 +59,82 @@ public class CityXMLProvider {
 		city = new City();
 		city.setId(id);
 
-		/*Document resourceUri;
-		try {
-			resourceUri = analizador.parse(city.getUri());
-		} catch (IOException e) {
-			throw new ParseXMLException(city.getUri(), "Unknown");
-		}
-
-		parseResourceUri(resourceUri);
+		/*
+		 * Document resourceUri; try { resourceUri = analizador.parse(city.getUri()); }
+		 * catch (IOException e) { throw new ParseXMLException(city.getUri(),
+		 * "Unknown"); }
+		 * 
+		 * parseResourceUri(resourceUri);
 		 */
 		Document resource;
 		try {
 			resource = analizador.parse("http://sws.geonames.org/" + id + "/about.rdf");
 		} catch (IOException e) {
-			throw new ParseXMLException("http://sws.geonames.org/" + id + "/about.rdf", "Unknown");
+			throw new ParseXMLException("http://sws.geonames.org/" + id + "/about.rdf", "Unknown:" + e.toString());
+		} catch (SAXException e) {
+			throw new ParseXMLException("http://sws.geonames.org/" + id + "/about.rdf",
+					"XML invalid File" + e.toString());
 		}
 
 		String interestPlacesUrl = parseRDF(resource);
+
+		Document resourceCountry;
+		try {
+			resourceCountry = analizador.parse(CONSULTA_GEONAMES_COUNTRY + countryCode);
+		} catch (IOException e) {
+			throw new ParseXMLException(CONSULTA_GEONAMES_COUNTRY + countryCode, "Unknown:" + e.toString());
+		} catch (SAXException e) {
+			throw new ParseXMLException(CONSULTA_GEONAMES_COUNTRY + countryCode, "XML invalid File" + e.toString());
+		}
+
+		parseCountry(resourceCountry);
 
 		Document interestPlacesResource;
 		try {
 			interestPlacesResource = analizador.parse(interestPlacesUrl);
 
 		} catch (IOException e) {
-			throw new ParseXMLException(interestPlacesUrl, "Unknown");
+			throw new ParseXMLException(interestPlacesUrl, "Unknown:" + e.toString());
+		} catch (SAXException e) {
+			throw new ParseXMLException(interestPlacesUrl, "XML invalid File" + e.toString());
 		}
 
 		parseNearBy(interestPlacesResource);
 
 		Document weatherResource;
+		String uri = "http://api.geonames.org/findNearByWeather?lat=" + city.getLatitude() + "&lng="
+				+ city.getLongitude() + "&username=arso";
 		try {
-			weatherResource = analizador.parse("http://api.geonames.org/findNearByWeather?lat=" + city.getLatitude()
-					+ "&lng=" + city.getLongitude() + "&username=arso");
+			weatherResource = analizador.parse(uri);
 
 		} catch (IOException e) {
-
-			throw new ParseXMLException("http://api.geonames.org/findNearByWeather?lat=" + city.getLatitude() + "&lng="
-					+ city.getLongitude(), "Unknown");
+			throw new ParseXMLException(uri, "Unknown:" + e.toString());
+		} catch (SAXException e) {
+			throw new ParseXMLException(uri, "XML invalid File" + e.toString());
 		}
 		parseWeather(weatherResource);
 
 		try {
 			writeCity();
 		} catch (IOException e) {
-			System.err.println("Could not write Resource File: xml-bd/" + city.getId() + ".xml");
-			return;
+			throw new ParseXMLException("File:" + RUTA_BD + city.getId() + ".xml",
+					"Could not write on the resource:" + e.getMessage());
+
+		} catch (XMLStreamException e) {
+			throw new ParseXMLException("XMLStreamException", e.toString());
 		}
-
-
 	}
 
-	/*private void parseResourceUri(Document resourceUri) throws ParseXMLException {
-		// <gn:name>Cartagena</gn:name>
-		NodeList list = resourceUri.getElementsByTagName(NAME_TAG_NAME);
-		if (list.getLength() == 0) {
-			throw new ParseXMLException(resourceUri.getBaseURI(), FIELD_NOT_FOUND + NAME_TAG_NAME);
-		}
-		Element name = (Element) list.item(0);
-		city.setName(name.getTextContent());
-
-	}*/
+	/*
+	 * private void parseResourceUri(Document resourceUri) throws ParseXMLException
+	 * { // <gn:name>Cartagena</gn:name> NodeList list =
+	 * resourceUri.getElementsByTagName(NAME_TAG_NAME); if (list.getLength() == 0) {
+	 * throw new ParseXMLException(resourceUri.getBaseURI(), FIELD_NOT_FOUND +
+	 * NAME_TAG_NAME); } Element name = (Element) list.item(0);
+	 * city.setName(name.getTextContent());
+	 * 
+	 * }
+	 */
 
 	private String parseRDF(Document resourceUrl) throws ParseXMLException {
 
@@ -123,9 +145,15 @@ public class CityXMLProvider {
 		}
 		Element name = (Element) list.item(0);
 		city.setName(name.getTextContent());
-		
-		// Country
-		
+
+		// CountryCode
+		list = resourceUrl.getElementsByTagName(COUNTRY_CODE_TAG_NAME);
+		if (list.getLength() == 0) {
+			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND + COUNTRY_CODE_TAG_NAME);
+		}
+		Element country = (Element) list.item(0);
+		countryCode = country.getTextContent();
+
 		// Obtenemos la latitud
 		list = resourceUrl.getElementsByTagName(LAT_TAG_NAME);
 		if (list.getLength() == 0) {
@@ -134,26 +162,26 @@ public class CityXMLProvider {
 		Element latitude = (Element) list.item(0);
 		double d;
 		try {
-			d= Double.parseDouble(latitude.getTextContent());
+			d = Double.parseDouble(latitude.getTextContent());
 		} catch (NumberFormatException e) {
-			throw new ParseXMLException(resourceUrl.getBaseURI(), PARSE_DOUBLE_ERROR+LAT_TAG_NAME);
+			throw new ParseXMLException(resourceUrl.getBaseURI(), PARSE_DOUBLE_ERROR + LAT_TAG_NAME);
 		}
 		city.setLatitude(d);
-		
+
 		// Obtenemos la latitud
 		list = resourceUrl.getElementsByTagName(LNG_TAG_NAME);
 		if (list.getLength() == 0) {
 			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND + LNG_TAG_NAME);
 		}
 		Element longitude = (Element) list.item(0);
-		
+
 		try {
-			d= Double.parseDouble(longitude.getTextContent());
+			d = Double.parseDouble(longitude.getTextContent());
 		} catch (NumberFormatException e) {
-			throw new ParseXMLException(resourceUrl.getBaseURI(), PARSE_DOUBLE_ERROR+LAT_TAG_NAME);
+			throw new ParseXMLException(resourceUrl.getBaseURI(), PARSE_DOUBLE_ERROR + LAT_TAG_NAME);
 		}
 		city.setLongitude(d);
-		
+
 		// Obtenemos la población del lugar
 		list = resourceUrl.getElementsByTagName(POPULATION_TAG_NAME);
 		if (list.getLength() == 0) {
@@ -164,7 +192,7 @@ public class CityXMLProvider {
 		try {
 			i = Integer.parseInt(population.getTextContent());
 		} catch (NumberFormatException e) {
-			throw new ParseXMLException(resourceUrl.getBaseURI(), PARSE_INT_ERROR+POPULATION_TAG_NAME);
+			throw new ParseXMLException(resourceUrl.getBaseURI(), PARSE_INT_ERROR + POPULATION_TAG_NAME);
 		}
 		city.setPopulation(i);
 
@@ -212,8 +240,19 @@ public class CityXMLProvider {
 		return uri;
 	}
 
+	private void parseCountry(Document resourceCountry) throws ParseXMLException {
+		// Obtenemos el nombre de la ciudad
+		NodeList list = resourceCountry.getElementsByTagName(COUNTRY_NAME_TAG_NAME);
+		if (list.getLength() == 0) {
+			throw new ParseXMLException(resourceCountry.getBaseURI(), FIELD_NOT_FOUND + COUNTRY_NAME_TAG_NAME);
+		}
+		Element country = (Element) list.item(0);
+		city.setCountry(country.getTextContent());
+
+	}
+
 	private void parseNearBy(Document document) throws ParseXMLException {
-		//System.out.println(document.getBaseURI());
+		// System.out.println(document.getBaseURI());
 		NodeList list = document.getElementsByTagName(INTEREST_PLACE_TAG_NAME);
 		if (list.getLength() == 0) {
 			throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND + INTEREST_PLACE_TAG_NAME);
@@ -284,9 +323,9 @@ public class CityXMLProvider {
 		Element temperature = (Element) list.item(0);
 		double d;
 		try {
-			d= Double.parseDouble(temperature.getTextContent());
+			d = Double.parseDouble(temperature.getTextContent());
 		} catch (NumberFormatException e) {
-			throw new ParseXMLException(document.getBaseURI(), PARSE_DOUBLE_ERROR+TEMPERATURE_TAG_NAME);
+			throw new ParseXMLException(document.getBaseURI(), PARSE_DOUBLE_ERROR + TEMPERATURE_TAG_NAME);
 		}
 		meteo.setTemperature(d);
 
@@ -302,13 +341,13 @@ public class CityXMLProvider {
 		writer.writeNamespace("", DEFAULT_NAMESPACE);
 		writer.writeNamespace("xsi", XSI_NAMESPACE);
 		writer.writeAttribute(XSI_NAMESPACE, "schemaLocation", SCHEMA_LOCATION);
-		
+
 		writer.writeAttribute(GEONAMES_ID, String.valueOf(city.getId()));
 		writer.writeAttribute(UPDATEN_ON, sdfDate.format(city.getUpdatedDate()));
 		// name
 		writeElement(writer, NAME, city.getName());
 		// geonamesid
-		//writeElement(writer, GEONAMES_ID, Integer.toString(city.getId()));
+		// writeElement(writer, GEONAMES_ID, Integer.toString(city.getId()));
 		// country
 		writeElement(writer, COUNTRY, city.getCountry());
 		// population

@@ -4,6 +4,10 @@ import java.text.SimpleDateFormat;
 
 public class Constants {
 	
+	public static final String CONSULTA_GEONAMES = "http://api.geonames.org/search?username=arso&name=";
+	public static final String CONSULTA_GEONAMES_COUNTRY = "http://api.geonames.org/countryInfo?username=arso&country=";
+	
+	
 	//RDF Tag Names
 	public static final String NAME_TAG_NAME = "gn:name";
 	public static final String LNG_TAG_NAME = "wgs84_pos:long";
@@ -16,6 +20,8 @@ public class Constants {
 	public static final String STATION_NAME_TAG_NAME = "stationName";;
 	public static final String TAKEN_ON_DATE_TAG_NAME = "observationTime";
 	public static final String POPULATION_TAG_NAME = "gn:population";
+	public static final String COUNTRY_CODE_TAG_NAME = "gn:countryCode";
+	public static final String COUNTRY_NAME_TAG_NAME = "countryName";
 	public static final String DBPEDIA_URL_TAG_NAME = "rdfs:seeAlso";
 	public static final String DBPEDIA_URL_ATTRIBUTE_NAME = "rdf:resource";
 	public static final String WIKIPEDIA_URL_TAG_NAME = "gn:wikipediaArticle";
