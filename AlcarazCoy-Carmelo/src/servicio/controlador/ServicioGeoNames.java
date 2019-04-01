@@ -33,7 +33,7 @@ public class ServicioGeoNames {
 	private static ServicioGeoNames unicaInstancia;
 	private SAXParserFactory factoriaSAX;
 	private JAXBContext contexto;
-	private Map<String, CiudadesFavoritas> map = new HashMap<>(); 
+	private JAXBContext contextoFavorito;
 
 	static {
 		File folder = new File("xml-bd");
@@ -46,6 +46,7 @@ public class ServicioGeoNames {
 		factoriaSAX = SAXParserFactory.newInstance();
 		try {
 			contexto = JAXBContext.newInstance("servicio.tipos");
+			contextoFavorito = JAXBContext.newInstance(CiudadesFavoritas.class);
 		} catch (JAXBException e) {
 			throw new ParseXMLException("JAXBFactory", "Unknown");
 		}
@@ -58,22 +59,15 @@ public class ServicioGeoNames {
 		return unicaInstancia;
 	}
 
-	private Marshaller createMarshaller(Class c) {
+	private Marshaller createMarshaller(JAXBContext con) {
 		Marshaller marshaller;
-		
+				
 		try {
-			contexto = JAXBContext.newInstance(c);
-		} catch (JAXBException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
-		
-		try {
-			marshaller = contexto.createMarshaller();
+			marshaller = con.createMarshaller();
 			marshaller.setProperty("jaxb.formatted.output", true);
-			//marshaller.setProperty("jaxb.schemaLocation", "http://www.example.org/schema Schema.xsd ");
+			
+			if(con.equals(contexto))
+				marshaller.setProperty("jaxb.schemaLocation", "http://www.example.org/schema Schema.xsd ");
 		} catch (JAXBException e) {
 			throw new ParseXMLException("Marshaller", e.toString());
 		}
@@ -82,16 +76,16 @@ public class ServicioGeoNames {
 	
 	
 
-	private Unmarshaller createUnmarshaller() {
+	private Unmarshaller createUnmarshaller(JAXBContext con) {
 		try {
-			return contexto.createUnmarshaller();
+			return con.createUnmarshaller();
 		} catch (JAXBException e) {
 			throw new ParseXMLException("Unmarshaller", e.toString());
 		}
 	}
 	
 	private void marshallCiudadFavorita(CiudadesFavoritas ciudades, File file) throws ParseXMLException {
-		Marshaller marshaller = createMarshaller(CiudadesFavoritas.class);
+		Marshaller marshaller = createMarshaller(contextoFavorito);
 		try {
 			marshaller.marshal(ciudades, file);
 		} catch (JAXBException e) {
@@ -102,7 +96,7 @@ public class ServicioGeoNames {
 	private CiudadesFavoritas unmarshallCiudadFavorita(File file) throws ParseXMLException {
 		
 		CiudadesFavoritas ciudades;
-		Unmarshaller unmarshaller = createUnmarshaller();
+		Unmarshaller unmarshaller = createUnmarshaller(contextoFavorito);
 		
 		try {
 			ciudades = (CiudadesFavoritas) unmarshaller.unmarshal(file);
@@ -134,23 +128,9 @@ public class ServicioGeoNames {
 	
 	public ListadoCiudades getResultadosBusquedaXML(String busqueda) {
 		
-		Manejador manejador = new Manejador();
-
-		try {
-			SAXParser analizadorSAX = factoriaSAX.newSAXParser();
-			analizadorSAX.parse(CONSULTA_GEONAMES + busqueda, manejador);
-
-		} catch (IOException e) {
-			System.out.println("El documento no ha podido ser leído. Consulta: " + busqueda);
-			return null;
-		} catch (SAXException e) {
-			System.out.println("Error de pocesamiento: " + e.getMessage());
-			return null;
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return manejador.getCiudadesEnc();
+		ListadoCiudades lc = new ListadoCiudades();
+		lc.setResultados(buscar(busqueda));
+		return lc;
 		
 	}
 
@@ -161,8 +141,7 @@ public class ServicioGeoNames {
 		Unmarshaller unmarshaller;
 		City calificaciones;
 		try {
-			contexto = JAXBContext.newInstance("servicio.tipos");
-			unmarshaller = contexto.createUnmarshaller();
+			unmarshaller = createUnmarshaller(contexto);
 			calificaciones = (City) unmarshaller.unmarshal(file);
 		} catch (JAXBException e) {
 			throw new ParseXMLException("JAXBUnMarshaller", e.toString());
@@ -197,7 +176,6 @@ public class ServicioGeoNames {
 
 	public String crearDocumentoFavoritos() throws ParseXMLException {
 		String id = UUID.randomUUID().toString();
-		//CiudadesFavoritas ciudades = new CiudadesFavoritas(id);
 		
 		File f = new File(Constants.RUTA_BD + "favoritos-" + id + ".xml");
 		if(!f.exists())
@@ -207,10 +185,6 @@ public class ServicioGeoNames {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
-		//map.put(id, ciudades);
-		
-		//marshallCiudadFavorita(ciudades);
 
 		return id;
 	}

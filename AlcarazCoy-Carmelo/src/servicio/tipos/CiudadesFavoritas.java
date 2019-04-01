@@ -19,6 +19,7 @@ public class CiudadesFavoritas {
 
 	@XmlElement(required = true)
 	private String id;
+	@XmlElement(name = "ciudad")
 	private List<String> ciudadesFavoritas;
 	
 	public CiudadesFavoritas() {
