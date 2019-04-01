@@ -63,7 +63,18 @@ public class ServicioGeoNames {
 		Marshaller marshaller;
 				
 		try {
+<<<<<<< HEAD
 			marshaller = con.createMarshaller();
+=======
+			contexto = JAXBContext.newInstance(c);
+		} catch (JAXBException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
+		
+		try {
+			marshaller = contexto.createMarshaller();
+>>>>>>> branch 'master' of https://github.com/CarmeloAlcCoy/PracticaArSo.git
 			marshaller.setProperty("jaxb.formatted.output", true);
 			
 			if(con.equals(contexto))

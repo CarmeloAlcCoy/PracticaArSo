@@ -26,46 +26,9 @@ import modelo.City;
 import modelo.MeteoInfo;
 import modelo.InterestPlace;
 
-public class Main {
+public class Ejercicio4 {
 
-	private static final String ID = "id";
-	private static final String INTEREST_PLACE = "interestPlace";
-	private static final String CLOUDS = "clouds";
-	private static final String TEMPERATURE = "temperature";
-	private static final String STATION_NAME = "stationName";
-	private static final String TAKEN_ON = "takenOn";
-	private static final String INFORMACION_METEOROLOGICA = "meteoInfo";
-	private static final String URL_WIKIPEDIA = "urlWikipedia";
-	private static final String URL_BDPEDIA = "urlBDpedia";
-	private static final String LONGITUDE = "lng";
-	private static final String LATITUDE = "lat";
-	private static final String POSITION = "position";
-	private static final String POPULATION = "population";
-	private static final String COUNTRY = "country";
-	private static final String GEONAMES_ID = "id";
-	private static final String NAME = "name";
-	private static final String UPDATEN_ON = "updatedOn";
-	private static final String SCHEMA_LOCATION = "http://www.example.org/Schema Schema.xsd ";
-	private static final String XSI_NAMESPACE = "http://www.w3.org/2001/XMLSchema-instance";
-	private static final String DEFAULT_NAMESPACE = "http://www.example.org/Schema";
-	private static final String ELEMENT_CITY = "city";
-	private static final String INTEREST_PLACE_URL_TAG_NAME = "rdf:about";
-	private static final String INTEREST_PLACE_NAME_TAG_NAME = "gn:name";
-	private static final String PARSE_DATE_ERROR = "Could not parse Date in field:";
-	private static final String INTEREST_PLACE_TAG_NAME = "gn:Feature";
-	private static final String FIELD_NOT_FOUND = "Field not found:";
-	private static final String TEMPERATURE_TAG_NAME = TEMPERATURE;
-	private static final String CLOUDS_TAG_NAME = CLOUDS;
-	private static final String STATION_NAME_TAG_NAME = STATION_NAME;
-	private static final String TAKEN_ON_DATE_TAG_NAME = "observationTime";
-	private static final String POPULATION_TAG_NAME = "gn:population"; 
-	private static final String DBPEDIA_URL_TAG_NAME = "rdfs:seeAlso";
-	private static final String DBPEDIA_URL_ATTRIBUTE_NAME = "rdf:resource";
-	private static final String WIKIPEDIA_URL_TAG_NAME = "gn:wikipediaArticle";
-	private static final String WIKIPEDIA_URL_ATTRIBUTE_NAME = "rdf:resource";
-	private static final String UPDATED_DATE_TAG_NAME = "dcterms:modified";
-	private static final String NEARBY_URL_TAG_NAME = "gn:nearbyFeatures";
-	private static final String NEARBY_URL_ATTRIBUTE_NAME = "rdf:resource";
+	
 	
 	private static City city = new City("Cartagena", 2520058, "Spain", 37.60512, -0.98623);
 	private static final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -181,7 +144,7 @@ public class Main {
 		writer.close();
 	}
 
-	public static void writeElement(XMLStreamWriter writer, String name, String value) throws XMLStreamException {
+	private static void writeElement(XMLStreamWriter writer, String name, String value) throws XMLStreamException {
 		writer.writeStartElement(name);
 		writer.writeCharacters(value);
 		writer.writeEndElement();
@@ -195,7 +158,13 @@ public class Main {
 			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND+POPULATION_TAG_NAME);
 		}
 		Element population = (Element) list.item(0);
-		city.setPopulation(Integer.parseInt(population.getTextContent()));
+		int i;
+		try {
+			i = Integer.parseInt(population.getTextContent());
+		} catch (NumberFormatException e) {
+			throw new ParseXMLException(resourceUrl.getBaseURI(), PARSE_INT_ERROR+POPULATION_TAG_NAME);
+		}
+		city.setPopulation(i);
 
 		// Obtenemos la url en BDPedia
 		list = resourceUrl.getElementsByTagName(DBPEDIA_URL_TAG_NAME);
@@ -215,7 +184,7 @@ public class Main {
 				city.setUrlWikipedia(url);
 		}
 		
-		//Obtenemos la fecha que fue modificado por �ltima vez
+		//Obtenemos la fecha que fue modificado por última vez
 		list = resourceUrl.getElementsByTagName(UPDATED_DATE_TAG_NAME);
 		if(list.getLength()==0) {
 			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND+UPDATED_DATE_TAG_NAME);
@@ -310,9 +279,58 @@ public class Main {
 			throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND+TEMPERATURE_TAG_NAME);
 		}
 		Element temperature = (Element) list.item(0);
-		meteo.setTemperature(Double.parseDouble(temperature.getTextContent()));
+		double d;
+		try {
+			d= Double.parseDouble(temperature.getTextContent());
+		} catch (NumberFormatException e) {
+			throw new ParseXMLException(document.getBaseURI(), PARSE_DOUBLR_ERROR+TEMPERATURE_TAG_NAME);
+		}
+		
+		meteo.setTemperature(d);
 
 		city.setMeteoInfo(meteo);
 	}
 
+	
+	private static final String ID = "id";
+	private static final String INTEREST_PLACE = "interestPlace";
+	private static final String CLOUDS = "clouds";
+	private static final String TEMPERATURE = "temperature";
+	private static final String STATION_NAME = "stationName";
+	private static final String TAKEN_ON = "takenOn";
+	private static final String INFORMACION_METEOROLOGICA = "meteoInfo";
+	private static final String URL_WIKIPEDIA = "urlWikipedia";
+	private static final String URL_BDPEDIA = "urlBDpedia";
+	private static final String LONGITUDE = "lng";
+	private static final String LATITUDE = "lat";
+	private static final String POSITION = "position";
+	private static final String POPULATION = "population";
+	private static final String COUNTRY = "country";
+	private static final String GEONAMES_ID = "id";
+	private static final String NAME = "name";
+	private static final String UPDATEN_ON = "updatedOn";
+	private static final String SCHEMA_LOCATION = "http://www.example.org/Schema Schema.xsd ";
+	private static final String XSI_NAMESPACE = "http://www.w3.org/2001/XMLSchema-instance";
+	private static final String DEFAULT_NAMESPACE = "http://www.example.org/Schema";
+	private static final String ELEMENT_CITY = "city";
+	private static final String INTEREST_PLACE_URL_TAG_NAME = "rdf:about";
+	private static final String INTEREST_PLACE_NAME_TAG_NAME = "gn:name";
+	private static final String PARSE_DATE_ERROR = "Could not parse Date in field:";
+	private static final String PARSE_INT_ERROR = "Could not parse int in field:";
+	private static final String PARSE_DOUBLR_ERROR = "Could not parse double in field:";
+	private static final String INTEREST_PLACE_TAG_NAME = "gn:Feature";
+	private static final String FIELD_NOT_FOUND = "Field not found:";
+	private static final String TEMPERATURE_TAG_NAME = TEMPERATURE;
+	private static final String CLOUDS_TAG_NAME = CLOUDS;
+	private static final String STATION_NAME_TAG_NAME = STATION_NAME;
+	private static final String TAKEN_ON_DATE_TAG_NAME = "observationTime";
+	private static final String POPULATION_TAG_NAME = "gn:population"; 
+	private static final String DBPEDIA_URL_TAG_NAME = "rdfs:seeAlso";
+	private static final String DBPEDIA_URL_ATTRIBUTE_NAME = "rdf:resource";
+	private static final String WIKIPEDIA_URL_TAG_NAME = "gn:wikipediaArticle";
+	private static final String WIKIPEDIA_URL_ATTRIBUTE_NAME = "rdf:resource";
+	private static final String UPDATED_DATE_TAG_NAME = "dcterms:modified";
+	private static final String NEARBY_URL_TAG_NAME = "gn:nearbyFeatures";
+	private static final String NEARBY_URL_ATTRIBUTE_NAME = "rdf:resource";
+	
 }

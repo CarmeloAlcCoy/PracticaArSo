@@ -8,7 +8,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-public class Main {
+public class Ejercicio5 {
 
 	public static final String transformacion = "xml/search2kml.xsl";
 	public static final String documentoEntrada = "http://api.geonames.org/search?name=Cartagena&maxRows=10&username=arso";

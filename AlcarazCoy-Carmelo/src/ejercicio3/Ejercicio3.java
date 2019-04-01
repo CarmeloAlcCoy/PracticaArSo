@@ -9,7 +9,7 @@ import org.xml.sax.SAXException;
 
 import modelo.CityResult;
 
-public class Main {
+public class Ejercicio3 {
 
 	public static void main(String[] args) throws ParserConfigurationException, SAXException {
 		// 1. Obtener una factoría
