@@ -144,7 +144,7 @@ public class Ejercicio4 {
 		writer.close();
 	}
 
-	public static void writeElement(XMLStreamWriter writer, String name, String value) throws XMLStreamException {
+	private static void writeElement(XMLStreamWriter writer, String name, String value) throws XMLStreamException {
 		writer.writeStartElement(name);
 		writer.writeCharacters(value);
 		writer.writeEndElement();

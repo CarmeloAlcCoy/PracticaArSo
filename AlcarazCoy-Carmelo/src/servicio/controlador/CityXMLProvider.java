@@ -19,6 +19,7 @@ import javax.xml.stream.XMLStreamWriter;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
 import org.w3c.dom.Element;
 
 import modelo.City;
@@ -33,9 +34,6 @@ import static servicio.controlador.Constants.*;
  */
 public class CityXMLProvider {
 	
-	
-
-
 	private City city;
 
 	public void recuperarDocumento(String idGeoNames)
@@ -55,15 +53,15 @@ public class CityXMLProvider {
 		city = new City();
 		city.setId(id);
 
-		Document resourceUri;
+		/*Document resourceUri;
 		try {
 			resourceUri = analizador.parse(city.getUri());
 		} catch (IOException e) {
 			throw new ParseXMLException(city.getUri(), "Unknown");
 		}
 
-		//parseResourceUri(resourceUri);
-
+		parseResourceUri(resourceUri);
+		 */
 		Document resource;
 		try {
 			resource = analizador.parse("http://sws.geonames.org/" + id + "/about.rdf");
@@ -134,7 +132,13 @@ public class CityXMLProvider {
 			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND + LAT_TAG_NAME);
 		}
 		Element latitude = (Element) list.item(0);
-		city.setLatitude(Double.parseDouble(latitude.getTextContent()));
+		double d;
+		try {
+			d= Double.parseDouble(latitude.getTextContent());
+		} catch (NumberFormatException e) {
+			throw new ParseXMLException(resourceUrl.getBaseURI(), PARSE_DOUBLE_ERROR+LAT_TAG_NAME);
+		}
+		city.setLatitude(d);
 		
 		// Obtenemos la latitud
 		list = resourceUrl.getElementsByTagName(LNG_TAG_NAME);
@@ -142,15 +146,27 @@ public class CityXMLProvider {
 			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND + LNG_TAG_NAME);
 		}
 		Element longitude = (Element) list.item(0);
-		city.setLongitude(Double.parseDouble(longitude.getTextContent()));
 		
-		// Obtenemos la poblaci�n del lugar
+		try {
+			d= Double.parseDouble(longitude.getTextContent());
+		} catch (NumberFormatException e) {
+			throw new ParseXMLException(resourceUrl.getBaseURI(), PARSE_DOUBLE_ERROR+LAT_TAG_NAME);
+		}
+		city.setLongitude(d);
+		
+		// Obtenemos la población del lugar
 		list = resourceUrl.getElementsByTagName(POPULATION_TAG_NAME);
 		if (list.getLength() == 0) {
 			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND + POPULATION_TAG_NAME);
 		}
 		Element population = (Element) list.item(0);
-		city.setPopulation(Integer.parseInt(population.getTextContent()));
+		int i;
+		try {
+			i = Integer.parseInt(population.getTextContent());
+		} catch (NumberFormatException e) {
+			throw new ParseXMLException(resourceUrl.getBaseURI(), PARSE_INT_ERROR+POPULATION_TAG_NAME);
+		}
+		city.setPopulation(i);
 
 		// Obtenemos la url en BDPedia
 		list = resourceUrl.getElementsByTagName(DBPEDIA_URL_TAG_NAME);
@@ -170,7 +186,7 @@ public class CityXMLProvider {
 				city.setUrlWikipedia(url);
 		}
 
-		// Obtenemos la fecha que fue modificado por �ltima vez
+		// Obtenemos la fecha que fue modificado por última vez
 		list = resourceUrl.getElementsByTagName(UPDATED_DATE_TAG_NAME);
 		if (list.getLength() == 0) {
 			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND + UPDATED_DATE_TAG_NAME);
@@ -266,14 +282,20 @@ public class CityXMLProvider {
 			throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND + TEMPERATURE_TAG_NAME);
 		}
 		Element temperature = (Element) list.item(0);
-		meteo.setTemperature(Double.parseDouble(temperature.getTextContent()));
+		double d;
+		try {
+			d= Double.parseDouble(temperature.getTextContent());
+		} catch (NumberFormatException e) {
+			throw new ParseXMLException(document.getBaseURI(), PARSE_DOUBLE_ERROR+TEMPERATURE_TAG_NAME);
+		}
+		meteo.setTemperature(d);
 
 		city.setMeteoInfo(meteo);
 	}
 
 	private void writeCity() throws FileNotFoundException, XMLStreamException {
 		XMLOutputFactory xof = XMLOutputFactory.newInstance();
-		XMLStreamWriter writer = xof.createXMLStreamWriter(new FileOutputStream("xml-bd/" + city.getId() + ".xml"));
+		XMLStreamWriter writer = xof.createXMLStreamWriter(new FileOutputStream(RUTA_BD + city.getId() + ".xml"));
 
 		writer.writeStartDocument();
 		writer.writeStartElement(ELEMENT_CITY);

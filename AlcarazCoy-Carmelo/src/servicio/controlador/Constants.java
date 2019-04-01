@@ -50,6 +50,8 @@ public class Constants {
 	//Errors
 	public static final String PARSE_DATE_ERROR = "Could not parse Date in field:";
 	public static final String FIELD_NOT_FOUND = "Field not found:";
+	public static final String PARSE_INT_ERROR = "Could not parse int in field:";
+	public static final String PARSE_DOUBLE_ERROR = "Could not parse double in field:";
 
 	//Parsers
 	public static final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
