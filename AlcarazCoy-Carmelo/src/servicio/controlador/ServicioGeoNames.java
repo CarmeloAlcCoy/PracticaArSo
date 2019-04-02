@@ -63,6 +63,7 @@ public class ServicioGeoNames {
 			marshaller = con.createMarshaller();
 
 			marshaller.setProperty("jaxb.formatted.output", true);
+			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 
 			if (con.equals(contexto))
 				marshaller.setProperty("jaxb.schemaLocation", "http://www.example.org/schema Schema.xsd ");
@@ -147,7 +148,6 @@ public class ServicioGeoNames {
 	private File recuperarDocumento(String idGeoNames) throws ParseXMLException {
 		File file = new File(Constants.RUTA_BD + idGeoNames + ".xml");
 
-		//
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.HOUR, -1);
 		Date haceUnaHora = calendar.getTime();

@@ -8,11 +8,11 @@ import servicio.controlador.ServicioGeoNames;
 import servicio.tipos.City;
 import servicio.tipos.CiudadResultado;;
 
-public class Main {
+public class Ejercicio6 {
 
 	public static void main(String[] args) {
 		
-		List<CiudadResultado> ciudades = ServicioGeoNames.getUnicaInstancia().buscar("Lorca");
+		List<CiudadResultado> ciudades = ServicioGeoNames.getUnicaInstancia().buscar("Cartagena");
 		for (CiudadResultado city : ciudades) {
 			System.out.println(city);
 		}

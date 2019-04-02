@@ -20,6 +20,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javanet.staxutils.IndentingXMLStreamWriter;
+
 import org.w3c.dom.Element;
 
 import modelo.City;
@@ -335,8 +337,8 @@ public class CityXMLProvider {
 	private void writeCity() throws FileNotFoundException, XMLStreamException {
 		XMLOutputFactory xof = XMLOutputFactory.newInstance();
 		XMLStreamWriter writer = xof.createXMLStreamWriter(new FileOutputStream(RUTA_BD + city.getId() + ".xml"));
-
-		writer.writeStartDocument();
+		writer = new IndentingXMLStreamWriter(writer); // Duda 1
+		writer.writeStartDocument("UTF-8", "1.0"); // Solved
 		writer.writeStartElement(ELEMENT_CITY);
 		writer.writeNamespace("", DEFAULT_NAMESPACE);
 		writer.writeNamespace("xsi", XSI_NAMESPACE);

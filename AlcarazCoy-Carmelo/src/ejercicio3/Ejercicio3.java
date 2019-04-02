@@ -22,7 +22,7 @@ public class Ejercicio3 {
 		try {
 			Manejador manejador = new Manejador();
 			
-			analizador.parse("http://api.geonames.org/search?name=Cartagena&maxRows=10&username=arso", manejador);
+			analizador.parse("http://api.geonames.org/search?name=Cartagena&maxRows=10&username=arso&featureClass=P", manejador); //Duda 3
 
 			for (CityResult ciudad : manejador.getCiudades()) {
 				System.out.println(ciudad);

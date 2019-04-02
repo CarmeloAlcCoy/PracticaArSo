@@ -22,16 +22,16 @@
 </Placemark>
 <Placemark>
 <name>Cartagena</name>
-<description>Ciudad de Cartagena. Pais: Philippines</description>
+<description>Ciudad de Cartagena. Pais: Peru</description>
 <Point>
-<coordinates>9.8203,122.4004,0</coordinates>
+<coordinates>-6.60938,-80.07765,0</coordinates>
 </Point>
 </Placemark>
 <Placemark>
 <name>Cartagena</name>
-<description>Ciudad de Cartagena. Pais: Peru</description>
+<description>Ciudad de Cartagena. Pais: Philippines</description>
 <Point>
-<coordinates>-6.60938,-80.07765,0</coordinates>
+<coordinates>9.8203,122.4004,0</coordinates>
 </Point>
 </Placemark>
 <Placemark>
@@ -43,16 +43,16 @@
 </Placemark>
 <Placemark>
 <name>Cartagena</name>
-<description>Ciudad de Cartagena. Pais: Chile</description>
+<description>Ciudad de Cartagena. Pais: Peru</description>
 <Point>
-<coordinates>-34.38188,-70.86932,0</coordinates>
+<coordinates>-6.59324,-80.02493,0</coordinates>
 </Point>
 </Placemark>
 <Placemark>
 <name>Cartagena</name>
-<description>Ciudad de Cartagena. Pais: Peru</description>
+<description>Ciudad de Cartagena. Pais: Chile</description>
 <Point>
-<coordinates>-6.59324,-80.02493,0</coordinates>
+<coordinates>-34.38188,-70.86932,0</coordinates>
 </Point>
 </Placemark>
 <Placemark>

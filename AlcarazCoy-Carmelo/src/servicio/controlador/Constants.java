@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 
 public class Constants {
 	
-	public static final String CONSULTA_GEONAMES = "http://api.geonames.org/search?username=arso&name=";
+	public static final String CONSULTA_GEONAMES = "http://api.geonames.org/search?featureClass=P&username=arso&name=";
 	public static final String CONSULTA_GEONAMES_COUNTRY = "http://api.geonames.org/countryInfo?username=arso&country=";
 	
 	

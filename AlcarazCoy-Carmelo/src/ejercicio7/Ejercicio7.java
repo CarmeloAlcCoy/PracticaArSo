@@ -4,12 +4,12 @@ import servicio.controlador.ServicioGeoNames;
 import servicio.tipos.CiudadesFavoritas;
 import servicio.tipos.ListadoCiudades;
 
-public class Programa {
+public class Ejercicio7 {
 
 	public static void main(String[] args) {
 		ServicioGeoNames servicio = ServicioGeoNames.getUnicaInstancia();
 		
-		ListadoCiudades cities = servicio.getResultadosBusquedaXML("Cartagena");
+		ListadoCiudades cities = servicio.getResultadosBusquedaXML("Lorca");
 		
 		cities.print();
 		
@@ -32,5 +32,7 @@ public class Programa {
 		}
 		
 		servicio.removeDocumentoFavoritos(id1);
+		
+		System.out.println("Fin");
 	}
 }
