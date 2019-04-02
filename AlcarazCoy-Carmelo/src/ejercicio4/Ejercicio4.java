@@ -152,7 +152,7 @@ public class Ejercicio4 {
 
 	private static String parseResourceUrl(Document resourceUrl) throws ParseXMLException {
 
-		// Obtenemos la poblaci�n del lugar 
+		// Obtenemos la población del lugar 
 		NodeList list = resourceUrl.getElementsByTagName(POPULATION_TAG_NAME);
 		if(list.getLength()==0) {
 			throw new ParseXMLException(resourceUrl.getBaseURI(), FIELD_NOT_FOUND+POPULATION_TAG_NAME);

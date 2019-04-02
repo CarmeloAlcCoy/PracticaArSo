@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<city xmlns="http://www.example.org/Schema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/Schema Schema.xsd "
+	id="2514891" updatedOn="2012-12-15">
+	<name>Lorca</name>
+	<country>Spain</country>
+	<population>91906</population>
+	<position>
+		<lat>37.67119</lat>
+		<lng>-1.7017</lng>
+	</position>
+	<urlBDpedia>http://dbpedia.org/resource/Lorca%2C_Spain</urlBDpedia>
+	<urlWikipedia>https://en.wikipedia.org/wiki/Lorca%2C_Spain</urlWikipedia>
+	<meteoInfo takenOn="2019-04-01T08:00:00">
+		<stationName>Murcia / Alcantarilla</stationName>
+		<temperature>14.0</temperature>
+		<clouds>broken clouds</clouds>
+	</meteoInfo>
+	<interestPlace>
+		<name>Parroquia San Cristóbal</name>
+		<id>10342002</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Iglesia del Carmen</name>
+		<id>10342001</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Museo Azul de la Semana Santa - MASS</name>
+		<id>10342005</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Plaza de Colon</name>
+		<id>10342008</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Teatro Guerra</name>
+		<id>10285032</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Lorca Bus Station</name>
+		<id>8436046</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Lorca Sutullena Railway Station</name>
+		<id>8436045</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Plaza Calderon de la Barca</name>
+		<id>10342006</id>
+	</interestPlace>
+	<interestPlace>
+		<name>Parroquia de San Mateo</name>
+		<id>10342007</id>
+	</interestPlace>
+</city>
