@@ -11,7 +11,7 @@ import javax.xml.transform.stream.StreamSource;
 public class Ejercicio5 {
 
 	public static final String transformacion = "xml/search2kml.xsl";
-	public static final String documentoEntrada = "http://api.geonames.org/search?name=Cartagena&maxRows=10&username=arso&featureClass=P";
+	public static final String documentoEntrada = "http://api.geonames.org/search?name=Cartagena&username=arso&featureClass=P";
 	public static final String documentoSalida = "xml/cartagena.kml";
 	
 	

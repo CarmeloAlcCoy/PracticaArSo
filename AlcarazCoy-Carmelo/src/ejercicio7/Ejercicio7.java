@@ -9,7 +9,7 @@ public class Ejercicio7 {
 	public static void main(String[] args) {
 		ServicioGeoNames servicio = ServicioGeoNames.getUnicaInstancia();
 		
-		ListadoCiudades cities = servicio.getResultadosBusquedaXML("Lorca");
+		ListadoCiudades cities = servicio.getResultadosBusquedaXML("Cartagena");
 		
 		cities.print();
 		
