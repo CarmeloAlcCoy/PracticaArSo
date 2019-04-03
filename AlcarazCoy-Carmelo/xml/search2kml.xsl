@@ -4,7 +4,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.opengis.net/k
 	<xsl:output method="xml" indent="yes"/>
 	<xsl:template match="geonames">
 		<kml>
-			<xsl:apply-templates select="geoname"/>
+			<Document>
+				<xsl:apply-templates select="geoname"/>
+			</Document>
 		</kml>
 	</xsl:template>
 	<xsl:template match="geoname">
@@ -12,7 +14,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.opengis.net/k
 			<name><xsl:value-of select="name"/></name>
 			<description>Ciudad de <xsl:value-of select="toponymName"/>. Pais: <xsl:value-of select="countryName"/></description>
 			<Point>
-     			<coordinates><xsl:value-of select="lat"/>,<xsl:value-of select="lng"/>,0</coordinates>
+     			<coordinates><xsl:value-of select="lng"/>,<xsl:value-of select="lat"/>,0</coordinates>
      		</Point>
 		</Placemark>
 	</xsl:template>

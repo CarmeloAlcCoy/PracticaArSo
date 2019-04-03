@@ -1,72 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
 <Placemark>
 <name>Cartagena</name>
 <description>Ciudad de Cartagena. Pais: Colombia</description>
 <Point>
-<coordinates>10.39972,-75.51444,0</coordinates>
+<coordinates>-75.51444,10.39972,0</coordinates>
 </Point>
 </Placemark>
 <Placemark>
 <name>Cartagena</name>
 <description>Ciudad de Cartagena. Pais: Spain</description>
 <Point>
-<coordinates>37.60512,-0.98623,0</coordinates>
-</Point>
-</Placemark>
-<Placemark>
-<name>Cartagena</name>
-<description>Ciudad de Cartagena. Pais: Cuba</description>
-<Point>
-<coordinates>21.2,-77.5,0</coordinates>
-</Point>
-</Placemark>
-<Placemark>
-<name>Cartagena</name>
-<description>Ciudad de Cartagena. Pais: Peru</description>
-<Point>
-<coordinates>-6.60938,-80.07765,0</coordinates>
+<coordinates>-0.98623,37.60512,0</coordinates>
 </Point>
 </Placemark>
 <Placemark>
 <name>Cartagena</name>
 <description>Ciudad de Cartagena. Pais: Philippines</description>
 <Point>
-<coordinates>9.8203,122.4004,0</coordinates>
-</Point>
-</Placemark>
-<Placemark>
-<name>Cartagena del Chairá</name>
-<description>Ciudad de Cartagena del Chairá. Pais: Colombia</description>
-<Point>
-<coordinates>0.85246,-74.6059,0</coordinates>
+<coordinates>122.4004,9.8203,0</coordinates>
 </Point>
 </Placemark>
 <Placemark>
 <name>Cartagena</name>
 <description>Ciudad de Cartagena. Pais: Peru</description>
 <Point>
-<coordinates>-6.59324,-80.02493,0</coordinates>
+<coordinates>-80.02493,-6.59324,0</coordinates>
 </Point>
 </Placemark>
 <Placemark>
 <name>Cartagena</name>
 <description>Ciudad de Cartagena. Pais: Chile</description>
 <Point>
-<coordinates>-34.38188,-70.86932,0</coordinates>
+<coordinates>-70.86932,-34.38188,0</coordinates>
 </Point>
 </Placemark>
 <Placemark>
 <name>Cartagena</name>
 <description>Ciudad de Cartagena. Pais: Mexico</description>
 <Point>
-<coordinates>25.13377,-100.14913,0</coordinates>
+<coordinates>-100.14913,25.13377,0</coordinates>
 </Point>
 </Placemark>
 <Placemark>
 <name>Cartagena</name>
 <description>Ciudad de Cartagena. Pais: Cuba</description>
 <Point>
-<coordinates>22.42569,-80.45861,0</coordinates>
+<coordinates>-80.45861,22.42569,0</coordinates>
 </Point>
 </Placemark>
+<Placemark>
+<name>Cartagena</name>
+<description>Ciudad de Cartagena. Pais: Mexico</description>
+<Point>
+<coordinates>-103.34838,21.97449,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Cartagena</name>
+<description>Ciudad de Cartagena. Pais: Chile</description>
+<Point>
+<coordinates>-71.60761,-33.55384,0</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Cartagena</name>
+<description>Ciudad de Cartagena. Pais: Colombia</description>
+<Point>
+<coordinates>-74.13337,10.33482,0</coordinates>
+</Point>
+</Placemark>
+</Document>
 </kml>
