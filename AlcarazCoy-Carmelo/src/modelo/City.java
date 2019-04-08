@@ -17,11 +17,12 @@ public class City {
 	private Date updatedDate;
 	private MeteoInfo meteoInfo;
 	private List<InterestPlace> pointsOfInterest;
-	
+	private List<Book> books;
 	
 	public City() {
 		super();
 		pointsOfInterest= new ArrayList<InterestPlace>();
+		books = new ArrayList<Book>();
 	}
 	
 	public City(String name, int id, String country, double latitude, double longitude) {
@@ -126,6 +127,20 @@ public class City {
 	public void addPointsOfInterest(List<InterestPlace> pointsOfInterest) {
 		this.pointsOfInterest.addAll(pointsOfInterest);
 	}
+	
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public boolean addBook(Book book) {
+		if(books.size()<3) { 
+			books.add(book);
+			return true;
+		}
+		return false;
+	}
+	
+	
 
 	@Override
 	public String toString() {

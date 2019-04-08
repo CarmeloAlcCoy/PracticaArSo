@@ -13,23 +13,24 @@
 				<element name="position" type="tns:Position" />
 				<element name="urlBDpedia" minOccurs="0" type="tns:url" />
 				<element name="urlWikipedia" minOccurs="0" type="tns:url" />
-				<element name="meteoInfo" minOccurs="0"
-					type="tns:MeteoInfo" />
+				<element name="meteoInfo" minOccurs="0" type="tns:MeteoInfo" />
 				<element name="interestPlace" minOccurs="0"
 					maxOccurs="unbounded" type="tns:InterestPlace" />
+				<element name="book" type="tns:Book" minOccurs="0"
+					maxOccurs="3" />
 			</sequence>
-			<attribute name="id" type="positiveInteger"/>
+			<attribute name="id" type="positiveInteger" />
 			<attribute name="updatedOn" type="date" />
 		</complexType>
 	</element>
-	
+
 	<simpleType name="url">
 		<restriction base="string">
 			<pattern
 				value="(http(s)?:\/\/)?(www\.)?[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]+(\/[a-zA-Z0-9\.\-_~:/?#\[\]$@%!&amp;&apos;\(\)\*\+,;=]+)*" />
 		</restriction>
 	</simpleType>
-	
+
 	<complexType name="Position">
 		<sequence>
 			<element name="lat">
@@ -63,6 +64,15 @@
 		<sequence>
 			<element name="name" type="string" />
 			<element name="id" type="positiveInteger" />
+		</sequence>
+	</complexType>
+	<complexType name="Book">
+		<sequence>
+			<element name="title" type="string" />
+			<element name="id" type="string" />
+			<element name="isbn" type="string" />
+			<element name="img" type="tns:url"/>
+			<element name="urlGoogleBooks" type="tns:url"/>
 		</sequence>
 	</complexType>
 </schema>

@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2019.03.31 a las 03:14:23 PM CEST 
+// Generado el: 2019.04.08 a las 04:13:41 PM CEST 
 //
 
 
@@ -39,6 +39,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="urlWikipedia" type="{http://www.example.org/Schema}url" minOccurs="0"/>
  *         &lt;element name="meteoInfo" type="{http://www.example.org/Schema}MeteoInfo" minOccurs="0"/>
  *         &lt;element name="interestPlace" type="{http://www.example.org/Schema}InterestPlace" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="book" type="{http://www.example.org/Schema}Book" maxOccurs="3" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}positiveInteger" />
  *       &lt;attribute name="updatedOn" type="{http://www.w3.org/2001/XMLSchema}date" />
@@ -58,7 +59,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "urlBDpedia",
     "urlWikipedia",
     "meteoInfo",
-    "interestPlace"
+    "interestPlace",
+    "book"
 })
 @XmlRootElement(name = "city")
 public class City {
@@ -76,6 +78,7 @@ public class City {
     protected String urlWikipedia;
     protected MeteoInfo meteoInfo;
     protected List<InterestPlace> interestPlace;
+    protected List<Book> book;
     @XmlAttribute(name = "id")
     @XmlSchemaType(name = "positiveInteger")
     protected BigInteger id;
@@ -278,6 +281,35 @@ public class City {
             interestPlace = new ArrayList<InterestPlace>();
         }
         return this.interestPlace;
+    }
+
+    /**
+     * Gets the value of the book property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the book property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getBook().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Book }
+     * 
+     * 
+     */
+    public List<Book> getBook() {
+        if (book == null) {
+            book = new ArrayList<Book>();
+        }
+        return this.book;
     }
 
     /**

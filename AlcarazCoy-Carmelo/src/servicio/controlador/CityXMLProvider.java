@@ -16,6 +16,12 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -23,7 +29,9 @@ import org.xml.sax.SAXException;
 import javanet.staxutils.IndentingXMLStreamWriter;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
+import modelo.Book;
 import modelo.City;
 import modelo.MeteoInfo;
 import modelo.InterestPlace;
@@ -37,6 +45,11 @@ import static servicio.controlador.Constants.*;
  */
 public class CityXMLProvider {
 
+	private static final String ULR_GOOGLE_BOOKS = "ulrGoogleBooks";
+	private static final String IMG = "img";
+	private static final String ISBN = "isbn";
+	private static final String BOOK_ID = "id";
+	private static final String TITLE = "title";
 	private City city;
 	private String countryCode;
 
@@ -116,6 +129,19 @@ public class CityXMLProvider {
 		}
 		parseWeather(weatherResource);
 
+		Document bookResource;
+		uri = "http://books.google.com/books/feeds/volumes?q=" + city.getName() + "&start-index=1&max-results=100";
+		try {
+			bookResource = analizador.parse(uri);
+
+		} catch (IOException e) {
+			throw new ParseXMLException(uri, "Unknown:" + e.toString());
+		} catch (SAXException e) {
+			throw new ParseXMLException(uri, "XML invalid File" + e.toString());
+		}
+
+		parseBook(bookResource);
+
 		try {
 			writeCity();
 		} catch (IOException e) {
@@ -126,17 +152,6 @@ public class CityXMLProvider {
 			throw new ParseXMLException("XMLStreamException", e.toString());
 		}
 	}
-
-	/*
-	 * private void parseResourceUri(Document resourceUri) throws ParseXMLException
-	 * { // <gn:name>Cartagena</gn:name> NodeList list =
-	 * resourceUri.getElementsByTagName(NAME_TAG_NAME); if (list.getLength() == 0) {
-	 * throw new ParseXMLException(resourceUri.getBaseURI(), FIELD_NOT_FOUND +
-	 * NAME_TAG_NAME); } Element name = (Element) list.item(0);
-	 * city.setName(name.getTextContent());
-	 * 
-	 * }
-	 */
 
 	private String parseRDF(Document resourceUrl) throws ParseXMLException {
 
@@ -334,9 +349,73 @@ public class CityXMLProvider {
 		city.setMeteoInfo(meteo);
 	}
 
+	private void parseBook(Document document) throws ParseXMLException {
+
+		XPathFactory factoria = XPathFactory.newInstance();
+		XPath xpath = factoria.newXPath();
+		xpath.setNamespaceContext(new EspaciosNombres());
+
+		NodeList list;
+
+		try {
+
+			XPathExpression consulta = xpath.compile("//entry[contains(subject,'" + city.getName() + "') "
+					+ "and contains(subject, '" + city.getCountry() + "') ]");
+			XPathExpression consultaTitulo = xpath.compile("title");
+			XPathExpression consultaId = xpath.compile("id");
+			XPathExpression consultaISBN = xpath.compile("identifier[contains(., 'ISBN') ][1]");
+			XPathExpression consultaImg = xpath.compile("link[contains(@type, 'image')]/@href[1]");
+			XPathExpression consultaUrl = xpath.compile("link[@type ='text/html']/@href[1]");
+			list = (NodeList) consulta.evaluate(document, XPathConstants.NODESET);
+
+			Book libro = new Book();
+			for (int i = 0; i < list.getLength(); i++) {
+				libro = new Book();
+				Element book = (Element) list.item(i);
+				
+				Node title;
+				title = (Node) consultaTitulo.evaluate(book, XPathConstants.NODE);
+				if (title == null)
+					throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND + "Title");
+				libro.setTitle(title.getTextContent());
+
+				Node id;
+				id = (Node) consultaId.evaluate(book, XPathConstants.NODE);
+				if (id == null)
+					throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND + "Id");
+
+				libro.setId(id.getTextContent());
+
+				Node isbn;
+				isbn = (Node) consultaISBN.evaluate(book, XPathConstants.NODE);
+				if (isbn != null)
+					libro.setIsbn(isbn.getTextContent());
+
+				Node img;
+				img= (Node)consultaImg.evaluate(book, XPathConstants.NODE);
+				if (img == null)
+					throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND + "IMG");
+				libro.setImg(img.getTextContent());
+				
+				Node url;
+				url= (Node)consultaUrl.evaluate(book, XPathConstants.NODE);
+				if (url == null)
+					throw new ParseXMLException(document.getBaseURI(), FIELD_NOT_FOUND + "url");
+				libro.setUrlGoogleBooks(url.getTextContent());
+				
+				city.addBook(libro);
+			}
+
+		} catch (XPathExpressionException e) {
+			throw new ParseXMLException(document.getBaseURI(), "XPATH" + e.toString());
+
+		}
+
+	}
+
 	private void writeCity() throws FileNotFoundException, XMLStreamException {
 		XMLOutputFactory xof = XMLOutputFactory.newInstance();
-		XMLStreamWriter writer = xof.createXMLStreamWriter(new FileOutputStream(RUTA_BD + city.getId() + ".xml"));
+		XMLStreamWriter writer = xof.createXMLStreamWriter(new FileOutputStream(RUTA_BD + city.getId() + ".xml"), "UTF-8");
 		writer = new IndentingXMLStreamWriter(writer); // Duda 1
 		writer.writeStartDocument("UTF-8", "1.0"); // Solved
 		writer.writeStartElement(ELEMENT_CITY);
@@ -389,6 +468,19 @@ public class CityXMLProvider {
 			writeElement(writer, ID, Integer.toString(place.getId()));
 			writer.writeEndElement();
 		}
+
+		for (Book book : city.getBooks()) {
+			writer.writeStartElement("book");
+			writeElement(writer, TITLE, book.getTitle());
+			writeElement(writer, BOOK_ID, book.getId());
+			if (book.getIsbn() != null)
+				writeElement(writer, ISBN, book.getIsbn());
+			writeElement(writer, IMG, book.getImg());
+			writeElement(writer, ULR_GOOGLE_BOOKS, book.getUrlGoogleBooks());
+
+			writer.writeEndElement();
+		}
+
 		writer.writeEndElement();
 		writer.writeEndDocument();
 		writer.flush();

@@ -9,9 +9,9 @@
   </position>
   <urlBDpedia>http://dbpedia.org/resource/Cartagena%2C_Spain</urlBDpedia>
   <urlWikipedia>https://en.wikipedia.org/wiki/Cartagena%2C_Spain</urlWikipedia>
-  <meteoInfo takenOn="2019-04-03T07:00:00">
+  <meteoInfo takenOn="2019-04-08T04:00:00">
     <stationName>International airport of the Region of Murcia</stationName>
-    <temperature>15.0</temperature>
+    <temperature>19.0</temperature>
     <clouds>clouds and visibility OK</clouds>
   </meteoInfo>
   <interestPlace>
@@ -50,4 +50,17 @@
     <name>HUSA CARTAGONOVA Hotel &amp; Spa</name>
     <id>6482678</id>
   </interestPlace>
+  <book>
+    <title>El habla de Cartagena</title>
+    <id>http://www.google.com/books/feeds/volumes/1iuJz2Ku9YQC</id>
+    <isbn>ISBN:8476840187</isbn>
+    <img>http://books.google.com/books/content?id=1iuJz2Ku9YQC&amp;printsec=frontcover&amp;img=1&amp;zoom=5&amp;edge=curl&amp;source=gbs_gdata</img>
+    <ulrGoogleBooks>http://books.google.com/books?id=1iuJz2Ku9YQC&amp;dq=Cartagena&amp;source=gbs_gdata</ulrGoogleBooks>
+  </book>
+  <book>
+    <title>El Concejo de Cartagena en el siglo XIII</title>
+    <id>http://www.google.com/books/feeds/volumes/ELQMAAAAYAAJ</id>
+    <img>http://books.google.com/books/content?id=ELQMAAAAYAAJ&amp;printsec=frontcover&amp;img=1&amp;zoom=5&amp;source=gbs_gdata</img>
+    <ulrGoogleBooks>http://books.google.com/books?id=ELQMAAAAYAAJ&amp;dq=Cartagena&amp;source=gbs_gdata</ulrGoogleBooks>
+  </book>
 </city>
