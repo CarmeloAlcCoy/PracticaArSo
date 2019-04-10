@@ -130,7 +130,7 @@ public class CityXMLProvider {
 		parseWeather(weatherResource);
 
 		Document bookResource;
-		uri = "http://books.google.com/books/feeds/volumes?q=" + city.getName() + "&start-index=1&max-results=100";
+		uri = "http://books.google.com/books/feeds/volumes?q=" + city.getName() + "&start-index=1";
 		try {
 			bookResource = analizador.parse(uri);
 

@@ -58,7 +58,7 @@ public class ServicioGeoNames {
 
 	private Marshaller createMarshaller(JAXBContext con) {
 		Marshaller marshaller;
-				
+
 		try {
 			marshaller = con.createMarshaller();
 
@@ -168,6 +168,8 @@ public class ServicioGeoNames {
 		File f = new File(Constants.RUTA_BD + "favoritos-" + id + ".xml");
 		if (!f.exists())
 			try {
+				CiudadesFavoritas ciudades = new CiudadesFavoritas(id);
+				marshallCiudadFavorita(ciudades, f);
 				f.createNewFile();
 			} catch (IOException e) {
 				throw new ParseXMLException(Constants.RUTA_BD + "favoritos-" + id + ".xml", "Unknown:" + e.toString());
@@ -183,21 +185,11 @@ public class ServicioGeoNames {
 
 		CiudadesFavoritas ciudades;
 
-		if (file.length() != 0) {
+		ciudades = unmarshallCiudadFavorita(file);
 
-			ciudades = unmarshallCiudadFavorita(file);
-
-			if (!ciudades.getCiudadesFavoritas().contains(idGeoNames)) {
-				ciudades.addCiudadFavorita(idGeoNames);
-
-				marshallCiudadFavorita(ciudades, file);
-			}
-		} else {
-
-			ciudades = new CiudadesFavoritas(idFavoritos);
+		if (!ciudades.getCiudadesFavoritas().contains(idGeoNames)) {
 			ciudades.addCiudadFavorita(idGeoNames);
 			marshallCiudadFavorita(ciudades, file);
-
 		}
 
 	}
@@ -227,7 +219,7 @@ public class ServicioGeoNames {
 	}
 
 	public void removeDocumentoFavoritos(String idFavoritos) {
-		File file = new File(RUTA_BD + idFavoritos + ".xml");
+		File file = new File(RUTA_BD +"favoritos-" + idFavoritos + ".xml");
 		if (file.exists())
 			file.delete();
 
