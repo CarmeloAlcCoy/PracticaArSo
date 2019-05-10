@@ -1,10 +1,7 @@
 package servicio.rest;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.FormParam;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -20,15 +17,20 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
+import servicio.controlador.CityServiceException;
 import servicio.controlador.ServicioGeoNames;
 import servicio.tipos.City;
 import servicio.tipos.CiudadesFavoritas;
 import servicio.tipos.ListadoCiudades;
 
+import static servicio.controlador.Constants.INVALID_SEARCH;
+
 
 
 @Path("ciudades")
 public class ServicioCiudades {
+
+	
 
 	private ServicioGeoNames controlador = ServicioGeoNames.getUnicaInstancia();
 
@@ -40,6 +42,8 @@ public class ServicioCiudades {
 	@GET
 	public Response buscarCiudad(
 			@QueryParam("ciudad") String busqueda) {
+		if(busqueda==null)
+			throw new CityServiceException(INVALID_SEARCH, "Must Provide Parameter 'Ciudad'"); 
 		ListadoCiudades ciudades = controlador.getResultadosBusquedaXML(busqueda);
 		return Response.status(Status.OK).entity(ciudades).build();
 		

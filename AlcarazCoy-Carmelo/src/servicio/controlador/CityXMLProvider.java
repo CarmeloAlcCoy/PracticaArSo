@@ -137,8 +137,6 @@ public class CityXMLProvider {
 		Document bookResource;
 
 		uri =URI_GOOGLE_BOOKS+"q=" + city.getName() + "&start-index=1";
-		System.err.println(uri);
-
 		try {
 			bookResource = analizador.parse(uri);
 
@@ -373,7 +371,7 @@ public class CityXMLProvider {
 			XPathExpression consultaImg = xpath.compile("link[contains(@type, 'image')]/@href[1]");
 			XPathExpression consultaUrl = xpath.compile("link[@type ='text/html']/@href[1]");
 			list = (NodeList) consulta.evaluate(document, XPathConstants.NODESET);
-			System.err.println(consulta.toString());
+			
 			Book libro = new Book();
 			for (int i = 0; i < list.getLength(); i++) {
 				libro = new Book();

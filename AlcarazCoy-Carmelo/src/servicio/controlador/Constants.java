@@ -14,6 +14,7 @@ public class Constants {
 	public static final String INVALID_ID = "Invalid id: ";
 	public static final String FIELD_NOT_FOUND = "Could not find field:";
 	public static final String INTERNAL_ERROR = "Internal Server Exception";
+	public static final String INVALID_SEARCH = "Invalid Search";
 
 	// NameSpaces
 	public static final String GN_NAMESPACE = "http://www.geonames.org/ontology#";
