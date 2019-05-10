@@ -17,12 +17,12 @@ public class Ejercicio3 {
 
 		// 2. Pedir a la factoría la construcción del analizador
 		SAXParser analizador = factoria.newSAXParser();
-
+		System.out.println("Aquí");
 		// 3. Analizar el documento
 		try {
 			Manejador manejador = new Manejador();
 			
-			analizador.parse("http://api.geonames.org/search?name=Cartagena&username=arso&featureClass=P", manejador); //Duda 3
+			analizador.parse("http://api.geonames.org/search?name=Cartagena&username=arso&featureClass=P", manejador); 
 
 			for (CityResult ciudad : manejador.getCiudades()) {
 				System.out.println(ciudad);

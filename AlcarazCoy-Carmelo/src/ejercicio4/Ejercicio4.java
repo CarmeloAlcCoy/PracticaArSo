@@ -7,7 +7,7 @@ import org.xml.sax.SAXException;
 
 public class Ejercicio4 {
 
-	public static void main(String[] args) throws ParserConfigurationException, SAXException,  XMLStreamException, ParseXMLException {
+	public static void main(String[] args) throws ParserConfigurationException, SAXException,  XMLStreamException, CityServiceException {
 		
 		Analizador analizador = new Analizador();
 		analizador.analiza();

@@ -2,6 +2,7 @@ package servicio.controlador;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,8 @@ import org.xml.sax.SAXException;
 
 import static servicio.controlador.Constants.RUTA_BD;
 import static servicio.controlador.Constants.CONSULTA_GEONAMES;
+import static servicio.controlador.Constants.INTERNAL_ERROR;
+import static servicio.controlador.Constants.INVALID_ID;
 
 import servicio.tipos.City;
 import servicio.tipos.CiudadResultado;
@@ -38,25 +41,25 @@ public class ServicioGeoNames {
 			folder.mkdir();
 	}
 
-	private ServicioGeoNames() throws ParseXMLException {
+	private ServicioGeoNames() throws CityServiceException {
 		// Construimos el analizador SAX
 		factoriaSAX = SAXParserFactory.newInstance();
 		try {
 			contexto = JAXBContext.newInstance("servicio.tipos");
 			contextoFavorito = JAXBContext.newInstance(CiudadesFavoritas.class);
 		} catch (JAXBException e) {
-			throw new ParseXMLException("JAXBFactory", "Unknown");
+			throw new CityServiceException(INTERNAL_ERROR, "JAXBFactory" + e.toString());
 		}
 
 	}
 
-	public static ServicioGeoNames getUnicaInstancia() throws ParseXMLException {
+	public static ServicioGeoNames getUnicaInstancia() throws CityServiceException {
 		if (unicaInstancia == null)
 			unicaInstancia = new ServicioGeoNames();
 		return unicaInstancia;
 	}
 
-	private Marshaller createMarshaller(JAXBContext con) {
+	private Marshaller createMarshaller(JAXBContext con) throws CityServiceException {
 		Marshaller marshaller;
 
 		try {
@@ -68,29 +71,29 @@ public class ServicioGeoNames {
 			if (con.equals(contexto))
 				marshaller.setProperty("jaxb.schemaLocation", "http://www.example.org/schema Schema.xsd ");
 		} catch (JAXBException e) {
-			throw new ParseXMLException("Marshaller", e.toString());
+			throw new CityServiceException(INTERNAL_ERROR, "Marshaller" + e.toString());
 		}
 		return marshaller;
 	}
 
-	private Unmarshaller createUnmarshaller(JAXBContext con) {
+	private Unmarshaller createUnmarshaller(JAXBContext con) throws CityServiceException {
 		try {
 			return con.createUnmarshaller();
 		} catch (JAXBException e) {
-			throw new ParseXMLException("Unmarshaller", e.toString());
+			throw new CityServiceException(INTERNAL_ERROR, "Unmarshaller" + e.toString());
 		}
 	}
 
-	private void marshallCiudadFavorita(CiudadesFavoritas ciudades, File file) throws ParseXMLException {
+	private void marshallCiudadFavorita(CiudadesFavoritas ciudades, File file) throws CityServiceException {
 		Marshaller marshaller = createMarshaller(contextoFavorito);
 		try {
 			marshaller.marshal(ciudades, file);
 		} catch (JAXBException e) {
-			throw new ParseXMLException("Marshall", e.toString());
+			throw new CityServiceException(INTERNAL_ERROR, "Marshall" + e.toString());
 		}
 	}
 
-	private CiudadesFavoritas unmarshallCiudadFavorita(File file) throws ParseXMLException {
+	private CiudadesFavoritas unmarshallCiudadFavorita(File file) throws CityServiceException {
 
 		CiudadesFavoritas ciudades;
 		Unmarshaller unmarshaller = createUnmarshaller(contextoFavorito);
@@ -98,29 +101,31 @@ public class ServicioGeoNames {
 		try {
 			ciudades = (CiudadesFavoritas) unmarshaller.unmarshal(file);
 		} catch (JAXBException e) {
-			throw new ParseXMLException("UnMarshall", e.toString());
+			throw new CityServiceException(INTERNAL_ERROR, "UnMarshall" + e.toString());
 		}
 		return ciudades;
 	}
 
-	public List<CiudadResultado> buscar(String busqueda) throws ParseXMLException {
+	public List<CiudadResultado> buscar(String busqueda) throws CityServiceException {
 		Manejador manejador = new Manejador();
 
 		try {
 			SAXParser analizadorSAX = factoriaSAX.newSAXParser();
-			analizadorSAX.parse(CONSULTA_GEONAMES + busqueda, manejador);
+			String uri= CONSULTA_GEONAMES+URLEncoder.encode(busqueda, "UTF-8");;
+			analizadorSAX.parse(uri, manejador);
 
 		} catch (IOException e) {
-			throw new ParseXMLException(CONSULTA_GEONAMES + busqueda, "Unknown:" + e.toString());
+			throw new CityServiceException(INTERNAL_ERROR,
+					"Could not open" + CONSULTA_GEONAMES+busqueda+ "\n" + e.toString());
 		} catch (SAXException e) {
-			throw new ParseXMLException(CONSULTA_GEONAMES + busqueda, "XML invalid File" + e.toString());
+			throw new CityServiceException(INTERNAL_ERROR, "XML invalid File\n" + e.toString());
 		} catch (ParserConfigurationException e) {
-			throw new ParseXMLException(CONSULTA_GEONAMES + busqueda, "Parser Exception:" + e.toString());
+			throw new CityServiceException(INTERNAL_ERROR, "ParserConfiguration\n" + e.toString());
 		}
 		return manejador.getCiudades();
 	}
 
-	public ListadoCiudades getResultadosBusquedaXML(String busqueda) throws ParseXMLException {
+	public ListadoCiudades getResultadosBusquedaXML(String busqueda) throws CityServiceException {
 
 		ListadoCiudades lc = new ListadoCiudades();
 		lc.setResultados(buscar(busqueda));
@@ -128,7 +133,7 @@ public class ServicioGeoNames {
 
 	}
 
-	public City getCiudad(String idGeoNames) throws ParseXMLException {
+	public City getCiudad(String idGeoNames) throws CityServiceException {
 
 		File file = recuperarDocumento(idGeoNames);
 
@@ -138,14 +143,14 @@ public class ServicioGeoNames {
 			unmarshaller = createUnmarshaller(contexto);
 			calificaciones = (City) unmarshaller.unmarshal(file);
 		} catch (JAXBException e) {
-			throw new ParseXMLException("JAXBUnMarshaller", e.toString());
+			throw new CityServiceException(INTERNAL_ERROR, "JAXBUnMarshaller\n" + e.toString());
 		}
 
 		return calificaciones;
 
 	}
 
-	private File recuperarDocumento(String idGeoNames) throws ParseXMLException {
+	private File recuperarDocumento(String idGeoNames) throws CityServiceException {
 		File file = new File(Constants.RUTA_BD + idGeoNames + ".xml");
 
 		Calendar calendar = Calendar.getInstance();
@@ -162,7 +167,7 @@ public class ServicioGeoNames {
 
 	}
 
-	public String crearDocumentoFavoritos() throws ParseXMLException {
+	public String crearDocumentoFavoritos() throws CityServiceException {
 		String id = UUID.randomUUID().toString();
 
 		File f = new File(Constants.RUTA_BD + "favoritos-" + id + ".xml");
@@ -172,16 +177,17 @@ public class ServicioGeoNames {
 				marshallCiudadFavorita(ciudades, f);
 				f.createNewFile();
 			} catch (IOException e) {
-				throw new ParseXMLException(Constants.RUTA_BD + "favoritos-" + id + ".xml", "Unknown:" + e.toString());
+				throw new CityServiceException(INTERNAL_ERROR,
+						"Could not open" + Constants.RUTA_BD + "favoritos-" + id + ".xml\n" + e.toString());
 			}
 
 		return id;
 	}
 
-	public void addCiudadFavorita(String idFavoritos, String idGeoNames) throws ParseXMLException {
+	public void addCiudadFavorita(String idFavoritos, String idGeoNames) throws CityServiceException {
 		File file = new File(RUTA_BD + "favoritos-" + idFavoritos + ".xml");
 		if (!file.exists())
-			throw new ParseXMLException(RUTA_BD + "favoritos-" + idFavoritos + ".xml", "Not found");
+			throw new CityServiceException(INVALID_ID + idFavoritos, "Not found");
 
 		CiudadesFavoritas ciudades;
 
@@ -194,7 +200,7 @@ public class ServicioGeoNames {
 
 	}
 
-	public boolean removeCiudadFavorita(String idFavoritos, String idGeoNames) throws ParseXMLException {
+	public boolean removeCiudadFavorita(String idFavoritos, String idGeoNames) throws CityServiceException {
 		File file = new File(RUTA_BD + "favoritos-" + idFavoritos + ".xml");
 		if (!file.exists())
 			return false;
@@ -208,7 +214,7 @@ public class ServicioGeoNames {
 		return removed;
 	}
 
-	public CiudadesFavoritas getFavoritos(String idFavoritos) throws ParseXMLException {
+	public CiudadesFavoritas getFavoritos(String idFavoritos) throws CityServiceException {
 
 		File file = new File(RUTA_BD + "favoritos-" + idFavoritos + ".xml");
 		if (!file.exists())
@@ -219,7 +225,7 @@ public class ServicioGeoNames {
 	}
 
 	public void removeDocumentoFavoritos(String idFavoritos) {
-		File file = new File(RUTA_BD +"favoritos-" + idFavoritos + ".xml");
+		File file = new File(RUTA_BD + "favoritos-" + idFavoritos + ".xml");
 		if (file.exists())
 			file.delete();
 

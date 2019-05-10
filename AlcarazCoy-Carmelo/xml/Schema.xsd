@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.example.org/Schema"
-	xmlns:tns="http://www.example.org/Schema"
+	targetNamespace="http://www.example.org/Schema/ciudades"
+	xmlns:tns="http://www.example.org/Schema/ciudades"
 	elementFormDefault="qualified">
 
 	<element name="city">

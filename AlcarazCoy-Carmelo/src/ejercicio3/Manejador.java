@@ -22,12 +22,12 @@ public class Manejador extends DefaultHandler{
 	 * 
 	 * Los atributos son necesarios para: - Recordar el estado del procesamiento
 	 * (dentroElemento1, etc.) - Almacenar el resultado del procesamiento. Se
-	 * ofrecerá un método de consulta para obtener el resultado.
+	 * ofrecerï¿½ un mï¿½todo de consulta para obtener el resultado.
 	 * 
 	 */
 
 	/*
-	 * Nota: cuando el estado del procesamiento es complejo, puede resultar útil
+	 * Nota: cuando el estado del procesamiento es complejo, puede resultar ï¿½til
 	 * usar una pila, como por ejemplo, LinkedList<String>
 	 * 
 	 * - En el evento startElement: pila.push(qName);
