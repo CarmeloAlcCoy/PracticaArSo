@@ -1,4 +1,4 @@
-package servicio.tipos;
+package servicio.clases;
 
 import java.util.List;
 

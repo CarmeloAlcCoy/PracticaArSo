@@ -2,11 +2,9 @@ package ejercicio6;
 
 import java.util.List;
 
-
-
+import servicio.clases.CiudadResultado;
 import servicio.controlador.ServicioGeoNames;
-import servicio.tipos.City;
-import servicio.tipos.CiudadResultado;;
+import servicio.tipos.City;;
 
 public class Ejercicio6 {
 

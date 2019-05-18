@@ -363,13 +363,13 @@ public class CityXMLProvider {
 
 		try {
 
-			XPathExpression consulta = xpath.compile("//entry[contains(dc:subject,'" + city.getName() + "') "
+			XPathExpression consulta = xpath.compile("//a:entry[contains(dc:subject,'" + city.getName() + "') "
 					+ "and contains(dc:subject, '" + city.getCountry() + "') ]");
-			XPathExpression consultaTitulo = xpath.compile("title");
-			XPathExpression consultaId = xpath.compile("id");
+			XPathExpression consultaTitulo = xpath.compile("a:title");
+			XPathExpression consultaId = xpath.compile("a:id");
 			XPathExpression consultaISBN = xpath.compile("dc:identifier[contains(., 'ISBN') ][1]");
-			XPathExpression consultaImg = xpath.compile("link[contains(@type, 'image')]/@href[1]");
-			XPathExpression consultaUrl = xpath.compile("link[@type ='text/html']/@href[1]");
+			XPathExpression consultaImg = xpath.compile("a:link[contains(@type, 'image')]/@href[1]");
+			XPathExpression consultaUrl = xpath.compile("a:link[@type ='text/html']/@href[1]");
 			list = (NodeList) consulta.evaluate(document, XPathConstants.NODESET);
 			
 			Book libro = new Book();

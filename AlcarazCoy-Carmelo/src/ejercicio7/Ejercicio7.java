@@ -1,8 +1,8 @@
 package ejercicio7;
 
+import servicio.clases.CiudadesFavoritas;
+import servicio.clases.ListadoCiudades;
 import servicio.controlador.ServicioGeoNames;
-import servicio.tipos.CiudadesFavoritas;
-import servicio.tipos.ListadoCiudades;
 
 public class Ejercicio7 {
 

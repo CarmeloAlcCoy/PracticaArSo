@@ -12,7 +12,7 @@ public class EspaciosNombres implements NamespaceContext {
 	
 	public EspaciosNombres() {	
 		alias.put("c", "http://www.um.es/calificaciones");
-		alias.put("", "http://www.w3.org/2005/Atom");
+		alias.put("a", "http://www.w3.org/2005/Atom");
 		alias.put("openSearch", "http://a9.com/-/spec/opensearchrss/1.0/");
 		alias.put("gbs", "http://schemas.google.com/books/2008");
 		alias.put("gd", "http://schemas.google.com/g/2005");

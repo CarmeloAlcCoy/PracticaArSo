@@ -1,4 +1,4 @@
-package servicio.tipos;
+package servicio.clases;
 
 
 import javax.xml.bind.annotation.XmlElement;

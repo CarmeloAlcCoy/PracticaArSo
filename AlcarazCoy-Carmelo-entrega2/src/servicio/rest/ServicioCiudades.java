@@ -17,20 +17,20 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
+import org.w3c.dom.Node;
+
+import servicio.clases.CiudadesFavoritas;
+import servicio.clases.ListadoCiudades;
+import servicio.clases.ListadoCiudadesAtom;
+import servicio.clases.ListadoCiudadesJSON;
 import servicio.controlador.CityServiceException;
 import servicio.controlador.ServicioGeoNames;
 import servicio.tipos.City;
-import servicio.tipos.CiudadesFavoritas;
-import servicio.tipos.ListadoCiudades;
 
-import static servicio.controlador.Constants.INVALID_SEARCH;
+import static servicio.controlador.Constants.INVALID_PARAMETER;
 
-
-
-@Path("ciudades")
+@Path("servicioCiudades")
 public class ServicioCiudades {
-
-	
 
 	private ServicioGeoNames controlador = ServicioGeoNames.getUnicaInstancia();
 
@@ -38,21 +38,67 @@ public class ServicioCiudades {
 	private UriInfo uriInfo;
 	@Context
 	private HttpServletRequest request;
-	
+
 	@GET
-	public Response buscarCiudad(
-			@QueryParam("ciudad") String busqueda) {
-		if(busqueda==null)
-			throw new CityServiceException(INVALID_SEARCH, "Must Provide Parameter 'Ciudad'"); 
-		ListadoCiudades ciudades = controlador.getResultadosBusquedaXML(busqueda);
-		return Response.status(Status.OK).entity(ciudades).build();
-		
+	@Path("ciudades")
+	@Produces(MediaType.APPLICATION_XML)
+	public Response buscarCiudad(@QueryParam("ciudad") String busqueda) {
+		return buscarCiudadXML(busqueda);
+
 	}
 
 	@GET
-	@Path("/{id}")
-	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Path("ciudades.xml")
+	@Produces(MediaType.APPLICATION_XML)
+	public Response buscarCiudadXML(@QueryParam("ciudad") String busqueda) {
+		if (busqueda == null)
+			throw new CityServiceException(INVALID_PARAMETER, "Must Provide Parameter 'Ciudad'"); 
+		ListadoCiudades ciudades = controlador.getResultadosBusquedaXML(busqueda);
+		return Response.status(Status.OK).entity(ciudades).build();
+	}
+
+	@GET
+	@Path("ciudades.atom")
+	@Produces(MediaType.APPLICATION_ATOM_XML)
+	public Response buscarCiudadATOM(@QueryParam("ciudad") String busqueda,
+									@QueryParam("startRow") String startRow) {
+		if (busqueda == null)
+			throw new CityServiceException(INVALID_PARAMETER, "Must Provide Parameter 'Ciudad'");
+		int start = 1;
+		if (startRow != null) {
+			try {
+				start = Integer.parseInt(startRow);
+			} catch (NumberFormatException e) {
+				throw new CityServiceException(INVALID_PARAMETER, "'startRow must be an integer'");
+			}
+		}
+		ListadoCiudadesAtom ciudades = controlador.getResultadosBusquedaATOM(busqueda, start,
+				uriInfo.getAbsolutePath().toString());
+		return Response.status(Status.OK).entity(ciudades).build();
+
+	}
+
+	@GET
+	@Path("ciudades.kml")
+	@Produces(MediaType.APPLICATION_XML)
+	public Response buscarCiudadKML(@QueryParam("ciudad") String busqueda) {
+		if (busqueda == null)
+			throw new CityServiceException(INVALID_PARAMETER, "Must Provide Parameter 'Ciudad'");
+		Node ciudades = controlador.getResultadosBusquedaKML(busqueda);
+		return Response.status(Status.OK).entity(ciudades).build();
+	}
 	
+	@GET
+	@Path("ciudades.json")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response buscarCiudadJSON(@QueryParam("ciudad") String busqueda) {
+		ListadoCiudadesJSON ciudades = controlador.getResultadosBusquedaJSON(busqueda);
+		return Response.status(Status.OK).entity(ciudades).build();
+	}
+
+	@GET
+	@Path("ciudades/{id}")
+	@Produces(MediaType.APPLICATION_XML)
 	public Response getActividad(@PathParam("id") String id) {
 		City city = controlador.getCiudad(id);
 
@@ -63,52 +109,49 @@ public class ServicioCiudades {
 	}
 
 	@POST
-	@Path("/favoritas")
+	@Path("ciudades/favoritas")
+	@Produces(MediaType.APPLICATION_XML)
 	public Response crearDocumentoFavoritos() {
 		String id = controlador.crearDocumentoFavoritos();
-		
+
 		UriBuilder builder = uriInfo.getAbsolutePathBuilder();
 		builder.path(id);
 		return Response.created(builder.build()).build();
 	}
-	
+
 	@GET
-	@Path("/favoritas/{idDocumento}")
-	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public Response recuperarDocumentoFavoritos(
-			@PathParam("idDocumento") String id) {
-		
+	@Path("ciudades/favoritas/{idDocumento}")
+	@Produces( MediaType.APPLICATION_XML)
+	public Response recuperarDocumentoFavoritos(@PathParam("idDocumento") String id) {
+
 		CiudadesFavoritas favs = controlador.getFavoritos(id);
 		return Response.status(Status.OK).entity(favs).build();
 	}
-	
+
 	@DELETE
-	@Path("/favoritas/{idDocumento}")
-	public Response borrarDocumentoFavoritos(
-			@PathParam("idDocumento") String id) {
-		
+	@Path("ciudades/favoritas/{idDocumento}")
+	public Response borrarDocumentoFavoritos(@PathParam("idDocumento") String id) {
+
 		controlador.removeDocumentoFavoritos(id);
 		return Response.noContent().build();
 	}
-	
+
 	@PUT
-	@Path("/favoritas/{idDocumento}/{idGeoNames}")
-	public Response anadirCiudadDocumentoFavoritos(
-			@PathParam("idDocumento") String idDocumento,
+	@Path("ciudades/favoritas/{idDocumento}/{idGeoNames}")
+	public Response anadirCiudadDocumentoFavoritos(@PathParam("idDocumento") String idDocumento,
 			@PathParam("idGeoNames") String idGeoNames) {
-		
+
 		controlador.addCiudadFavorita(idDocumento, idGeoNames);
 		return Response.noContent().build();
 	}
-	
+
 	@DELETE
-	@Path("/favoritas/{idDocumento}/{idGeoNames}")
-	public Response borrarCiudadDocumentoFavoritos(
-			@PathParam("idDocumento") String idDocumento,
+	@Path("ciudades/favoritas/{idDocumento}/{idGeoNames}")
+	public Response borrarCiudadDocumentoFavoritos(@PathParam("idDocumento") String idDocumento,
 			@PathParam("idGeoNames") String idGeoNames) {
-		
+
 		controlador.removeCiudadFavorita(idDocumento, idGeoNames);
 		return Response.noContent().build();
 	}
-	
+
 }
