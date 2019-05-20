@@ -32,19 +32,20 @@ import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-
 import static servicio.controlador.Constants.RUTA_BD;
 import static servicio.controlador.Constants.CONSULTA_GEONAMES;
 import static servicio.controlador.Constants.INTERNAL_ERROR;
 import static servicio.controlador.Constants.INVALID_ID;
 
 import servicio.clases.CiudadResultado;
+import servicio.clases.CiudadResultadoJSON;
 import servicio.clases.CiudadesFavoritas;
 import servicio.clases.Entry;
 import servicio.clases.Link;
 import servicio.clases.ListadoCiudades;
 import servicio.clases.ListadoCiudadesAtom;
 import servicio.clases.ListadoCiudadesJSON;
+import servicio.clases.ListadoLinks;
 import servicio.tipos.City;
 
 public class ServicioGeoNames {
@@ -290,13 +291,14 @@ public class ServicioGeoNames {
 		lc.addLink("self", baseURI + "?ciudad=" + busqueda + "&startRow=" + startRow);
 		lc.addLink("next", baseURI + "?ciudad=" + busqueda + "&startRow=" + ((startRow - 1) / 10 * 10 + 11));
 
-		List<CiudadResultado> cities = buscarPaginada(busqueda, startRow, 10);
+		String uriSinExtension = baseURI.substring(0, baseURI.length()-5);
+		List<CiudadResultado> cities = buscarPaginada(busqueda, startRow, 100);
 		List<Entry> entries = cities.stream().map((c) -> new Entry(c.getName() + " (" + c.getCountry() + ")", // Title
-				baseURI + "/" + c.getId(), // Id
+				uriSinExtension + "/" + c.getId(), // Id
 				df.newXMLGregorianCalendar(now), // Updated
 				"Entry corresponding to the city of " + c.getName() + " in " + c.getCountry() + ". Coordinates:"
 						+ c.getLatitude() + "," + c.getLongitude(),
-						new Link("alternate", baseURI)))//Alternate Link
+				new Link("alternate", baseURI)))// Alternate Link
 				.collect(Collectors.toList());
 
 		lc.setEntries(entries);
@@ -304,22 +306,21 @@ public class ServicioGeoNames {
 
 	}
 
-	public Node getResultadosBusquedaKML(String busqueda)
-			throws CityServiceException {
-		//Creamos la factoria
+	public Node getResultadosBusquedaKML(String busqueda) throws CityServiceException {
+		// Creamos la factoria
 		TransformerFactory factoria = TransformerFactory.newInstance();
 		Transformer transformador;
-		//Obtenemos el archivo con una ruta relativa
-		InputStream transformacion= getClass().getClassLoader().getResourceAsStream("/xml/search2kml.xsl");
-		
-		//Construimos el transformador
+		// Obtenemos el archivo con una ruta relativa
+		InputStream transformacion = getClass().getClassLoader().getResourceAsStream("/xml/search2kml.xsl");
+
+		// Construimos el transformador
 		try {
 			transformador = factoria.newTransformer(new StreamSource(transformacion));
 		} catch (TransformerConfigurationException e) {
-			throw new CityServiceException(INTERNAL_ERROR, "TransformerConfiguration\n"+e.toString());
+			throw new CityServiceException(INTERNAL_ERROR, "TransformerConfiguration\n" + e.toString());
 		}
-		
-		//Creamos el origen
+
+		// Creamos el origen
 		Source origen;
 		try {
 			origen = new StreamSource(CONSULTA_GEONAMES + URLEncoder.encode(busqueda, "UTF-8"));
@@ -327,28 +328,47 @@ public class ServicioGeoNames {
 			throw new CityServiceException(INTERNAL_ERROR,
 					"Could not open" + CONSULTA_GEONAMES + busqueda + "\n" + e.toString());
 		}
-		
-		//Creamos el destino
+
+		// Creamos el destino
 		DOMResult destino = new DOMResult();
-		
-		//Realizamos la transformación
+
+		// Realizamos la transformación
 		try {
 			transformador.transform(origen, destino);
-			
+
 		} catch (TransformerException e) {
-			throw new CityServiceException(INTERNAL_ERROR, "TransformerConfiguration\n"+e.toString());
+			throw new CityServiceException(INTERNAL_ERROR, "TransformerConfiguration\n" + e.toString());
 		}
-		
+
 		return destino.getNode();
 	}
 
-	public ListadoCiudadesJSON getResultadosBusquedaJSON(String busqueda)
+	public ListadoCiudadesJSON getResultadosBusquedaJSON(String busqueda, int startRow, String baseURI)
 			throws CityServiceException {
-		ListadoCiudadesJSON ciudades = new ListadoCiudadesJSON("Cartagena", "Spain",0,0);
+		ListadoCiudadesJSON lc = new ListadoCiudadesJSON();
+		String uriSinExtension = baseURI.substring(0, baseURI.length()-5);
+		List<CiudadResultado> cities = buscarPaginada(busqueda, 0, 100);
+		List<CiudadResultadoJSON> _embedded = cities.stream().
+				skip(startRow).
+				limit(10).
+				map((c) -> new CiudadResultadoJSON(
+						c.getName(),c.getCountry(),c.getLatitude(),c.getLongitude(),uriSinExtension+"/"+c.getId()))
+				.collect(Collectors.toList());
+
+		lc.set_embedded(_embedded);
+		lc.setCount(_embedded.size());
+		lc.setTotal(cities.size());
 		
-		return ciudades;
+		ListadoLinks ll = new ListadoLinks(
+				new ListadoLinks.Link(baseURI + "?ciudad=" + busqueda + "&startRow=" + startRow),//self
+				new ListadoLinks.Link(baseURI + "?ciudad=" + busqueda + "&startRow=1"),//first
+				new ListadoLinks.Link(baseURI + "?ciudad=" + busqueda + "&startRow=" + ((startRow - 1) / 10 * 10 + 1)),//prev
+				new ListadoLinks.Link( baseURI + "?ciudad=" + busqueda + "&startRow=" + ((startRow - 1) / 10 * 10 + 11)),//next
+				new ListadoLinks.Link(baseURI + "?ciudad=" + busqueda + "&startRow="+cities.size()));//last
+		
+		lc.set_links(ll);
+		
+		return lc;
 	}
 
-	
-	
 }

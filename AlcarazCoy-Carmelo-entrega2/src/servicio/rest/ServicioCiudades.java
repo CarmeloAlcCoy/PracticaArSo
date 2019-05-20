@@ -52,7 +52,7 @@ public class ServicioCiudades {
 	@Produces(MediaType.APPLICATION_XML)
 	public Response buscarCiudadXML(@QueryParam("ciudad") String busqueda) {
 		if (busqueda == null)
-			throw new CityServiceException(INVALID_PARAMETER, "Must Provide Parameter 'Ciudad'"); 
+			throw new CityServiceException(INVALID_PARAMETER, "Must Provide Parameter 'Ciudad'");
 		ListadoCiudades ciudades = controlador.getResultadosBusquedaXML(busqueda);
 		return Response.status(Status.OK).entity(ciudades).build();
 	}
@@ -60,8 +60,7 @@ public class ServicioCiudades {
 	@GET
 	@Path("ciudades.atom")
 	@Produces(MediaType.APPLICATION_ATOM_XML)
-	public Response buscarCiudadATOM(@QueryParam("ciudad") String busqueda,
-									@QueryParam("startRow") String startRow) {
+	public Response buscarCiudadATOM(@QueryParam("ciudad") String busqueda, @QueryParam("startRow") String startRow) {
 		if (busqueda == null)
 			throw new CityServiceException(INVALID_PARAMETER, "Must Provide Parameter 'Ciudad'");
 		int start = 1;
@@ -87,12 +86,23 @@ public class ServicioCiudades {
 		Node ciudades = controlador.getResultadosBusquedaKML(busqueda);
 		return Response.status(Status.OK).entity(ciudades).build();
 	}
-	
+
 	@GET
 	@Path("ciudades.json")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response buscarCiudadJSON(@QueryParam("ciudad") String busqueda) {
-		ListadoCiudadesJSON ciudades = controlador.getResultadosBusquedaJSON(busqueda);
+	public Response buscarCiudadJSON(@QueryParam("ciudad") String busqueda, @QueryParam("startRow") String startRow) {
+		if (busqueda == null)
+			throw new CityServiceException(INVALID_PARAMETER, "Must Provide Parameter 'Ciudad'");
+		int start = 1;
+		if (startRow != null) {
+			try {
+				start = Integer.parseInt(startRow);
+			} catch (NumberFormatException e) {
+				throw new CityServiceException(INVALID_PARAMETER, "'startRow must be an integer'");
+			}
+		}
+		ListadoCiudadesJSON ciudades = controlador.getResultadosBusquedaJSON(busqueda, start,
+				uriInfo.getAbsolutePath().toString());
 		return Response.status(Status.OK).entity(ciudades).build();
 	}
 
@@ -121,7 +131,7 @@ public class ServicioCiudades {
 
 	@GET
 	@Path("ciudades/favoritas/{idDocumento}")
-	@Produces( MediaType.APPLICATION_XML)
+	@Produces(MediaType.APPLICATION_XML)
 	public Response recuperarDocumentoFavoritos(@PathParam("idDocumento") String id) {
 
 		CiudadesFavoritas favs = controlador.getFavoritos(id);

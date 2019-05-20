@@ -1,70 +1,62 @@
 package servicio.clases;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "feed")
+@XmlRootElement(name = "")
 public class ListadoCiudadesJSON {
-
-	private String name;
-	private String country;
-	private double latitude;
-	private double longitude;
 	
+	private ListadoLinks _links;
+	private int count;
+	private int total;
+	private List<CiudadResultadoJSON> _embedded;
 	
 	public ListadoCiudadesJSON() {
 		super();
-
 	}
 
-	public ListadoCiudadesJSON(String name, String country, double latitude, double longitude) {
-		this();
-		this.name = name;
-		this.country = country;
-		this.latitude = latitude;
-		this.longitude = longitude;
+	public ListadoCiudadesJSON(ListadoLinks _links, int count, int total, List<CiudadResultadoJSON> _embedded) {
+		super();
+		this._links = _links;
+		this.count = count;
+		this.total = total;
+		this._embedded = _embedded;
 	}
 
-
-
-	public String getName() {
-		return name;
+	public ListadoLinks get_links() {
+		return _links;
 	}
 
-
-	public void setName(String name) {
-		this.name = name;
+	public void set_links(ListadoLinks _links) {
+		this._links = _links;
 	}
 
-
-	public String getCountry() {
-		return country;
+	public int getCount() {
+		return count;
 	}
 
-
-	public void setCountry(String country) {
-		this.country = country;
+	public void setCount(int count) {
+		this.count = count;
 	}
 
-
-	public double getLatitude() {
-		return latitude;
+	public int getTotal() {
+		return total;
 	}
 
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
+	public void setTotal(int total) {
+		this.total = total;
 	}
 
-
-	public double getLongitude() {
-		return longitude;
+	public List<CiudadResultadoJSON> get_embedded() {
+		return _embedded;
 	}
 
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
+	public void set_embedded(List<CiudadResultadoJSON> _embedded) {
+		this._embedded = _embedded;
 	}
-
+	
+	
 	
 }
 
