@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2019.04.08 a las 04:13:41 PM CEST 
+// Generado el: 2019.05.22 a las 12:41:48 AM CEST 
 //
 
 
@@ -34,12 +34,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="country" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="population" type="{http://www.w3.org/2001/XMLSchema}positiveInteger"/>
- *         &lt;element name="position" type="{http://www.example.org/Schema}Position"/>
- *         &lt;element name="urlBDpedia" type="{http://www.example.org/Schema}url" minOccurs="0"/>
- *         &lt;element name="urlWikipedia" type="{http://www.example.org/Schema}url" minOccurs="0"/>
- *         &lt;element name="meteoInfo" type="{http://www.example.org/Schema}MeteoInfo" minOccurs="0"/>
- *         &lt;element name="interestPlace" type="{http://www.example.org/Schema}InterestPlace" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="book" type="{http://www.example.org/Schema}Book" maxOccurs="3" minOccurs="0"/>
+ *         &lt;element name="position" type="{http://www.example.org/Schema/ciudades}Position"/>
+ *         &lt;element name="urlBDpedia" type="{http://www.example.org/Schema/ciudades}url" minOccurs="0"/>
+ *         &lt;element name="urlWikipedia" type="{http://www.example.org/Schema/ciudades}url" minOccurs="0"/>
+ *         &lt;element name="meteoInfo" type="{http://www.example.org/Schema/ciudades}MeteoInfo" minOccurs="0"/>
+ *         &lt;element name="interestPlace" type="{http://www.example.org/Schema/ciudades}InterestPlace" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="book" type="{http://www.example.org/Schema/ciudades}Book" maxOccurs="3" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}positiveInteger" />
  *       &lt;attribute name="updatedOn" type="{http://www.w3.org/2001/XMLSchema}date" />

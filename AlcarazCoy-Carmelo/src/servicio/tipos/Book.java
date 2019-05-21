@@ -1,8 +1,8 @@
 //
-// Este archivo ha sido generado por la arquitectura JavaTM para la implantaciï¿½n de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
+// Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// Todas las modificaciones realizadas en este archivo se perderï¿½n si se vuelve a compilar el esquema de origen. 
-// Generado el: 2019.04.08 a las 04:13:41 PM CEST 
+// Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
+// Generado el: 2019.05.22 a las 12:41:48 AM CEST 
 //
 
 
@@ -26,17 +26,9 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="isbn" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="img">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;attribute name="url" type="{http://www.example.org/Schema}url" />
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="urlGoogleBooks" type="{http://www.example.org/Schema}url"/>
+ *         &lt;element name="isbn" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="img" type="{http://www.example.org/Schema/ciudades}url"/>
+ *         &lt;element name="urlGoogleBooks" type="{http://www.example.org/Schema/ciudades}url"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -59,7 +51,6 @@ public class Book {
     protected String title;
     @XmlElement(required = true)
     protected String id;
-    @XmlElement(required = true)
     protected String isbn;
     @XmlElement(required = true)
     protected String img;
@@ -143,7 +134,7 @@ public class Book {
      * 
      * @return
      *     possible object is
-     *      {@link String }
+     *     {@link String }
      *     
      */
     public String getImg() {
@@ -155,7 +146,7 @@ public class Book {
      * 
      * @param value
      *     allowed object is
-     *      {@link String }
+     *     {@link String }
      *     
      */
     public void setImg(String value) {
