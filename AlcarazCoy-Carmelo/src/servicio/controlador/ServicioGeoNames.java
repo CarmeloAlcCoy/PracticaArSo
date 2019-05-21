@@ -159,15 +159,15 @@ public class ServicioGeoNames {
 		File file = recuperarDocumento(idGeoNames);
 
 		Unmarshaller unmarshaller;
-		City calificaciones;
+		City city;
 		try {
 			unmarshaller = createUnmarshaller(contexto);
-			calificaciones = (City) unmarshaller.unmarshal(file);
+			city = (City) unmarshaller.unmarshal(file);
 		} catch (JAXBException e) {
 			throw new CityServiceException(INTERNAL_ERROR, "JAXBUnMarshaller\n" + e.toString());
 		}
 
-		return calificaciones;
+		return city;
 
 	}
 
@@ -293,7 +293,7 @@ public class ServicioGeoNames {
 		lc.addLink("next", baseURI + "?ciudad=" + busqueda + "&startRow=" + ((startRow - 1) / 10 * 10 + 11));
 
 		String uriSinExtension = baseURI.substring(0, baseURI.length()-5);
-		List<CiudadResultado> cities = buscarPaginada(busqueda, startRow, 100);
+		List<CiudadResultado> cities = buscarPaginada(busqueda, startRow, 10);
 		List<Entry> entries = cities.stream().map((c) -> new Entry(c.getName() + " (" + c.getCountry() + ")", // Title
 				uriSinExtension + "/" + c.getId(), // Id
 				df.newXMLGregorianCalendar(now), // Updated
@@ -350,7 +350,7 @@ public class ServicioGeoNames {
 			throws CityServiceException {
 		ListadoCiudadesJSON lc = new ListadoCiudadesJSON();
 		String uriSinExtension = baseURI.substring(0, baseURI.length()-5);
-		List<CiudadResultado> cities = buscarPaginada(busqueda, 0, 100);
+		List<CiudadResultado> cities = buscar(busqueda);
 		List<CiudadResultadoJSON> _embedded = cities.stream().
 				skip(startRow).
 				limit(10).

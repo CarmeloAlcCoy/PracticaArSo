@@ -428,8 +428,8 @@ public class CityXMLProvider {
 		writer.writeNamespace("xsi", XSI_NAMESPACE);
 		writer.writeAttribute(XSI_NAMESPACE, "schemaLocation", SCHEMA_LOCATION);
 
-		writer.writeAttribute(DEFAULT_NAMESPACE,GEONAMES_ID, String.valueOf(city.getId()));
-		writer.writeAttribute(DEFAULT_NAMESPACE,UPDATEN_ON, sdfDate.format(city.getUpdatedDate()));
+		writer.writeAttribute(GEONAMES_ID, String.valueOf(city.getId()));
+		writer.writeAttribute(UPDATEN_ON, sdfDate.format(city.getUpdatedDate()));
 		// name
 		writeElement(writer, NAME, city.getName());
 		// country
@@ -456,7 +456,7 @@ public class CityXMLProvider {
 		MeteoInfo meteo = city.getMeteoInfo();
 		if (meteo != null) {
 			writer.writeStartElement(DEFAULT_NAMESPACE,INFORMACION_METEOROLOGICA);
-			writer.writeAttribute(DEFAULT_NAMESPACE,TAKEN_ON, sdfTimeXMLSchema.format(meteo.getTakenOn()));
+			writer.writeAttribute(TAKEN_ON, sdfTimeXMLSchema.format(meteo.getTakenOn()));
 			// stationName
 			writeElement(writer, STATION_NAME, meteo.getStationName());
 			// temperature

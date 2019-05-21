@@ -24,13 +24,19 @@ public class ErrorHandler implements ExceptionMapper<CityServiceException> {
 					.build();
 		}else if (source.startsWith(INVALID_PARAMETER)){
 			response = Response.status(Response.Status.BAD_REQUEST)
-					.entity(new Error(404, source, arg0.getCausa() ))
+					.entity(new Error(400, source, arg0.getCausa() ))
 					.build();
 		}else if(source.startsWith(FIELD_NOT_FOUND)){
-			response = Response.status(Response.Status.NOT_FOUND).build();
+			arg0.printStackTrace();
+			response = Response.status(Response.Status.NOT_FOUND)
+					.entity(new Error(404, source, arg0.getCausa() ))
+					.build();
 		}
 		else {
-			response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+			arg0.printStackTrace();
+			response = Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(new Error(500, source, "Please try later" ))
+					.build();
 		} 
 		return response;
 	}

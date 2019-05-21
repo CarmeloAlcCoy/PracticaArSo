@@ -43,16 +43,9 @@ public class ServicioCiudades {
 	@Context
 	private ServletContext context;
 
-	@GET
-	@Produces(MediaType.APPLICATION_XML)
-	public Response buscarCiudad(@QueryParam("ciudad") String busqueda) {
-		return buscarCiudadXML(busqueda);
-
-	}
 
 	@GET
-	@Path("xml")
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Response buscarCiudadXML(@QueryParam("ciudad") String busqueda) {
 		if (busqueda == null)
 			throw new CityServiceException(INVALID_PARAMETER, "Must Provide Parameter 'Ciudad'");
@@ -93,7 +86,7 @@ public class ServicioCiudades {
 	@GET
 	@Path("json")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response buscarCiudadJSON(@QueryParam("ciudad") String busqueda, @QueryParam("startRow") String startRow) {
+	public Response buscarCiudadHAL(@QueryParam("ciudad") String busqueda, @QueryParam("startRow") String startRow) {
 		if (busqueda == null)
 			throw new CityServiceException(INVALID_PARAMETER, "Must Provide Parameter 'Ciudad'");
 		int start = 1;
@@ -111,10 +104,9 @@ public class ServicioCiudades {
 
 	@GET
 	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Response getCiudad(@PathParam("id") String id) {
 		City city = controlador.getCiudad(id);
-
 		if (city != null)
 			return Response.status(Status.OK).entity(city).build();
 		else
@@ -134,7 +126,7 @@ public class ServicioCiudades {
 
 	@GET
 	@Path("/favoritas/{idDocumento}")
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Response recuperarDocumentoFavoritos(@PathParam("idDocumento") String id) {
 
 		CiudadesFavoritas favs = controlador.getFavoritos(id);

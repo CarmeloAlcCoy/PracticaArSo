@@ -70,7 +70,7 @@
 		<sequence>
 			<element name="title" type="string" />
 			<element name="id" type="string" />
-			<element name="isbn" type="string" />
+			<element name="isbn" type="string" minOccurs="0" />
 			<element name="img" type="tns:url"/>
 			<element name="urlGoogleBooks" type="tns:url"/>
 		</sequence>
