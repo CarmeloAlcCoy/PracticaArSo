@@ -65,7 +65,7 @@ public class CityXMLProvider {
 		try {
 			id = Integer.parseInt(idGeoNames);
 		} catch (NumberFormatException e) {
-			throw new CityServiceException(INVALID_ID+idGeoNames,"Not an Integer");
+			throw new CityServiceException(INVALID_PARAMETER+idGeoNames,"Not an Integer");
 		}
 
 		city = new City();

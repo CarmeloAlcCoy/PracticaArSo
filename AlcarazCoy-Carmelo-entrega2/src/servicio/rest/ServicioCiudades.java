@@ -112,7 +112,7 @@ public class ServicioCiudades {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_XML)
-	public Response getActividad(@PathParam("id") String id) {
+	public Response getCiudad(@PathParam("id") String id) {
 		City city = controlador.getCiudad(id);
 
 		if (city != null)
