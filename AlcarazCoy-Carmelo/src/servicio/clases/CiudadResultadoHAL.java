@@ -2,8 +2,6 @@ package servicio.clases;
 
 import javax.xml.bind.annotation.XmlType;
 
-import servicio.clases.ListadoLinks.Link;
-
 @XmlType(propOrder = {
 	    "_links",
 	    "name",
@@ -11,7 +9,7 @@ import servicio.clases.ListadoLinks.Link;
 	    "latitude",
 	    "longitude"
 	})
-public class CiudadResultadoJSON{
+public class CiudadResultadoHAL{
 
 	private Link _links;
 	private String name;
@@ -20,12 +18,12 @@ public class CiudadResultadoJSON{
 	private double longitude;
 	
 	
-	public CiudadResultadoJSON() {
+	public CiudadResultadoHAL() {
 		super();
 
 	}
 
-	public CiudadResultadoJSON(String name, String country, double latitude, double longitude, String href) {
+	public CiudadResultadoHAL(String name, String country, double latitude, double longitude, String href) {
 		this();
 		this.name = name;
 		this.country = country;

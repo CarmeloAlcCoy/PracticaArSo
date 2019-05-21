@@ -39,13 +39,13 @@ import static servicio.controlador.Constants.INTERNAL_ERROR;
 import static servicio.controlador.Constants.INVALID_ID;
 
 import servicio.clases.CiudadResultado;
-import servicio.clases.CiudadResultadoJSON;
+import servicio.clases.CiudadResultadoHAL;
 import servicio.clases.CiudadesFavoritas;
 import servicio.clases.Entry;
 import servicio.clases.Link;
 import servicio.clases.ListadoCiudades;
 import servicio.clases.ListadoCiudadesAtom;
-import servicio.clases.ListadoCiudadesJSON;
+import servicio.clases.ListadoCiudadesHAL;
 import servicio.clases.ListadoLinks;
 import servicio.tipos.City;
 
@@ -346,15 +346,15 @@ public class ServicioGeoNames {
 		return destino.getNode();
 	}
 
-	public ListadoCiudadesJSON getResultadosBusquedaJSON(String busqueda, int startRow, String baseURI)
+	public ListadoCiudadesHAL getResultadosBusquedaJSON(String busqueda, int startRow, String baseURI)
 			throws CityServiceException {
-		ListadoCiudadesJSON lc = new ListadoCiudadesJSON();
+		ListadoCiudadesHAL lc = new ListadoCiudadesHAL();
 		String uriSinExtension = baseURI.substring(0, baseURI.length()-5);
 		List<CiudadResultado> cities = buscar(busqueda);
-		List<CiudadResultadoJSON> _embedded = cities.stream().
+		List<CiudadResultadoHAL> _embedded = cities.stream().
 				skip(startRow).
 				limit(10).
-				map((c) -> new CiudadResultadoJSON(
+				map((c) -> new CiudadResultadoHAL(
 						c.getName(),c.getCountry(),c.getLatitude(),c.getLongitude(),uriSinExtension+"/"+c.getId()))
 				.collect(Collectors.toList());
 

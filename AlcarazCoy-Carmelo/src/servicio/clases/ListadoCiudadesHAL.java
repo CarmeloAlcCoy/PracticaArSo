@@ -5,18 +5,18 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "")
-public class ListadoCiudadesJSON {
+public class ListadoCiudadesHAL {
 	
 	private ListadoLinks _links;
 	private int count;
 	private int total;
-	private List<CiudadResultadoJSON> _embedded;
+	private List<CiudadResultadoHAL> _embedded;
 	
-	public ListadoCiudadesJSON() {
+	public ListadoCiudadesHAL() {
 		super();
 	}
 
-	public ListadoCiudadesJSON(ListadoLinks _links, int count, int total, List<CiudadResultadoJSON> _embedded) {
+	public ListadoCiudadesHAL(ListadoLinks _links, int count, int total, List<CiudadResultadoHAL> _embedded) {
 		super();
 		this._links = _links;
 		this.count = count;
@@ -48,11 +48,11 @@ public class ListadoCiudadesJSON {
 		this.total = total;
 	}
 
-	public List<CiudadResultadoJSON> get_embedded() {
+	public List<CiudadResultadoHAL> get_embedded() {
 		return _embedded;
 	}
 
-	public void set_embedded(List<CiudadResultadoJSON> _embedded) {
+	public void set_embedded(List<CiudadResultadoHAL> _embedded) {
 		this._embedded = _embedded;
 	}
 	

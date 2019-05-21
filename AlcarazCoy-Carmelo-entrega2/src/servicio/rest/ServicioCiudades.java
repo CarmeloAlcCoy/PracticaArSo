@@ -24,7 +24,7 @@ import org.w3c.dom.Node;
 import servicio.clases.CiudadesFavoritas;
 import servicio.clases.ListadoCiudades;
 import servicio.clases.ListadoCiudadesAtom;
-import servicio.clases.ListadoCiudadesJSON;
+import servicio.clases.ListadoCiudadesHAL;
 import servicio.controlador.CityServiceException;
 import servicio.controlador.ServicioGeoNames;
 import servicio.tipos.City;
@@ -97,7 +97,7 @@ public class ServicioCiudades {
 				throw new CityServiceException(INVALID_PARAMETER, "'startRow must be an integer'");
 			}
 		}
-		ListadoCiudadesJSON ciudades = controlador.getResultadosBusquedaJSON(busqueda, start,
+		ListadoCiudadesHAL ciudades = controlador.getResultadosBusquedaJSON(busqueda, start,
 				uriInfo.getAbsolutePath().toString());
 		return Response.status(Status.OK).entity(ciudades).type("application/hal+json").build();
 	}
