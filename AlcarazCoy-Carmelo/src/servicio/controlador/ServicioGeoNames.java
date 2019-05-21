@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletContext;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -306,12 +307,14 @@ public class ServicioGeoNames {
 
 	}
 
-	public Node getResultadosBusquedaKML(String busqueda) throws CityServiceException {
+	public Node getResultadosBusquedaKML(String busqueda, ServletContext context) throws CityServiceException {
 		// Creamos la factoria
 		TransformerFactory factoria = TransformerFactory.newInstance();
 		Transformer transformador;
+			
+		//System.out.println(servletURI);
 		// Obtenemos el archivo con una ruta relativa
-		InputStream transformacion = getClass().getClassLoader().getResourceAsStream("/xml/search2kml.xsl");
+		InputStream transformacion = context.getResourceAsStream("/WEB-INF/search2kml.xsl");
 
 		// Construimos el transformador
 		try {

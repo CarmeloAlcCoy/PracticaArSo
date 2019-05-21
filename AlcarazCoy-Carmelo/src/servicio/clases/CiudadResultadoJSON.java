@@ -86,7 +86,7 @@ public class CiudadResultadoJSON{
 	@XmlType
 	public static class Link {
 
-		private HRef href;
+		private HRef self;
 		
 		public Link() {
 			super();
@@ -96,17 +96,17 @@ public class CiudadResultadoJSON{
 			this(new HRef(href));
 		}
 		
-		public Link(HRef href) {
+		public Link(HRef self) {
 			this();
-			this.href = href;
+			this.self = self;
 		}
 
-		public HRef getHref() {
-			return href;
+		public HRef getSelf() {
+			return self;
 		}
 
-		public void setHref(HRef href) {
-			this.href = href;
+		public void setSelf(HRef self) {
+			this.self = self;
 		}
 
 		

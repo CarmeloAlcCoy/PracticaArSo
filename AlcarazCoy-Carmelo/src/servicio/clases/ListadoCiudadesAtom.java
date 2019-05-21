@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
@@ -14,9 +15,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "feed",  namespace="http://www.w3.org/2005/Atom")
+@XmlRootElement(name = "feed")
 public class ListadoCiudadesAtom {
 
+	@XmlAttribute
+	private String xmlns = "http://www.w3.org/2005/Atom";
 	private String id;
 	private String title;
 	@XmlElement(name = "author")
@@ -84,6 +87,15 @@ public class ListadoCiudadesAtom {
 	public void addLink(String rel , String href ){
 		links.add(new Link(rel, href));
 	}
+	
+	public String getXmlns() {
+		return xmlns;
+	}
+
+	public void setXmlns(String xmlns) {
+		this.xmlns = xmlns;
+	}
+
 
 	@XmlType
 	public static class Author {

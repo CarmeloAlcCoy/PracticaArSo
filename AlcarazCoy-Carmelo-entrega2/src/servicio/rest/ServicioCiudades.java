@@ -1,5 +1,7 @@
 package servicio.rest;
 
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.ws.rs.GET;
@@ -29,7 +31,7 @@ import servicio.tipos.City;
 
 import static servicio.controlador.Constants.INVALID_PARAMETER;
 
-@Path("servicioCiudades")
+@Path("ciudades")
 public class ServicioCiudades {
 
 	private ServicioGeoNames controlador = ServicioGeoNames.getUnicaInstancia();
@@ -38,9 +40,10 @@ public class ServicioCiudades {
 	private UriInfo uriInfo;
 	@Context
 	private HttpServletRequest request;
+	@Context
+	private ServletContext context;
 
 	@GET
-	@Path("ciudades")
 	@Produces(MediaType.APPLICATION_XML)
 	public Response buscarCiudad(@QueryParam("ciudad") String busqueda) {
 		return buscarCiudadXML(busqueda);
@@ -48,7 +51,7 @@ public class ServicioCiudades {
 	}
 
 	@GET
-	@Path("ciudades.xml")
+	@Path("xml")
 	@Produces(MediaType.APPLICATION_XML)
 	public Response buscarCiudadXML(@QueryParam("ciudad") String busqueda) {
 		if (busqueda == null)
@@ -58,7 +61,7 @@ public class ServicioCiudades {
 	}
 
 	@GET
-	@Path("ciudades.atom")
+	@Path("atom")
 	@Produces(MediaType.APPLICATION_ATOM_XML)
 	public Response buscarCiudadATOM(@QueryParam("ciudad") String busqueda, @QueryParam("startRow") String startRow) {
 		if (busqueda == null)
@@ -78,17 +81,17 @@ public class ServicioCiudades {
 	}
 
 	@GET
-	@Path("ciudades.kml")
+	@Path("kml")
 	@Produces(MediaType.APPLICATION_XML)
 	public Response buscarCiudadKML(@QueryParam("ciudad") String busqueda) {
 		if (busqueda == null)
 			throw new CityServiceException(INVALID_PARAMETER, "Must Provide Parameter 'Ciudad'");
-		Node ciudades = controlador.getResultadosBusquedaKML(busqueda);
+		Node ciudades = controlador.getResultadosBusquedaKML(busqueda, context);
 		return Response.status(Status.OK).entity(ciudades).build();
 	}
 
 	@GET
-	@Path("ciudades.json")
+	@Path("json")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response buscarCiudadJSON(@QueryParam("ciudad") String busqueda, @QueryParam("startRow") String startRow) {
 		if (busqueda == null)
@@ -103,11 +106,11 @@ public class ServicioCiudades {
 		}
 		ListadoCiudadesJSON ciudades = controlador.getResultadosBusquedaJSON(busqueda, start,
 				uriInfo.getAbsolutePath().toString());
-		return Response.status(Status.OK).entity(ciudades).build();
+		return Response.status(Status.OK).entity(ciudades).type("application/hal+json").build();
 	}
 
 	@GET
-	@Path("ciudades/{id}")
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_XML)
 	public Response getActividad(@PathParam("id") String id) {
 		City city = controlador.getCiudad(id);
@@ -119,7 +122,7 @@ public class ServicioCiudades {
 	}
 
 	@POST
-	@Path("ciudades/favoritas")
+	@Path("/favoritas")
 	@Produces(MediaType.APPLICATION_XML)
 	public Response crearDocumentoFavoritos() {
 		String id = controlador.crearDocumentoFavoritos();
@@ -130,7 +133,7 @@ public class ServicioCiudades {
 	}
 
 	@GET
-	@Path("ciudades/favoritas/{idDocumento}")
+	@Path("/favoritas/{idDocumento}")
 	@Produces(MediaType.APPLICATION_XML)
 	public Response recuperarDocumentoFavoritos(@PathParam("idDocumento") String id) {
 
@@ -139,7 +142,7 @@ public class ServicioCiudades {
 	}
 
 	@DELETE
-	@Path("ciudades/favoritas/{idDocumento}")
+	@Path("/favoritas/{idDocumento}")
 	public Response borrarDocumentoFavoritos(@PathParam("idDocumento") String id) {
 
 		controlador.removeDocumentoFavoritos(id);
@@ -147,7 +150,7 @@ public class ServicioCiudades {
 	}
 
 	@PUT
-	@Path("ciudades/favoritas/{idDocumento}/{idGeoNames}")
+	@Path("/favoritas/{idDocumento}/{idGeoNames}")
 	public Response anadirCiudadDocumentoFavoritos(@PathParam("idDocumento") String idDocumento,
 			@PathParam("idGeoNames") String idGeoNames) {
 
@@ -156,7 +159,7 @@ public class ServicioCiudades {
 	}
 
 	@DELETE
-	@Path("ciudades/favoritas/{idDocumento}/{idGeoNames}")
+	@Path("/favoritas/{idDocumento}/{idGeoNames}")
 	public Response borrarCiudadDocumentoFavoritos(@PathParam("idDocumento") String idDocumento,
 			@PathParam("idGeoNames") String idGeoNames) {
 
