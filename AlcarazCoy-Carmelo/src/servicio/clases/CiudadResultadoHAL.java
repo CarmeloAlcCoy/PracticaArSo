@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 	})
 public class CiudadResultadoHAL{
 
-	private Link _links;
+	private LinkHAL _links;
 	private String name;
 	private String country;
 	private double latitude;
@@ -29,7 +29,7 @@ public class CiudadResultadoHAL{
 		this.country = country;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this._links = new Link(href);
+		this._links = new LinkHAL(href);
 	}
 
 
@@ -73,28 +73,28 @@ public class CiudadResultadoHAL{
 		this.longitude = longitude;
 	}
 
-	public Link get_links() {
+	public LinkHAL get_links() {
 		return _links;
 	}
 
-	public void set_links(Link _links) {
+	public void set_links(LinkHAL _links) {
 		this._links = _links;
 	}
 	
 	@XmlType
-	public static class Link {
+	public static class LinkHAL {
 
 		private HRef self;
 		
-		public Link() {
+		public LinkHAL() {
 			super();
 		}
 
-		public Link(String href) {
+		public LinkHAL(String href) {
 			this(new HRef(href));
 		}
 		
-		public Link(HRef self) {
+		public LinkHAL(HRef self) {
 			this();
 			this.self = self;
 		}

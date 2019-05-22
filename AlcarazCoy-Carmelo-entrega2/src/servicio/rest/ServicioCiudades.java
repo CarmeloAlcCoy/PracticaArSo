@@ -23,8 +23,8 @@ import org.w3c.dom.Node;
 
 import servicio.clases.CiudadesFavoritas;
 import servicio.clases.ListadoCiudades;
-import servicio.clases.ListadoCiudadesAtom;
 import servicio.clases.ListadoCiudadesHAL;
+import servicio.clases.atom.ListadoCiudadesAtom;
 import servicio.controlador.CityServiceException;
 import servicio.controlador.ServicioGeoNames;
 import servicio.tipos.City;
@@ -84,7 +84,7 @@ public class ServicioCiudades {
 	}
 
 	@GET
-	@Path("json")
+	@Path("hal")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response buscarCiudadHAL(@QueryParam("ciudad") String busqueda, @QueryParam("startRow") String startRow) {
 		if (busqueda == null)

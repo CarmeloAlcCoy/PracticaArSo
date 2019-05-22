@@ -67,7 +67,7 @@ public class Constants {
 	// XML File NameSpaces
 	public static final String SCHEMA_LOCATION = "http://www.example.org/Schema/ciudades Schema.xsd";
 	public static final String XSI_NAMESPACE = "http://www.w3.org/2001/XMLSchema-instance";
-	public static final String DEFAULT_NAMESPACE = "http://www.example.org/Schema";
+	public static final String DEFAULT_NAMESPACE = "http://www.example.org/Schema/ciudades";
 
 	// XML File Tags
 	public static final String ID = "id";

@@ -1,4 +1,4 @@
-package servicio.clases;
+package servicio.clases.atom;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;

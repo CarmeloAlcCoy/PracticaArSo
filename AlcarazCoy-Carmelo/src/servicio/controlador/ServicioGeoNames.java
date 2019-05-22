@@ -41,12 +41,12 @@ import static servicio.controlador.Constants.INVALID_ID;
 import servicio.clases.CiudadResultado;
 import servicio.clases.CiudadResultadoHAL;
 import servicio.clases.CiudadesFavoritas;
-import servicio.clases.Entry;
-import servicio.clases.Link;
 import servicio.clases.ListadoCiudades;
-import servicio.clases.ListadoCiudadesAtom;
 import servicio.clases.ListadoCiudadesHAL;
 import servicio.clases.ListadoLinks;
+import servicio.clases.atom.Entry;
+import servicio.clases.atom.Link;
+import servicio.clases.atom.ListadoCiudadesAtom;
 import servicio.tipos.City;
 
 public class ServicioGeoNames {
@@ -90,7 +90,7 @@ public class ServicioGeoNames {
 			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 
 			if (con.equals(contexto))
-				marshaller.setProperty("jaxb.schemaLocation", "http://www.example.org/schema Schema.xsd ");
+				marshaller.setProperty("jaxb.schemaLocation", "http://www.example.org/schema/ciudades Schema.xsd ");
 		} catch (JAXBException e) {
 			throw new CityServiceException(INTERNAL_ERROR, "Marshaller" + e.toString());
 		}
