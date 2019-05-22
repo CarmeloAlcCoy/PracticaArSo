@@ -94,9 +94,7 @@ public class Cliente2_2 {
 		builder = recurso.accept(MediaType.APPLICATION_JSON);
 		respuesta = builder.method("GET", ClientResponse.class);
 		System.out.println("Código de retorno: " + respuesta.getStatus());
-		lc = respuesta.getEntity(ListadoCiudades.class);
-		for (CiudadResultado c1 : lc.getResultados()) {
-			System.out.println(c1.getName());
-		}
+		String ls = respuesta.getEntity(String.class);
+		System.out.println(ls);
 	}
 }

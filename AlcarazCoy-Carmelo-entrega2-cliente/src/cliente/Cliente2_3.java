@@ -4,8 +4,6 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-import servicio.clases.CiudadResultadoHAL;
-import servicio.clases.ListadoCiudadesHAL;
 import servicio.clases.atom.Entry;
 import servicio.clases.atom.ListadoCiudadesAtom;
 
@@ -41,11 +39,8 @@ public class Cliente2_3 {
 		recurso = cliente.resource(URL_SERVICIO+"/hal?ciudad=cartagena");
 		respuesta = recurso.method("GET", ClientResponse.class);
 		System.out.println("Código de retorno: " + respuesta.getStatus());
-		ListadoCiudadesHAL lch = respuesta.getEntity(ListadoCiudadesHAL.class);
-		System.out.println("Results:"+lch.getTotal());
-		for (CiudadResultadoHAL ch : lch.get_embedded()) {
-			System.out.println(ch.getName());
-		}	
+		String lch = respuesta.getEntity(String.class);
+		System.out.println(lch);
 		
 	}
 	
