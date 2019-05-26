@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Servicio Ciudades</title>
+<meta charset="ISO-8859-1" name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="jQuery/jquery.mobile-1.4.5.min.css">
+<script src="jQuery/jquery-1.12.3.min.js"></script>
+<script	src="jQuery/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<script src="js/main.js"></script>
+<body>
+	<div data-role="page" data-theme="a">
+		<div data-role="header">
+			<h1>Cabecera</h1>
+		</div>
+		<div class="ui-content" role="main">
+			<form class="ui-mini">
+				<input type="search" id="search"/>
+				<button id="search_button"  onclick="onClickSearch();" class="ui-btn ui-shadow ui-icon-search ui-btn-icon-left"> Search</button>
+			</form>
+			<div id="contenido"></div>
+			<ul id="list_ciudades" data-role="listview" data-inset="true" data-input="#search">
+					
+			</ul>
+		</div>
+		<div data-role="footer">
+			<h1>Arquitectura del Sorftaware</h1>
+		</div>
+	</div>
+</body>
+</html>

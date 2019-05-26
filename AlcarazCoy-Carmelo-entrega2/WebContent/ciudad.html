@@ -1,0 +1,107 @@
+<head>
+<title>Servicio Ciudades</title>
+<meta charset="ISO-8859-1" name="viewport"
+	content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="jQuery/jquery.mobile-1.4.5.min.css">
+<script src="jQuery/jquery-1.12.3.min.js"></script>
+<script src="jQuery/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<script src="js/main.js">
+
+</script>
+<body>
+	<script>getCity();</script> 
+	<div data-role="page" id="summary">
+		<div data-role="header">
+			<a href="index.html" 
+				class="ui-btn ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left ui-btn-icon-notext">Search</a>
+			<h1 id="header_summary"></h1>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#summary" class="ui-btn-active">Summary</a></li>
+					<li><a href="#links">External links</a></li>
+					<li><a href="#places">Nearby places</a></li>
+					<li><a href="#books">Related books</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="ui-content" role="main">
+			<ul>
+				<li id="population"><b>Population</b> : </li>
+				<li id="location"><b>Location</b> : </li>
+				<li id="weather"><b>Weather</b>: </li>
+			</ul>
+		</div>
+		<div data-role="footer">
+			<h1>Arquitectura del Sorftaware</h1>
+		</div>
+	</div>
+	<div data-role="page" id="links">
+		<div data-role="header">
+			<a href="index.html"
+				class="ui-btn ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left ui-btn-icon-notext">Search</a>
+			<h1 id="header_links">Cabecera</h1>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#summary">Summary</a></li>
+					<li><a href="#links" class="ui-btn-active">External links</a></li>
+					<li><a href="#places">Nearby places</a></li>
+					<li><a href="#books">Related books</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="ui-content" role="main">
+			<ul id="list_links" data-role="listview" data-inset="true"
+				class="tablist-left">
+			</ul>
+		</div>
+		<div data-role="footer">
+			<h1>Arquitectura del Sorftaware</h1>
+		</div>
+	</div>
+	<div data-role="page" id="places">
+		<div data-role="header">
+			<a href="index.html" 
+				class="ui-btn ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left ui-btn-icon-notext">Search</a>
+			<h1 id="header_places">Cabecera</h1>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#summary">Summary</a></li>
+					<li><a href="#links">External links</a></li>
+					<li><a href="#places" class="ui-btn-active">Nearby places</a></li>
+					<li><a href="#books">Related books</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="ui-content" role="main">
+			<ul id="list_places" data-role="listview" data-inset="true">
+			</ul>
+		</div>
+		<div data-role="footer">
+			<h1>Arquitectura del Sorftaware</h1>
+		</div>
+	</div>
+	<div data-role="page" id="books">
+		<div data-role="header">
+			<a href="index.html" 
+				class="ui-btn ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left ui-btn-icon-notext">Search</a>
+			<h1 id="header_books">Cabecera</h1>
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#summary">Summary</a></li>
+					<li><a href="#links">External links</a></li>
+					<li><a href="#places">Nearby places</a></li>
+					<li><a href="#books" class="ui-btn-active">Related books</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="ui-content" role="main">
+			<ul id="list_books" data-role="listview" data-inset="true">	    
+			</ul>
+		</div>
+		<div data-role="footer">
+			<h1>Arquitectura del Sorftaware</h1>
+		</div>
+	</div>
+</body>
+</html>
