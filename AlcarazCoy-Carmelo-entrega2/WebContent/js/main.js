@@ -1,39 +1,26 @@
 function onClickSearch() {
-	var search = document.getElementById("search").value;
+	
+	var search = $(".search").val();
 	if (search != "") {
 		var uri = "http://localhost:8080/AlcarazCoy-Carmelo-entrega2/rest/ciudades?ciudad="
 				+ encodeURIComponent(search);
+		
 		$.ajax({
 			url : uri,
 			async : true,
 			dataType : "json",
-			complete: function() {
-	            $('#list_ciudades').listview('refresh');
-	            $('#list_ciudades').trigger( "updatelayout");
-	        },
 			success : function(data, textStatus, jqXHR) {
+
 				if (jqXHR.readyState == 4) {
 					if (jqXHR.status == 200) {
 						var json = data
-						var $ul = $('#list_ciudades');
-						$ul.html("");
-						var html="";
-						for( let i in json.resultado) {
-							html+="<li><a href=\"ciudad.html?id=" + json.resultado[i].id +"\">"+json.resultado[i].name+"</a></li>";
-							console.log(json.resultado[i].name);
-							//var a = $("<li/>")
-									//.attr("href","ciudad.html?id=" + json.resultado[i].id)
-									//.html(json.resultado[i].name)
-									//.appendTo($("<li/>"))
-									//.appendTo($('#list_ciudades'));
-							//tabla.append(li);
+						var html = "";
+						for(let i in json.resultado) {
+							html += "<li><a href=\"ciudad.html?id=" + json.resultado[i].id +"\" data-ajax=\"false\">"+json.resultado[i].name+"</a></li>";
 						}
-						//console.log(tabla);
-						console.log(html);
-						$ul.html(html);
-						$ul.listview('refresh');
-						$ul.trigger( "updatelayout");
-						//tabla.listview('refresh');
+						
+						$('.list_ciudades').append(html).listview('refresh');
+						
 					}
 				}
 			}
@@ -45,6 +32,7 @@ function getCity() {
 	console.log('juan');
 	var urlParams = new URLSearchParams(window.location.search);
 	var id = urlParams.get('id');
+	console.log(id);
 	if (id != "") {
 		var uri = "http://localhost:8080/AlcarazCoy-Carmelo-entrega2/rest/ciudades/"
 				+ encodeURIComponent(id);
@@ -52,9 +40,6 @@ function getCity() {
 				.ajax({
 					url : uri,
 					async : true,
-					complete : function() {
-						$("table_ciudades").listview('refresh');
-					},
 					dataType : "json",
 					success : function(data, textStatus, jqXHR) {
 						if (jqXHR.readyState == 4) {
