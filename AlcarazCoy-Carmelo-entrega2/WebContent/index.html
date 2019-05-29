@@ -12,19 +12,13 @@
 <body>
 	<div data-role="page" data-theme="a">
 		<div data-role="header">
-			<h1>Cabecera</h1>
+			<h1>Servicio Ciudades</h1>
 		</div>
 		<div class="ui-content" role="main">
-			<form class="ui-mini">
-				<input id="search" class="search" placeholder="Find a city..."
-					data-type="search" />
-				<!-- <button id="search_button" 
-					class="ui-btn ui-icon-search ui-btn-icon-left"
-					onclick="onClickSearch();">Search</button>-->
-				<input type="button" value="Search" id="search_button" data-icon="search"
-					onclick="onClickSearch();"/>
-			</form>
-			<div id="contenido"></div>
+			<div data-role="controlgroup" data-type="horizontal">
+				<input id="search" type ="text" class="search" placeholder="Find a city..." data-type="search" data-wrapper-class="controlgroup-textinput ui-btn" />
+				<button id="search_button" class="ui-btn ui-btn-icon-left ui-icon-search" onclick="onClickSearch();">Search</button>
+			</div>
 			<ul id="list_ciudades" class="list_ciudades" data-role="listview"
 				data-inset="true">
 			</ul>

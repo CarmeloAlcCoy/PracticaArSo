@@ -8,6 +8,10 @@
 * http://jquery.org/license
 *
 */
+.controlgroup-textinput{
+    padding-top:.22em;
+    padding-bottom:.22em;
+}
 
 
 /* SVG icons */
