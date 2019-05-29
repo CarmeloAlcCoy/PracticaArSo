@@ -2,11 +2,12 @@
 <html>
 <head>
 <title>Servicio Ciudades</title>
-<meta charset="ISO-8859-1" name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="jQuery/jquery.mobile-1.4.5.min.css">
+<meta charset="ISO-8859-1" name="viewport"
+	content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="img/favicon.png" />
+<link rel="stylesheet" href="jQuery/jquery.mobile-1.4.5.min.css">
 <script src="jQuery/jquery-1.12.3.min.js"></script>
-<script	src="jQuery/jquery.mobile-1.4.5.min.js"></script>
+<script src="jQuery/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
 	<div data-role="page" data-theme="a">
@@ -15,11 +16,17 @@
 		</div>
 		<div class="ui-content" role="main">
 			<form class="ui-mini">
-				<input type="search" id="search" class="search" value=""/>
-				<button id="search_button" onclick="onClickSearch();" class="ui-btn ui-shadow ui-icon-search ui-btn-icon-left"> Search</button>
+				<input id="search" class="search" placeholder="Find a city..."
+					data-type="search" />
+				<!-- <button id="search_button" 
+					class="ui-btn ui-icon-search ui-btn-icon-left"
+					onclick="onClickSearch();">Search</button>-->
+				<input type="button" value="Search" id="search_button" data-icon="search"
+					onclick="onClickSearch();"/>
 			</form>
 			<div id="contenido"></div>
-			<ul id="list_ciudades" class="list_ciudades" data-role="listview" data-inset="true" data-input="#search">
+			<ul id="list_ciudades" class="list_ciudades" data-role="listview"
+				data-inset="true">
 			</ul>
 		</div>
 		<div data-role="footer">

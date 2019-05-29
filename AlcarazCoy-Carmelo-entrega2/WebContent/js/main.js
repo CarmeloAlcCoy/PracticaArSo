@@ -1,10 +1,11 @@
 function onClickSearch() {
-	
-	var search = $(".search").val();
+	var search = $("#search").val();
 	if (search != "") {
+		
+		console.log(search);
 		var uri = "http://localhost:8080/AlcarazCoy-Carmelo-entrega2/rest/ciudades?ciudad="
 				+ encodeURIComponent(search);
-		
+		$("#search").val("");
 		$.ajax({
 			url : uri,
 			async : true,
@@ -16,15 +17,17 @@ function onClickSearch() {
 						var json = data
 						var html = "";
 						for(let i in json.resultado) {
-							html += "<li><a href=\"ciudad.html?id=" + json.resultado[i].id +"\" data-ajax=\"false\">"+json.resultado[i].name+"</a></li>";
+							html += "<li><a href=\"ciudad.html?id=" + json.resultado[i].id +"\" data-ajax=\"false\">"+json.resultado[i].name+" ("+json.resultado[i].country+")"+"</a></li>";
 						}
 						
-						$('.list_ciudades').append(html).listview('refresh');
+						$('.list_ciudades').html(html).listview('refresh');
+						
 						
 					}
 				}
 			}
 		});
+		
 	}
 }
 
