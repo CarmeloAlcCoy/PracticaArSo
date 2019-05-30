@@ -8,6 +8,12 @@
 <link rel="stylesheet" href="jQuery/jquery.mobile-1.4.5.min.css">
 <script src="jQuery/jquery-1.12.3.min.js"></script>
 <script src="jQuery/jquery.mobile-1.4.5.min.js"></script>
+<style id="textinput-controlgroup">
+.controlgroup-textinput {
+	padding-top: .22em;
+	padding-bottom: .22em;
+}
+</style>
 </head>
 <body>
 	<div data-role="page" data-theme="a">
@@ -16,8 +22,12 @@
 		</div>
 		<div class="ui-content" role="main">
 			<div data-role="controlgroup" data-type="horizontal">
-				<input id="search" type ="text" class="search" placeholder="Find a city..." data-type="search" data-wrapper-class="controlgroup-textinput ui-btn" />
-				<button id="search_button" class="ui-btn ui-btn-icon-left ui-icon-search" onclick="onClickSearch();">Search</button>
+				<input id="search" type="text" class="search"
+					placeholder="Find a city..." data-type="search"
+					data-wrapper-class="controlgroup-textinput ui-btn" />
+				<button id="search_button"
+					class="ui-btn ui-btn-icon-left ui-icon-search"
+					onclick="onClickSearch();">Search</button>
 			</div>
 			<ul id="list_ciudades" class="list_ciudades" data-role="listview"
 				data-inset="true">
