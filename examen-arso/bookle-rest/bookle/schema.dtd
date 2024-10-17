@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT actividad (titulo, descripcion?, profesor, email?, agenda+) >
+<!ATTLIST actividad 
+		id NMTOKEN #REQUIRED>
+	
+<!ELEMENT titulo (#PCDATA) >
+<!ELEMENT descripcion (#PCDATA) >
+<!ELEMENT profesor (#PCDATA) >
+<!ELEMENT email (#PCDATA) >
+
+<!ELEMENT agenda (fecha, turno+) >
+<!ELEMENT fecha (#PCDATA) >
+
+<!ELEMENT turno (horario, reserva?) >
+<!ELEMENT horario (#PCDATA) >
+
+<!ELEMENT reserva (alumno, email?)>
+<!ELEMENT alumno (#PCDATA) >
+<!ATTLIST reserva 
+		id NMTOKEN #REQUIRED>

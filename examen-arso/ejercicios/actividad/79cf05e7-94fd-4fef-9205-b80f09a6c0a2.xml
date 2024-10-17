@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<actividad xmlns="http://www.example.org/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="79cf05e7-94fd-4fef-9205-b80f09a6c0a2" xsi:schemaLocation="http://www.example.org/schema schema.xsd ">
+    <titulo>Activdad2</titulo>
+    <descripcion>Actividad modificada sin turno</descripcion>
+    <profesor>Juan</profesor>
+    <email>carmelo.alcarz@um.es</email>
+</actividad>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calificaciones asignatura="Arquitectura de software" convocatoria="febrero" curso="5" 
+	xmlns="http://www.example.org/ejercicio3"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/ejercicio3 ejercicio3.xsd ">
+	
+	<calificacion>
+		<nif>23956503W</nif>
+		<nombre>Carmelo Alcaraz Coy</nombre>
+		<nota>9</nota>
+	</calificacion>
+	<calificacion>
+		<nif>48742912H</nif>
+		<nota>5</nota>
+	</calificacion>
+	<diligencia extraordinaria="no" fecha="2019-03-06">
+		<nif>23956503W</nif>
+		<nombre>Carmelo Alcaraz Coy</nombre>
+		<nota>10</nota>
+	</diligencia>
+	<diligencia fecha="2019-02-06">
+		<nif>23956503W</nif>
+		<nombre>Carmelo Alcaraz Coy</nombre>
+		<nota>10</nota>
+	</diligencia>
+	<diligencia extraordinaria="si" fecha="2019-03-12">
+		<nif>48742912H</nif>
+		<nota>10</nota>
+	</diligencia>
+	<diligencia fecha="2018-02-06">
+		<nif>48742912H</nif>
+		<nota>10</nota>
+	</diligencia>
+</calificaciones>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<calificaciones xmlns="http://www.example.org/ejercicio3"
+	asignatura="Arquitectura de software" convocatoria="febrero" curso="5">
+	<calificacion>
+		<nif>23956503W</nif>
+		<nombre>Carmelo Alcaraz Coy</nombre>
+		<nota>9.5</nota>
+	</calificacion>
+	<calificacion>
+		<nif>48742912H</nif>
+		<nota>5.5</nota>
+	</calificacion>
+	<diligencia fecha="2019-03-06" extraordinaria="no">
+		<nif>23956503W</nif>
+		<nombre>Carmelo Alcaraz Coy</nombre>
+		<nota>10</nota>
+	</diligencia>
+	<diligencia fecha="2019-02-06">
+		<nif>23956503W</nif>
+		<nombre>Carmelo Alcaraz Coy</nombre>
+		<nota>10</nota>
+	</diligencia>
+	<diligencia fecha="2019-03-12" extraordinaria="si">
+		<nif>48742912H</nif>
+		<nota>10</nota>
+	</diligencia>
+	<diligencia fecha="2018-02-06">
+		<nif>48742912H</nif>
+		<nota>10</nota>
+	</diligencia>
+</calificaciones>

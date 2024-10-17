@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<actividad xmlns="http://www.example.org/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="fe0167de-41eb-4932-829e-af2c13137535" xsi:schemaLocation="http://www.example.org/schema schema.xsd ">
+    <titulo>Activdad1</titulo>
+    <descripcion>Una actividad de prueba</descripcion>
+    <profesor>Carmelo</profesor>
+    <agenda>
+        <fecha>2019-03-27</fecha>
+        <turno/>
+        <turno/>
+        <turno/>
+        <turno/>
+        <turno/>
+    </agenda>
+</actividad>

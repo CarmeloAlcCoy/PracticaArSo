@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/ejercicio3"
+	xmlns:tns="http://www.example.org/ejercicio3" elementFormDefault="qualified">
+
+	<element name="calificaciones">
+		<complexType>
+			<sequence>
+				<element name="calificacion" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="nif" type="tns:tipo_dni" />
+							<element name="nombre" minOccurs="0" type="string" />
+							<element name="nota" type="tns:tipo_nota" />
+						</sequence>
+					</complexType>
+				</element>
+				<element name="diligencia" minOccurs="0" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="nif" type="tns:tipo_dni" />
+							<element name="nombre" minOccurs="0" type="string" />
+							<element name="nota" type="tns:tipo_nota" />
+						</sequence>
+						<attribute name="fecha" type="date" use="required" />
+						<attribute name="extraordinaria" default="no">
+							<simpleType>
+								<restriction base="string">
+									<enumeration value="si" />
+									<enumeration value="no" />
+								</restriction>
+							</simpleType>
+						</attribute>
+					</complexType>
+				</element>
+			</sequence>
+			<attribute name="asignatura" type="string" use="required" />
+			<attribute name="convocatoria">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="febrero" />
+						<enumeration value="junio" />
+						<enumeration value="julio" />
+					</restriction>
+				</simpleType>
+			</attribute>
+			<attribute name="curso" type="positiveInteger" />
+		</complexType>
+	</element>
+
+	<simpleType name="tipo_nota">
+		<restriction base="decimal">
+			<minInclusive value="0" />
+			<maxInclusive value="10" />
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="tipo_dni">
+		<restriction base="string">
+			<pattern value="[0-9]+[a-zA-Z]" />
+			<length value="9" />
+		</restriction>
+	</simpleType>
+</schema>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/schema"
+	xmlns:tns="http://www.example.org/schema"
+	elementFormDefault="qualified">
+	<element name="actividad">
+		<complexType>
+			<sequence>
+				<element name="titulo" type="string"/>
+				<element name="descripcion" type="string" minOccurs="0"/>
+				<element name="profesor" type="string"/>
+				<element name="email" type="string" minOccurs="0"/>
+				<element name="agenda" maxOccurs="unbounded" >
+					<complexType>
+						<sequence>
+							<element name="fecha" type="date"/>
+							<element name="turno" maxOccurs="unbounded">
+							 	<complexType>
+							 	 	<sequence>
+							 	 		<element name="horario" type="string"/>
+							 	 		<element name="reserva" minOccurs="0">
+							 	 			<complexType>
+							 	 				<sequence>
+							 	 					<element name="alumno" type ="string"/>
+							 	 					<element name="email" type="string" minOccurs="0"/>
+							 	 				</sequence>
+							 	 				<attribute name="id" type="ID"/>
+							 	 			</complexType>
+							 	 		</element>
+							 	 	</sequence>
+							 	</complexType>
+							</element>
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+			<attribute name="id" type="ID"/>
+		</complexType>
+	</element>
+</schema>

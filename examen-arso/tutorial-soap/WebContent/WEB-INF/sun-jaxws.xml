@@ -1,0 +1,7 @@
+<endpoints
+	xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" 
+	version="2.0">
+	<endpoint name="Saludo" implementation="soap.SaludoImpl" url-pattern="/saludo" />
+	<endpoint name="StringConversion" implementation="ejercicio2_2.StringConversionImpl" url-pattern="/stringConversion" />
+	<endpoint name="ServicioMensajes" implementation="examen2018.soap.ServicioMensajesImpl" url-pattern="/servicioMensajes" />
+</endpoints>

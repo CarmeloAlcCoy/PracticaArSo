@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actividad id="25"
+	xmlns="http://www.example.org/bookle"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/schema schema.xsd ">
+  <titulo>Entrevistas Prácticas Arso 2019</titulo>
+  <profesor>Un profesor</profesor>
+  <email>profesor.uno@um.es</email>
+  <agenda>
+    <fecha>2019-2-27</fecha>
+    <turno>
+      <horario>15:00-16:00</horario>
+      <reserva id="k28">
+        <alumno>Pedro</alumno>
+        <email>pedro.alcaraz@um.es</email>
+      </reserva>
+    </turno>
+    <turno>
+      <horario>A las 16</horario>
+    </turno>
+  </agenda>
+  <agenda>
+  <fecha>2019-2-28</fecha>
+    <turno>
+      <horario>15:00-16:00</horario>
+      <reserva id="k29">
+        <alumno>Kobe Bryant</alumno>
+        <email>kobe.the.best@um.es</email>
+      </reserva>
+    </turno>
+  
+  </agenda>
+</actividad>
