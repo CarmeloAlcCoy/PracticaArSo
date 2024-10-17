@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+<body>
+	<div>
+		<a href="/PracticasAADD/inicio.ctrl">#{msg.inicio}</a><br />
+		<a href="/PracticasAADD/crearViaje.xhtml">#{msg.crearViaje}</a><br />
+		<h:link value = "#{msg.listarViajes}" outcome = "listarViajes">
+				<f:param name="user" value="" />
+				<f:param name="propios" value="#{false}" />
+			</h:link>
+		<h:form>
+			<h:link value = "#{msg.misViajes}" outcome = "misViajes">
+				<f:param name="user" value="#{beanMiPerfil.user['usuario'] == null ? '' : beanMiPerfil.user['usuario']}" />
+				<f:param name="propios" value="#{true}" />
+			</h:link>
+		</h:form>
+		<a href="/PracticasAADD/miPerfil.xhtml">#{msg.miPerfil}</a><br />
+		<a href="/PracticasAADD/misReservas.xhtml">#{msg.misReservas}</a><br />
+		<a href="/PracticasAADD/valoraciones.xhtml">#{msg.valoraciones}</a><br />
+		<h:form>
+			<h:commandLink value="#{msg.logout}" action="#{beanLogin.logout}" />
+		</h:form>
+	</div>
+</body>
+</html>

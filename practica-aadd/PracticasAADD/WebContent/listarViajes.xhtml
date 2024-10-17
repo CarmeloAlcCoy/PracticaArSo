@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:aadd="http://java.sun.com/jsf/composite/componentes/aadd">
+
+<f:metadata>
+	<f:event listener="#{validator.validate}" type="preRenderView"></f:event>
+</f:metadata>
+
+
+<ui:composition template="/WEB-INF/templates/basicTemplate.xhtml">
+	<ui:define name="title">
+Listar viajes
+</ui:define>
+	<ui:define name="content">
+		<h:form id="form">
+			<p:repeat value="#{beanListarViajes.viajes}" var="viaje">
+				<h:panelGrid columns="2" style="width:100%"
+					columnClasses="logo,detail" rendered = "#{beanContratarViaje.puedeReservar(viaje)}">
+					<p:outputPanel>
+						<h:panelGrid columns="2" cellpadding="2">
+							<aadd:viaje viaje="#{viaje}"/>
+							<h:panelGrid columns="1" cellpadding="10">
+								<p:commandButton value="#{msg.contratar}" action="contratarViaje">
+									<f:actionListener binding="#{beanContratarViaje.setViajeSeleccionado(viaje)}" />
+								</p:commandButton>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:outputPanel>
+					<hr />
+				</h:panelGrid>
+			</p:repeat>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

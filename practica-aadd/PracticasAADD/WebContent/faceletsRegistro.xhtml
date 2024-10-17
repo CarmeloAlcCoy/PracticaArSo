@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/basicTemplate.xhtml">
+	<ui:define name="title">
+#{msg.registro}
+</ui:define>
+
+	<ui:define name="nav">
+		<ui:include src="/WEB-INF/templates/nav.xhtml"></ui:include>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+		
+		<p:messages/>
+			<h:panelGrid id="grid" columns="6" style="padding:40px">
+				<p:outputLabel for="@next" value="#{msg.nombre} (3-12 max.): "></p:outputLabel>
+				<p:inputText id="nombre" value="#{beanRegistrar2.nombre}"/>
+				<p:message for="@previous" />
+				
+				<p:outputLabel for="@next" value="#{msg.apellidos}: "/>
+				<p:inputText id="apellidos" value="#{beanRegistrar2.apellidos}"/>
+				<p:message for="@previous" />
+
+				<p:outputLabel for="@next" value="#{msg.correo}: "/>
+				<p:inputText id="correo" value="#{beanRegistrar2.correo}"/>
+				<p:message for="@previous" />
+				<p:outputLabel for="@next" value="#{msg.usuario} (4-12 max.): "/>
+				<p:inputText id="usuario" value="#{beanRegistrar2.usuario}" />
+				<p:message for="@previous" />
+				<p:outputLabel for="@next" value="#{msg.clave} (8-15 max.): "/>
+				<p:password id="password" value="#{beanRegistrar2.clave}"/>
+				<p:message for="@previous" />
+				<p:outputLabel for="@next" value="#{msg.repiteclave}: "/>
+				<p:password id="repiteclave" value="#{beanRegistrar2.clave2}"/>
+				<p:message for="@previous" />
+				
+				<p:outputLabel for="@next" value="#{msg.profesion}: "></p:outputLabel>
+				<p:inputText id="profesion" value="#{beanRegistrar2.profesion}"/>
+				<p:message for="@previous" />
+				
+				<p:outputLabel for="@next" value="#{msg.cumple}: "/>
+        		<p:calendar id="calendar" value="#{beanRegistrar2.fechaNacimiento}" showOn="button" locale="es">
+        		<p:watermark for="calendar" value="dd/MM/yyyy" id="watermark" />
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</p:calendar>
+				<p:message for="calendar" />
+			</h:panelGrid>
+			<p:commandButton value="Registrar" ajax="false" validateClient="true"
+				action="#{beanRegistrar2.registro}" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

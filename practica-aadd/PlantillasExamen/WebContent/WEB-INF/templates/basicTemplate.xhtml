@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	lang="#{beanLocale.locale}">
+	
+<f:loadBundle basename="resources.messages" var="msg"/>
+<h:head>
+	<title><ui:insert name="title">BlaBlaCar</ui:insert></title>
+	<link rel="stylesheet" href="css/style.css" />
+</h:head>
+<h:body>
+<f:view locale="#{beanLocale.locale}">
+	<ui:debug hotkey="x"
+		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
+	<div id="header">
+		<ui:insert name="header">
+			<ui:include src="header.xhtml" />
+		</ui:insert>
+	</div>
+	<div id="nav">
+		<ui:insert name="nav">
+			<c:if test="#{validator.testValidate() eq 'true'}">
+				<ui:include src="navLogged.xhtml"/>
+			</c:if>
+			<c:if test="#{validator.testValidate() eq 'false'}">
+				<ui:include src="nav.xhtml"/>
+			</c:if>
+			
+		</ui:insert>
+	</div>
+	<div id="section">
+		<ui:insert name="content">
+
+
+		</ui:insert>
+	</div>
+	<div id="footer">
+		<ui:insert name="footer">
+			
+			<ui:include src="footer.xhtml" />
+		</ui:insert>
+	</div>
+	</f:view>
+</h:body>
+</html>

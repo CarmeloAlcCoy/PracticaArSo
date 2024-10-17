@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Formulario Registro Usuario</title>
+<style>
+#header {
+    background-color:#000099;
+    color:white;
+    text-align:center;
+    padding:10px;
+}
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    color:#000099;
+    height:300px;
+    width:100px;
+    float:left;
+    padding:5px;	      
+}
+#section {
+    width:350px;
+    float:left;
+    padding:10px;
+    color:#000099;	 	 
+}
+#footer {
+    background-color:#000099;
+    color:white;
+    clear:both;
+    text-align:center;
+   padding:5px;	 	 
+}
+</style>
+</head>
+<body>
+
+<div id="header">
+<h1>BlaBlaCar</h1>
+</div>
+
+<div id="nav">
+<a href="index.html">Inicio</a><br>
+<a href="login.html">Login</a><br>
+<a href="registro.html">Registro</a><br>
+</div>
+
+<div id="section">
+	<h3><b>Login de Usuario:</b></h3>
+	<form action="ServletLogin" method="post"  >
+			<table>
+				<tr>
+					<td>Usuario:</td>
+					<td><input name="usuario" value="" size="30"></td>
+				</tr>
+				<tr>
+					<td>Clave:</td>
+					<td><input type="password" name="clave" size="30"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td align="center"><input type="submit" value="Login"></td>
+				</tr>
+			</table>
+		</form>
+</div>
+
+<div id="footer">
+Aplicaciones Distribuidas 14/15
+</div>
+
+</body>
+</html>

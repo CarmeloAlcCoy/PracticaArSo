@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:aadd="http://java.sun.com/jsf/composite/componentes/aadd">
+
+<f:metadata>
+	<f:event listener="#{validator.validate}" type="preRenderView"></f:event>
+</f:metadata>
+
+
+<ui:composition template="/WEB-INF/templates/basicTemplate.xhtml">
+	<ui:define name="title">
+Mis Reservas
+</ui:define>
+	<ui:define name="content">
+		<h:form id="form">
+			<h:outputText value="#{msg.noreservas}"
+				rendered="#{beanMisReservas.reservas.size() == 0}" />
+			<p:repeat value="#{beanMisReservas.reservas}" var="reserva">
+				<h:panelGrid columns="3" cellpadding="5">
+					<aadd:viaje viaje="#{reserva.viaje}" />
+					<h:panelGrid columns="2" cellpadding="2">
+
+						<h:outputText value="#{msg.comentario}: " />
+						<h:outputText value="#{reserva.comentario}"
+							style="font-weight: bold" />
+
+						<h:outputText value="#{msg.estado}: " />
+						<h:outputText value="#{reserva.estado}" style="font-weight: bold" />
+
+						<p:commandButton value="#{msg.valorar}" action="valorar"
+							rendered="#{reserva.isValorable()}">
+							<f:actionListener
+								binding="#{beanValorar.setReserva(reserva)}" />
+						</p:commandButton>
+
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:repeat>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

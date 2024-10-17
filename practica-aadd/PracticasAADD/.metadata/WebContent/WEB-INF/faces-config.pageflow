@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15426471133480" configfile="/PracticasAADD/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="login" x="122" y="562" id="pf15431789392530" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf15446149955190 pf15446153524632" path="/login.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="faceletsWelcome.xhtml" x="338" y="754" id="pf15446149955191" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15446149955190" path="/faceletsWelcome.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="faces/falloLogin" x="169" y="180" id="pf15446153524633" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15446153524632" path="/faces/falloLogin.jsp"/>
+  <links id="pf15446149955190" target="pf15446149955191" source="pf15431789392530" outcome="si"/>
+  <links id="pf15446153524632" target="pf15446153524633" source="pf15431789392530" outcome="no"/>
+</pageflow:Pageflow>

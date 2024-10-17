@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:event listener="#{validator.validate}" type="preRenderView"></f:event>
+</f:metadata>
+
+<ui:composition template="/WEB-INF/templates/basicTemplate.xhtml">
+	<ui:define name="title">
+Crear viaje
+</ui:define>
+	<ui:define name="content">
+		<h:form rendered= "#{beanMiPerfil['user']['coche'] != null}">
+			<h:panelGrid columns="3">
+				<p:outputLabel for="plazas" value="#{msg.plazas}: "></p:outputLabel>
+				<p:inputText id="plazas" value="#{beanCrearViaje.plazas}"></p:inputText>
+				<p:message for="@previous" />
+				<p:outputLabel for="precio" value="#{msg.precio}: "></p:outputLabel>
+				<p:inputText id="precio" value="#{beanCrearViaje.precio}"></p:inputText>
+				<p:message for="@previous" />
+				<p:outputLabel value="#{msg.paradaOrigen}"></p:outputLabel>
+				<p:outputLabel value=""></p:outputLabel>
+				<p:outputLabel value=""></p:outputLabel>
+				<p:outputLabel for="ciudad_origen" value="#{msg.ciudad}: "></p:outputLabel>
+				<p:inputText id="ciudad_origen"
+					value="#{beanCrearViaje.ciudadOrigen}"></p:inputText>
+					<p:message for="@previous" />
+				<p:outputLabel for="calle_origen" value="#{msg.calle}: "></p:outputLabel>
+				<p:inputText id="calle_origen" value="#{beanCrearViaje.calleOrigen}"></p:inputText>
+				<p:message for="@previous" />
+				<p:outputLabel for="cp_origen" value="#{msg.cp}: "></p:outputLabel>
+				<p:inputText id="cp_origen" value="#{beanCrearViaje.cpOrigen}"></p:inputText>
+				<p:message for="@previous" />
+				<p:outputLabel for="fecha_origen" value="#{msg.fecha}: "></p:outputLabel>
+				<p:calendar id="fecha_origen"
+					value="#{beanCrearViaje.fechaOrigen}" showOn="button" pattern="dd/MM/yyyy HH:mm:ss" locale="es">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+					<p:watermark for="fecha_origen" value="dd/MM/yyyy HH:mm:ss" id="watermark_origen" />
+				</p:calendar>
+				<p:message for="fecha_origen" />
+				<p:outputLabel value="#{msg.paradaDestino}"></p:outputLabel>
+				<p:outputLabel value=""></p:outputLabel>
+				<p:outputLabel value=""></p:outputLabel>
+				<p:outputLabel for="ciudad_destino" value="#{msg.ciudad}: "></p:outputLabel>
+				<p:inputText id="ciudad_destino"
+					value="#{beanCrearViaje.ciudadDestino}"></p:inputText>
+					<p:message for="@previous" />
+				<p:outputLabel for="calle_destino" value="#{msg.calle}: "></p:outputLabel>
+				<p:inputText id="calle_destino"
+					value="#{beanCrearViaje.calleDestino}"></p:inputText>
+					<p:message for="@previous" />
+				<p:outputLabel for="cp_destino" value="#{msg.cp}: "></p:outputLabel>
+				<p:inputText id="cp_destino" value="#{beanCrearViaje.cpDestino}"></p:inputText>
+				<p:message for="@previous" />
+				<p:outputLabel for="fecha_destino" value="#{msg.fecha}: "></p:outputLabel>
+				<p:calendar id="fecha_destino"
+					value="#{beanCrearViaje.fechaDestino}" showOn="button" pattern="dd/MM/yyyy HH:mm:ss" locale="es">
+				<p:watermark for="fecha_destino" value="dd/MM/yyyy HH:mm:ss" id="watermark_destino" />
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+				</p:calendar>
+				<p:message for="fecha_destino" />
+			</h:panelGrid>
+			<p:commandButton value="#{msg.crearViaje}"
+				action="#{beanCrearViaje.registrarViaje}" ajax="false" validateClient="true"/>
+		</h:form>
+		<h:panelGrid id="grid2" columns="1" cellpadding="5"
+			rendered="#{beanMiPerfil['user']['coche'] == null}">
+			<h:outputLabel value="#{msg.noConductor1}: "></h:outputLabel>
+			<h:outputLabel value="#{msg.noConductor2}: "></h:outputLabel>
+			<h:form>
+				<p:commandButton value="#{msg.registrarCoche}"
+					action="#{beanMiPerfil.registrarCoche}" />
+			</h:form>
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>
+</html>

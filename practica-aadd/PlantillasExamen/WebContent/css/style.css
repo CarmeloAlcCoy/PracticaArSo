@@ -1,0 +1,38 @@
+body {background-color: #c0c0c0;}
+
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 90%;
+}
+
+#header {
+	background-color: #43343d;
+	color: white;
+	text-align: center;
+	padding: 10px;
+	margin-right:20px;
+}
+
+#nav {
+	line-height: 30px;
+	background-color: #eeeeee;
+	color: #000099;
+	height: 300px;
+	width: 10%;
+	float: left;
+	padding: 5px;
+}
+
+#section {
+	width: 80%;
+	float: left;
+	padding: 10px;
+	color: #393939;
+}
+
+#footer {
+	background-color: #43343d;
+	color: white;
+	clear: both;
+	text-align: center;
+	padding: 5px;
+}

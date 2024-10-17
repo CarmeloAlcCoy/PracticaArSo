@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<f:metadata>
+	<f:event listener="#{validator.validate}" type="preRenderView"></f:event>
+</f:metadata>
+	
+<ui:composition template="/WEB-INF/templates/basicTemplate.xhtml">
+	<ui:define name="title">Mi perfil</ui:define>
+
+	<ui:define name="content">
+		<h:panelGrid id="grid" columns="2">
+
+			<h:panelGrid id="grid1" columns="2" cellpadding="5">
+				<p:outputLabel value="#{msg.nombre}: "></p:outputLabel>
+				<p:outputLabel value="#{beanMiPerfil['user']['nombre']}"></p:outputLabel>
+				<p:outputLabel value="#{msg.apellidos}: "></p:outputLabel>
+				<p:outputLabel value="#{beanMiPerfil['user']['apellidos']}"></p:outputLabel>
+				<p:outputLabel value="#{msg.usuario}: "></p:outputLabel>
+				<p:outputLabel value="#{beanMiPerfil['user']['usuario']}"></p:outputLabel>
+				<p:outputLabel value="#{msg.clave}: "></p:outputLabel>
+				<h:inputSecret value="#{beanMiPerfil['user']['clave']}"
+					disabled="true" readonly="true" redisplay="true"
+					style="background: transparent;
+    				  border: none;" />
+				<p:outputLabel value="#{msg.correo}: "></p:outputLabel>
+				<p:outputLabel value="#{beanMiPerfil['user']['email']}"></p:outputLabel>
+				<p:outputLabel value="#{msg.profesion}: "></p:outputLabel>
+				<p:outputLabel value="#{beanMiPerfil['user']['profesion']}"></p:outputLabel>
+			</h:panelGrid>
+			
+			<c:if test="${beanMiPerfil['user']['coche'] == null}">
+			
+				<h:panelGrid id="grid2" columns="1" cellpadding="5">
+					<p:outputLabel value="#{msg.noConductor1}: "></p:outputLabel>
+					<p:outputLabel value="#{msg.noConductor2}: "></p:outputLabel>
+					<h:form>
+						<p:commandButton value="#{msg.registrarCoche}"
+						action="#{beanMiPerfil.registrarCoche}"></p:commandButton>
+					</h:form>
+				</h:panelGrid>
+			</c:if>
+			<c:if test="${beanMiPerfil['user']['coche'] != null}">
+				<h:panelGrid id="grid2" columns="2" cellpadding="5">
+					<p:outputLabel value="Modelo: "></p:outputLabel>
+					<p:outputLabel value="#{beanMiPerfil['user']['coche']['modelo']}"></p:outputLabel>
+					<p:outputLabel value="Matricula: "></p:outputLabel>
+					<p:outputLabel
+						value="#{beanMiPerfil['user']['coche']['matricula']}"></p:outputLabel>
+					<p:outputLabel value="Año:  "></p:outputLabel>
+					<p:outputLabel
+						value="#{beanMiPerfil['user']['coche']['year']}"></p:outputLabel>
+					<p:outputLabel value="Confort: "></p:outputLabel>
+					<p:outputLabel value="#{beanMiPerfil['user']['coche']['confort']}"></p:outputLabel>
+				</h:panelGrid>
+			</c:if>
+		</h:panelGrid>
+	</ui:define>
+
+</ui:composition>
+</html>
